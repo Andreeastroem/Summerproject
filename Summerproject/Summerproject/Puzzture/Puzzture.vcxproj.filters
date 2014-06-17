@@ -13,18 +13,123 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Engine">
+      <UniqueIdentifier>{62dea772-c365-4c56-9839-784b0d840f4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\System">
+      <UniqueIdentifier>{b5d27fb7-66e4-4142-b97b-da9f0cac5d26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Animation">
+      <UniqueIdentifier>{3e992f7a-337f-4199-9b62-e95113d7ce42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Audio">
+      <UniqueIdentifier>{c78a770e-c92b-45ba-814b-9e5eaa854017}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Entity system">
+      <UniqueIdentifier>{56485188-957b-47a7-883b-5ca55a41bf0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Rendering">
+      <UniqueIdentifier>{2720c0a5-9f97-4b7e-b463-55b888e16d21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Scene System">
+      <UniqueIdentifier>{8e7402b9-226e-4b16-bae5-963bd6525b70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine">
+      <UniqueIdentifier>{96200fe4-40d6-4d0e-95cd-3da52557a769}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Animation">
+      <UniqueIdentifier>{0a48c5c0-1c07-4693-b319-28ea40d65e98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Audio">
+      <UniqueIdentifier>{3cd6f52b-c96e-4012-a9f2-d793dde41c99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Entity System">
+      <UniqueIdentifier>{c362074f-0a5c-4118-9ae4-785fe3da9022}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\System">
+      <UniqueIdentifier>{a200f473-688d-4eb1-971d-268504bbf5ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Rendering">
+      <UniqueIdentifier>{5b1f84f0-a40e-4a70-84fa-4815669b0385}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Scene System">
+      <UniqueIdentifier>{025c1d67-f4b7-4867-bb4f-199fe827228e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Read From File">
+      <UniqueIdentifier>{ce2f192c-b811-4bf1-bd7f-f2a0eec97e1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Read From File">
+      <UniqueIdentifier>{0109b241-0411-4cb6-84d8-0e9308a7a572}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Input">
+      <UniqueIdentifier>{b530ed46-4ed5-4a7c-acc4-d9939bd12356}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Input">
+      <UniqueIdentifier>{036b958e-a83b-4084-8582-ed50dddd9250}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine.h">
+      <Filter>Header Files\Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawManager.h">
+      <Filter>Header Files\Engine\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files\Engine\Scene System</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Header Files\Engine\Scene System</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigManager.h">
+      <Filter>Header Files\Engine\Read From File</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Header Files\Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums.h">
+      <Filter>Header Files\Engine\System</Filter>
+    </ClInclude>
     <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScene.h">
+      <Filter>Header Files\Engine\Scene System</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuScene.h">
+      <Filter>Header Files\Engine\Scene System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Source Files\Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawManager.cpp">
+      <Filter>Source Files\Engine\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="ConfigManager.cpp">
+      <Filter>Source Files\Engine\Read From File</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Source Files\Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files\Engine\Scene System</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Source Files\Engine\Scene System</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>Source Files\Engine\Scene System</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuScene.cpp">
+      <Filter>Source Files\Engine\Scene System</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

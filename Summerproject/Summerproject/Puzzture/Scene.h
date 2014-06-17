@@ -1,0 +1,45 @@
+//Scene.h
+
+//Abstract base class for the different states
+
+#pragma once
+
+#include "DrawManager.h"
+#include "ConfigManager.h"
+#include "InputManager.h"
+
+class Scene
+{
+public:
+	virtual ~Scene();
+	//initialise the state, create objects etc
+	bool Initialise(DrawManager* draw_mgr, ConfigManager* config_mgr, sf::RenderWindow* window, InputManager* inputManager);
+	//Enters the state in question
+	virtual void Enter() = 0;
+	//Leaves the state in question
+	void Exit();
+	//Updates the state and its components
+	virtual void Update(float deltatime) = 0;
+
+	//Access methods
+	bool IsDone();
+	SceneName NextScene();
+
+protected:
+	//Handles visual output
+	DrawManager* m_DrawManager;
+	sf::RenderWindow* m_Window;
+	int m_iRed, m_iGreen, m_iBlue, m_iAlpha;
+
+	//File input
+	ConfigManager* m_ConfigManager;
+
+	//Lifetime variables
+	bool m_bDone;
+
+	//Setting new state
+	SceneName m_sNextScene;
+
+	//Player input
+	InputManager* m_InputManager;
+};
