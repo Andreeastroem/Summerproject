@@ -2,6 +2,7 @@
 
 #pragma once
 
+class World;
 class Scene;
 class InputManager;
 
@@ -22,22 +23,16 @@ public:
 
 	bool IsRunning();
 
-	bool Initialise(DrawManager* draw_mgr, ConfigManager* config_mgr, sf::RenderWindow* window, InputManager* inputManager);
+	bool Initialise(World* world);
 
 	void Cleanup();
 
 private:
-	//Manager pointers
-	ConfigManager* m_ConfigManager;
-	DrawManager* m_DrawManager;
-	//RenderWindow pointer
-	sf::RenderWindow* m_Window;
+	//World
+	World* m_World;
 
 	//Scene containment
 	std::map<SceneName, Scene*> m_states;
 	//The current working state
 	Scene* m_CurrentScene;
-
-	//Inputs
-	InputManager* m_InputManager;
 };

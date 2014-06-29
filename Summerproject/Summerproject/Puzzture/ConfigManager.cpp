@@ -116,3 +116,73 @@ float ConfigManager::ReadFloat(std::string Key)
 	//Return its float
 	return std::stof(TempValue);
 }
+
+//Level loading and access of levels
+bool ConfigManager::LevelExists(int level)
+{
+	//Find the key
+	std::map<int, std::vector<std::string>>::iterator it = m_Levels.find(level);
+
+	//If the iterator went through the array without finding the key
+	if (it == m_Levels.end())
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
+
+bool ConfigManager::LoadLevel(const std::string &FileName, int level)
+{
+	if (LevelExists(level))
+		return true;
+
+	//Stream that reads through the file
+	std::ifstream stream;
+
+	//Open the stream
+	stream.open(m_sdirectory + FileName);
+
+	//Validation if the stream was able to open the file
+	if (!stream.is_open())
+	{
+		return false;
+	}
+
+	//A dynamic array to store all the lines in the file
+	std::vector<std::string>FileLines;
+
+	//Segment the files content into seperate lines
+	if (stream.is_open())
+	{
+		while (!stream.eof())
+		{
+			std::string Line;
+			std::getline(stream, Line, '\n');
+			FileLines.push_back(Line);
+		}
+		//If there were no lines, then just skip
+		if (FileLines.size() < 1)
+		{
+		}
+		else
+		{
+			m_Levels.insert(std::pair<int, std::vector<std::string>>(level, FileLines));
+		}
+	}
+
+	//Close the stream
+	stream.close();
+
+	return true;
+}
+
+std::vector<std::string> ConfigManager::GetLevel(int level)
+{
+	//Find the key
+	std::map<int, std::vector<std::string>>::iterator it = m_Levels.find(level);
+
+	return it->second;
+}

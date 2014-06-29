@@ -19,9 +19,6 @@
     <Filter Include="Header Files\Engine\System">
       <UniqueIdentifier>{b5d27fb7-66e4-4142-b97b-da9f0cac5d26}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Engine\Animation">
-      <UniqueIdentifier>{3e992f7a-337f-4199-9b62-e95113d7ce42}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Engine\Audio">
       <UniqueIdentifier>{c78a770e-c92b-45ba-814b-9e5eaa854017}</UniqueIdentifier>
     </Filter>
@@ -36,9 +33,6 @@
     </Filter>
     <Filter Include="Source Files\Engine">
       <UniqueIdentifier>{96200fe4-40d6-4d0e-95cd-3da52557a769}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Engine\Animation">
-      <UniqueIdentifier>{0a48c5c0-1c07-4693-b319-28ea40d65e98}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Engine\Audio">
       <UniqueIdentifier>{3cd6f52b-c96e-4012-a9f2-d793dde41c99}</UniqueIdentifier>
@@ -66,6 +60,30 @@
     </Filter>
     <Filter Include="Source Files\Engine\Input">
       <UniqueIdentifier>{036b958e-a83b-4084-8582-ed50dddd9250}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\System\World">
+      <UniqueIdentifier>{f84fbc0a-655b-4ad4-87db-686488144319}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\System\World">
+      <UniqueIdentifier>{14eb7dcf-1749-4cc1-91b0-257f08d04430}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Textures">
+      <UniqueIdentifier>{3e992f7a-337f-4199-9b62-e95113d7ce42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Textures">
+      <UniqueIdentifier>{0a48c5c0-1c07-4693-b319-28ea40d65e98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Entity System\Entities">
+      <UniqueIdentifier>{85fe7ad6-b13a-4a16-b5ec-77e8ab4ff829}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Entity system\Entities">
+      <UniqueIdentifier>{c2852339-9c7a-4eb0-93f7-8cbdbbdf77b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\System\World\Tiling">
+      <UniqueIdentifier>{8edcc40a-3a1f-4e27-a134-69e52fa44182}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\System\World\Tiling">
+      <UniqueIdentifier>{3f22b2b3-9a91-4f5c-a142-02b2f5fdc80f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +120,27 @@
     <ClInclude Include="MenuScene.h">
       <Filter>Header Files\Engine\Scene System</Filter>
     </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>Header Files\Engine\System\World</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Header Files\Engine\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityManager.h">
+      <Filter>Header Files\Engine\Entity system</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Header Files\Engine\Entity system\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Header Files\Engine\System\World\Tiling</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMap.h">
+      <Filter>Header Files\Engine\System\World\Tiling</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerEntity.h">
+      <Filter>Header Files\Engine\Entity system\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -130,6 +169,27 @@
     </ClCompile>
     <ClCompile Include="MenuScene.cpp">
       <Filter>Source Files\Engine\Scene System</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Source Files\Engine\System\World</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Source Files\Engine\Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityManager.cpp">
+      <Filter>Source Files\Engine\Entity System</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files\Engine\Entity System\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Source Files\Engine\System\World\Tiling</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>Source Files\Engine\System\World\Tiling</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerEntity.cpp">
+      <Filter>Source Files\Engine\Entity System\Entities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

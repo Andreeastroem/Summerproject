@@ -3,6 +3,7 @@
 #include "stdafx.h"
 
 #include "InputManager.h"
+#include "World.h"
 #include "Scene.h"
 #include "SceneManager.h"
 
@@ -15,31 +16,14 @@ SceneManager::SceneManager()
 {
 	//Set pointer(s) to nullptr
 	m_CurrentScene = nullptr;
-	m_ConfigManager = nullptr;
-	m_DrawManager = nullptr;
-	m_Window = nullptr;
-
-	m_InputManager = nullptr;
+	
+	m_World = nullptr;
 }
 SceneManager::~SceneManager()
 {
-	//clean up drawmanager
-	if (m_DrawManager != nullptr)
-	{
-		m_DrawManager = nullptr;
-	}
-
-	//clean up the configmanager
-	if (m_ConfigManager != nullptr)
-	{
-		m_ConfigManager = nullptr;
-	}
-
-	//clean up the window
-	if (m_Window != nullptr)
-	{
-		m_Window = nullptr;
-	}
+	//Clean up the world
+	if (m_World != nullptr)
+		m_World = nullptr;
 
 	//Clean up the states
 	if (m_CurrentScene != nullptr)
@@ -54,12 +38,6 @@ SceneManager::~SceneManager()
 			it->second = nullptr;
 		}
 		it++;
-	}
-
-	//Clean up the Inputs
-	if (m_InputManager != nullptr)
-	{
-		m_InputManager = nullptr;
 	}
 }
 
@@ -100,7 +78,7 @@ void SceneManager::Attach(SceneName Name)
 		//find the newly created state
 		std::map<SceneName, Scene*>::iterator it = m_states.find(Name);
 		//Initalise it
-		it->second->Initialise(m_DrawManager, m_ConfigManager, m_Window, m_InputManager);
+		it->second->Initialise(m_World);
 	}
 
 	//If there is no active state, set the first attached state to the current state
@@ -132,25 +110,12 @@ void SceneManager::Update(float deltatime)
 	}
 }
 
-bool SceneManager::Initialise(DrawManager* draw_mgr, ConfigManager* config_mgr, sf::RenderWindow* window, InputManager* inputManager)
+bool SceneManager::Initialise(World* world)
 {
-	m_DrawManager = draw_mgr;
+	m_World = world;
+	
 	//Existence validation
-	if (m_DrawManager == nullptr)
-		return false;
-
-	m_ConfigManager = config_mgr;
-	//Existence validation
-	if (m_ConfigManager == nullptr)
-		return false;
-
-	m_Window = window;
-	//Existence validation
-	if (m_Window == nullptr)
-		return false;
-
-	m_InputManager = inputManager;
-	if (m_InputManager == nullptr)
+	if (m_World == nullptr)
 		return false;
 
 	return true;
@@ -158,23 +123,9 @@ bool SceneManager::Initialise(DrawManager* draw_mgr, ConfigManager* config_mgr, 
 
 void SceneManager::Cleanup()
 {
-	//clean up drawmanager
-	if (m_DrawManager != nullptr)
-	{
-		m_DrawManager = nullptr;
-	}
-
-	//clean up the configmanager
-	if (m_ConfigManager != nullptr)
-	{
-		m_ConfigManager = nullptr;
-	}
-
-	//clean up the window
-	if (m_Window != nullptr)
-	{
-		m_Window = nullptr;
-	}
+	//Clean up World variable
+	if (m_World != nullptr)
+		m_World = nullptr;
 
 	//Clean up the states
 	if (m_CurrentScene != nullptr)
@@ -189,11 +140,5 @@ void SceneManager::Cleanup()
 			it->second = nullptr;
 		}
 		it++;
-	}
-
-	//Clean up the Inputs
-	if (m_InputManager != nullptr)
-	{
-		m_InputManager = nullptr;
 	}
 }

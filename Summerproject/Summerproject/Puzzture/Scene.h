@@ -4,16 +4,14 @@
 
 #pragma once
 
-#include "DrawManager.h"
-#include "ConfigManager.h"
-#include "InputManager.h"
+#include "World.h"
 
 class Scene
 {
 public:
 	virtual ~Scene();
 	//initialise the state, create objects etc
-	bool Initialise(DrawManager* draw_mgr, ConfigManager* config_mgr, sf::RenderWindow* window, InputManager* inputManager);
+	bool Initialise(World* world);
 	//Enters the state in question
 	virtual void Enter() = 0;
 	//Leaves the state in question
@@ -26,20 +24,15 @@ public:
 	SceneName NextScene();
 
 protected:
-	//Handles visual output
-	DrawManager* m_DrawManager;
-	sf::RenderWindow* m_Window;
+	//Scene RGB and alpha values
 	int m_iRed, m_iGreen, m_iBlue, m_iAlpha;
 
-	//File input
-	ConfigManager* m_ConfigManager;
+	//World
+	World* m_world;
 
 	//Lifetime variables
 	bool m_bDone;
 
 	//Setting new state
 	SceneName m_sNextScene;
-
-	//Player input
-	InputManager* m_InputManager;
 };

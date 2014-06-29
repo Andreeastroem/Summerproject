@@ -1,0 +1,2 @@
+tilewidth=64
+tileheight=64

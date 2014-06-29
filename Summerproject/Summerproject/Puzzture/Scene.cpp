@@ -8,50 +8,16 @@
 
 Scene::~Scene()
 {
-	//clean up drawmanager
-	if (m_DrawManager != nullptr)
-	{
-		m_DrawManager = nullptr;
-	}
-
-	//clean up the configmanager
-	if (m_ConfigManager != nullptr)
-	{
-		m_ConfigManager = nullptr;
-	}
-
-	//clean up the window
-	if (m_Window != nullptr)
-	{
-		m_Window = nullptr;
-	}
-
-	//Player inputs
-	if (m_InputManager != nullptr)
-	{
-		m_InputManager = nullptr;
-	}
+	//Clear the world pointer
+	if (m_world != nullptr)
+		m_world = nullptr;
 }
 
-bool Scene::Initialise(DrawManager* draw_mgr, ConfigManager* config_mgr, sf::RenderWindow* window, InputManager* inputManager)
+bool Scene::Initialise(World* world)
 {
-	m_DrawManager = draw_mgr;
+	m_world = world;
 	//Existence validation
-	if (m_DrawManager == nullptr)
-		return false;
-
-	m_ConfigManager = config_mgr;
-	//Existence validation
-	if (m_ConfigManager == nullptr)
-		return false;
-
-	m_Window = window;
-	//Existence validation
-	if (m_Window == nullptr)
-		return false;
-
-	m_InputManager = inputManager;
-	if (m_InputManager == nullptr)
+	if (m_world == nullptr)
 		return false;
 
 	//Change state variables

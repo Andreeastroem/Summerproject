@@ -7,6 +7,8 @@
 #include "InputManager.h"
 #include "SceneManager.h"
 
+#include "World.h"
+
 class Engine
 {
 public:
@@ -50,6 +52,9 @@ private:
 
 	//Scene System
 	SceneManager* m_SceneManager;
+
+	//World
+	World* m_World;
 
 	//Temp
 };

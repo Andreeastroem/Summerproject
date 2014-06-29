@@ -16,6 +16,9 @@ bool Engine::Initialise()
 	m_ConfigManager = new ConfigManager;
 	m_InputManager = new InputManager;
 	m_SceneManager = new SceneManager;
+
+	//World
+	m_World = new World;
 	
 
 	//conditions for continuing (managers)
@@ -53,8 +56,12 @@ bool Engine::Initialise()
 	if (m_Window == nullptr)
 		return false;
 
+	//Condidition for continuing (world)
+	if (!m_World->Initialise(m_Window, m_DrawManager, m_ConfigManager, m_InputManager))
+		return false;
+
 	//Validation of the SceneManager
-	if (!m_SceneManager->Initialise(m_DrawManager, m_ConfigManager, m_Window, m_InputManager))
+	if (!m_SceneManager->Initialise(m_World))
 		return false;
 
 	//Initalise the states

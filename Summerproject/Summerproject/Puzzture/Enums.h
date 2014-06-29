@@ -2,6 +2,10 @@
 
 enum ObjectType
 {
+	PLAYER,
+	FLOOR,
+	WALL,
+	OBJECTTYPESIZE
 };
 
 enum ObjectShape

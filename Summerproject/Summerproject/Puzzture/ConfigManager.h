@@ -21,7 +21,15 @@ public:
 	int ReadInt(std::string Key);
 	float ReadFloat(std::string Key);
 
+	//Levels
+	bool LevelExists(int level);
+	bool LoadLevel(const std::string &FileName, int level);
+	std::vector<std::string> GetLevel(int level);
+
 private:
 	std::map<std::string, std::string> FileValues;
+
+	std::map<int, std::vector<std::string>> m_Levels;
+
 	std::string m_sdirectory;
 };
