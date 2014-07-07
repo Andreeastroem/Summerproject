@@ -16,6 +16,7 @@ bool Engine::Initialise()
 	m_ConfigManager = new ConfigManager;
 	m_InputManager = new InputManager;
 	m_SceneManager = new SceneManager;
+	m_EntityManager = new EntityManager;
 
 	//World
 	m_World = new World;
@@ -27,6 +28,8 @@ bool Engine::Initialise()
 	if (!m_ConfigManager->Initialise("../data/"))
 		return false;
 	if (!m_InputManager->Initialise())
+		return false;
+	if (!m_EntityManager->Initialise())
 		return false;
 
 	//Load from Config file
@@ -57,7 +60,7 @@ bool Engine::Initialise()
 		return false;
 
 	//Condidition for continuing (world)
-	if (!m_World->Initialise(m_Window, m_DrawManager, m_ConfigManager, m_InputManager))
+	if (!m_World->Initialise(m_Window, m_DrawManager, m_ConfigManager, m_InputManager, m_EntityManager))
 		return false;
 
 	//Validation of the SceneManager
@@ -131,6 +134,13 @@ void Engine::Cleanup()
 		m_InputManager->CleanUp();
 		delete m_InputManager;
 		m_InputManager = nullptr;
+	}
+
+	if (m_EntityManager != nullptr)
+	{
+		m_EntityManager->CleanUp();
+		delete m_EntityManager;
+		m_EntityManager = nullptr;
 	}
 
 	if (m_SceneManager != nullptr)

@@ -46,41 +46,50 @@ bool TileMap::LoadMap(const std::string &FileName, int level)
 	std::vector<std::string> map = m_World->GetConfigManager()->GetLevel(level);
 
 	//for each line
-	for (int i = 0; i < map.size(); i++)
+	for (unsigned int i = 0; i < map.size(); i++)
 	{
 		//For each character in the line
-		for (int j = 0; j < map[i].size(); j++)
+		for (unsigned int j = 0; j < map[i].size(); j++)
 		{
 			Tile* newtile = new Tile;
 			//Set the tiles coordinates and visual representation
 			switch (map[i].at(j))
 			{
 			case 'a':
-				newtile->Initialise(m_LastXCoordinate, m_LastYCoordinate, m_tileWidth, m_tileHeight, 0, 0);
+				newtile->Initialise(sf::Vector2f(m_LastXCoordinate, m_LastYCoordinate), sf::IntRect(0, 0, m_tileWidth, m_tileHeight), 0, 0);
 				newtile->GetShape()->setFillColor(sf::Color::Blue);
 
 				m_TileMap.push_back(newtile);
 				m_TileMap[m_TileMap.size() - 1]->SetTileMapPosition(j, i);
 
 				m_LastXCoordinate += m_tileWidth;
+
+				//Add to the game entities
+				m_World->GetEntityManager()->AttachTile(newtile);
 				break;
 			case 'b':
-				newtile->Initialise(m_LastXCoordinate, m_LastYCoordinate, m_tileWidth, m_tileHeight, 0, 0);
+				newtile->Initialise(sf::Vector2f(m_LastXCoordinate, m_LastYCoordinate), sf::IntRect(0, 0, m_tileWidth, m_tileHeight), 0, 0);
 				newtile->GetShape()->setFillColor(sf::Color::Cyan);
 
 				m_TileMap.push_back(newtile);
 				m_TileMap[m_TileMap.size() - 1]->SetTileMapPosition(j, i);
 
 				m_LastXCoordinate += m_tileWidth;
+
+				//Add to the game entities
+				m_World->GetEntityManager()->AttachTile(newtile);
 				break;
 			case 'x':
-				newtile->Initialise(m_LastXCoordinate, m_LastYCoordinate, m_tileWidth, m_tileHeight, 0, -1);
+				newtile->Initialise(sf::Vector2f(m_LastXCoordinate, m_LastYCoordinate), sf::IntRect(0, 0, m_tileWidth, m_tileHeight), 0, -1);
 				newtile->GetShape()->setFillColor(sf::Color::Green);
 
 				m_TileMap.push_back(newtile);
 				m_TileMap[m_TileMap.size() - 1]->SetTileMapPosition(j, i);
 
 				m_LastXCoordinate += m_tileWidth;
+
+				//Add to the game entities
+				m_World->GetEntityManager()->AttachTile(newtile);
 				break;
 			default:
 				break;
@@ -103,7 +112,6 @@ void TileMap::CleanUp()
 	{
 		if (m_TileMap[i] != nullptr)
 		{
-			delete m_TileMap[i];
 			m_TileMap[i] = nullptr;
 		}
 	}

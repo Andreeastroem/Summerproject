@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Tile.h"
+#include "Entity.h"
 class World;
 
 class TileMap

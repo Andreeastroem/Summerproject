@@ -4,6 +4,8 @@
 
 #include "World.h"
 
+#include "Entity.h"
+
 //Constructors
 
 World::World()
@@ -13,7 +15,9 @@ World::World()
 
 //Start and Stop functions
 
-bool World::Initialise(sf::RenderWindow* window, DrawManager* drawManager, ConfigManager* configManager, InputManager* inputManager)
+bool World::Initialise(sf::RenderWindow* window, DrawManager* drawManager, 
+	ConfigManager* configManager, InputManager* inputManager,
+	EntityManager* entityManager)
 {
 	//Initialisation
 	m_Window = window;
@@ -23,6 +27,8 @@ bool World::Initialise(sf::RenderWindow* window, DrawManager* drawManager, Confi
 	m_ConfigManager = configManager;
 
 	m_InputManager = inputManager;
+
+	m_EntityManager = entityManager;
 
 	m_Level = new TileMap;
 
@@ -37,6 +43,9 @@ bool World::Initialise(sf::RenderWindow* window, DrawManager* drawManager, Confi
 		return false;
 
 	if (m_InputManager == nullptr)
+		return false;
+
+	if (m_EntityManager == nullptr)
 		return false;
 
 	if (!m_Level->Initialise("Maps", this))
@@ -64,6 +73,9 @@ void World::CleanUp()
 	if (m_InputManager != nullptr)
 		m_ConfigManager = nullptr;
 
+	if (m_EntityManager != nullptr)
+		m_EntityManager = nullptr;
+
 	if (m_Level != nullptr)
 	{
 		delete m_Level;
@@ -80,9 +92,9 @@ void World::DrawWorld()
 
 	//Handle drawing
 	
-	for (int i = 0; i < m_Level->GetMap().size(); i++)
+	for (unsigned int i = 0; i < m_EntityManager->GetEntites().size(); i++)
 	{
-		m_DrawManager->DrawShape(m_Window, m_Level->GetTileAt(i)->GetShape());
+		m_DrawManager->DrawShape(m_Window, m_EntityManager->GetEntites().at(i)->GetShape());
 	}
 
 	//Display the current frame
@@ -113,6 +125,11 @@ InputManager* World::GetInputManager()
 ConfigManager* World::GetConfigManager()
 {
 	return m_ConfigManager;
+}
+
+EntityManager* World::GetEntityManager()
+{
+	return m_EntityManager;
 }
 
 TileMap* World::GetLevel()

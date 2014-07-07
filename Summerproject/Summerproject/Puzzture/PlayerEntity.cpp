@@ -10,7 +10,7 @@ PlayerEntity::PlayerEntity()
 }
 
 //Inherited functions
-void PlayerEntity::Initialise()
+void PlayerEntity::Initialise(sf::Vector2f position, sf::IntRect size, int depth, int movementcost)
 {
 
 }

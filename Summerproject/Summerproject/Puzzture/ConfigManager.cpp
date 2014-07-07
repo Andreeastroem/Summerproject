@@ -57,7 +57,7 @@ bool ConfigManager::ReadFile(const std::string &FileName)
 		//Otherwise read through the lines one by one and look for "=" signs
 		else
 		{
-			for (int i = 0; i < FileLines.size(); i++)
+			for (unsigned int i = 0; i < FileLines.size(); i++)
 			{
 				std::string Key;
 				std::string Value;

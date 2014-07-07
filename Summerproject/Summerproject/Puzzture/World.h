@@ -14,7 +14,9 @@ public:
 	World();
 
 	//Initialise the managers
-	bool Initialise(sf::RenderWindow* window, DrawManager* drawManager, ConfigManager* configManager, InputManager* inputManager);
+	bool Initialise(sf::RenderWindow* window, DrawManager* drawManager, 
+		ConfigManager* configManager, InputManager* inputManager,
+		EntityManager* entityManager);
 
 	//Clearing up possible memory leakages
 	void CleanUp();
@@ -34,6 +36,8 @@ public:
 
 	ConfigManager* GetConfigManager();
 
+	EntityManager* GetEntityManager();
+
 	TileMap* GetLevel();
 
 private:
@@ -41,6 +45,7 @@ private:
 	DrawManager* m_DrawManager;
 	ConfigManager* m_ConfigManager;
 	InputManager* m_InputManager;
+	EntityManager* m_EntityManager;
 
 	TileMap* m_Level;
 

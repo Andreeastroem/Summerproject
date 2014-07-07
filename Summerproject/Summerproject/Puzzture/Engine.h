@@ -53,6 +53,9 @@ private:
 	//Scene System
 	SceneManager* m_SceneManager;
 
+	//Entities
+	EntityManager* m_EntityManager;
+
 	//World
 	World* m_World;
 

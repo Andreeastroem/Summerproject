@@ -1,5 +1,7 @@
 //Enums.h
 
+#pragma once
+
 enum ObjectType
 {
 	PLAYER,

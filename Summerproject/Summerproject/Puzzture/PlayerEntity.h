@@ -13,7 +13,7 @@ public:
 	PlayerEntity();
 
 	//Inherited functions
-	void Initialise();
+	void Initialise(sf::Vector2f position, sf::IntRect size, int depth, int movementcost);
 	void Update(float deltatime);
 	void CleanUp();
 
