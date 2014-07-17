@@ -11,12 +11,17 @@ Entity::Entity()
 }
 
 //Abstract classes
-void Entity::Initialise(sf::Vector2f position, sf::IntRect size, int depth, int movementcost)
+bool Entity::Initialise(EntityData entitydata)
+{
+	return true;
+}
+
+void Entity::Update(float deltatime)
 {
 
 }
 
-void Entity::Update(float deltatime)
+void Entity::OnCollision(Entity* entity)
 {
 
 }
@@ -37,25 +42,3 @@ void Entity::CleanUp()
 }
 
 //Essential functions
-
-//Access functions
-
-sf::Shape* Entity::GetShape()
-{
-	return m_Shape;
-}
-
-sf::Sprite* Entity::GetSprite()
-{
-	return m_Sprite;
-}
-
-bool Entity::IsFlagged()
-{
-	return m_bFlagged;
-}
-
-void Entity::SetFlagged(bool state)
-{
-	m_bFlagged = state;
-}

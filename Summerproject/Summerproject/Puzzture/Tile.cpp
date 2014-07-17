@@ -17,25 +17,35 @@ Tile::~Tile()
 //Inherited functions
 
 
-void Tile::Initialise(sf::Vector2f position, sf::IntRect size, int depth, int movementcost)
+bool Tile::Initialise(EntityData entitydata)
 {
-	m_EntityData.Position = position;
-
-	m_EntityData.Size = size;
-
-	m_EntityData.Depth = depth;
-
-	m_EntityData.MovementCost = movementcost;
+	m_EntityData = entitydata;
 
 	m_Shape = new sf::RectangleShape();
-	m_Shape->setSize(sf::Vector2f(size.width, size.height));
+	m_Shape->setSize(sf::Vector2f(m_EntityData.Size.width, m_EntityData.Size.height));
 
-	m_Shape->setPosition(position);
+	m_Shape->setPosition(m_EntityData.Position);
+
+	if (m_Shape == nullptr)
+		return false;
+
+	return true;
 }
 
 void Tile::Update(float deltatime)
 {
 
+}
+
+void Tile::OnCollision(Entity* entity)
+{
+	switch (entity->GetEntityData().entitytype)
+	{
+	default:
+		m_EntityData.Position = m_v2fLastPosition;
+		break;
+	}
+	
 }
 
 void Tile::CleanUp()

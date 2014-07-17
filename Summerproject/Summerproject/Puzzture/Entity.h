@@ -16,29 +16,51 @@ public:
 
 		//Movement penalties
 		int MovementCost;
+
+		EntityType entitytype;
 	};
 
 
 	Entity();
 
-	virtual void Initialise(sf::Vector2f position, sf::IntRect size, int depth, int movementcost);
+	virtual bool Initialise(EntityData entitydata);
 
 	virtual void Update(float deltatime) = 0;
+
+	virtual void OnCollision(Entity* entity);
 
 	virtual void CleanUp();
 
 	//Access functions
-	sf::Shape* GetShape();
-	sf::Sprite* GetSprite();
+	sf::Shape* GetShape()
+	{
+		return m_Shape;
+	}
 
-	bool IsFlagged();
-	void SetFlagged(bool state);
+	sf::Sprite* GetSprite()
+	{
+		return m_Sprite;
+	}
+
+	EntityData GetEntityData()
+	{
+		return m_EntityData;
+	}
+
+	bool IsFlagged()
+	{
+		return m_bFlagged;
+	}
+
+	void SetFlagged(bool state)
+	{
+		m_bFlagged = state;
+	}
 
 protected:
 	//Size and position of the entity
 	EntityData m_EntityData;
-
-	ObjectType m_ObjectType;
+	sf::Vector2f m_v2fLastPosition;
 
 	//Visualisation
 	sf::Sprite* m_Sprite;

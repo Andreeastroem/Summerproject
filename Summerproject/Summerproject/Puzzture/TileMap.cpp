@@ -52,11 +52,21 @@ bool TileMap::LoadMap(const std::string &FileName, int level)
 		for (unsigned int j = 0; j < map[i].size(); j++)
 		{
 			Tile* newtile = new Tile;
+			Entity::EntityData entitydata;
+
 			//Set the tiles coordinates and visual representation
 			switch (map[i].at(j))
 			{
 			case 'a':
-				newtile->Initialise(sf::Vector2f(m_LastXCoordinate, m_LastYCoordinate), sf::IntRect(0, 0, m_tileWidth, m_tileHeight), 0, 0);
+				entitydata.Position = sf::Vector2f(m_LastXCoordinate, m_LastYCoordinate);
+				entitydata.Size = sf::IntRect(0, 0, m_tileWidth, m_tileHeight);
+				entitydata.Depth = 0;
+				entitydata.MovementCost = 0;
+				entitydata.entitytype = WALL;
+
+				if (!newtile->Initialise(entitydata))
+					return false;
+					
 				newtile->GetShape()->setFillColor(sf::Color::Blue);
 
 				m_TileMap.push_back(newtile);
@@ -68,7 +78,15 @@ bool TileMap::LoadMap(const std::string &FileName, int level)
 				m_World->GetEntityManager()->AttachTile(newtile);
 				break;
 			case 'b':
-				newtile->Initialise(sf::Vector2f(m_LastXCoordinate, m_LastYCoordinate), sf::IntRect(0, 0, m_tileWidth, m_tileHeight), 0, 0);
+				entitydata.Position = sf::Vector2f(m_LastXCoordinate, m_LastYCoordinate);
+				entitydata.Size = sf::IntRect(0, 0, m_tileWidth, m_tileHeight);
+				entitydata.Depth = 0;
+				entitydata.MovementCost = 0;
+				entitydata.entitytype = FLOOR;
+
+				if (!newtile->Initialise(entitydata))
+					return false;
+
 				newtile->GetShape()->setFillColor(sf::Color::Cyan);
 
 				m_TileMap.push_back(newtile);
@@ -79,8 +97,38 @@ bool TileMap::LoadMap(const std::string &FileName, int level)
 				//Add to the game entities
 				m_World->GetEntityManager()->AttachTile(newtile);
 				break;
+
+			case 'c':
+				entitydata.Position = sf::Vector2f(m_LastXCoordinate, m_LastYCoordinate);
+				entitydata.Size = sf::IntRect(0, 0, m_tileWidth, m_tileHeight);
+				entitydata.Depth = 0;
+				entitydata.MovementCost = 0;
+				entitydata.entitytype = FURNITURE;
+
+				if (!newtile->Initialise(entitydata))
+					return false;
+
+				newtile->GetShape()->setFillColor(sf::Color(184, 134, 11, 255));
+
+				m_TileMap.push_back(newtile);
+				m_TileMap[m_TileMap.size() - 1]->SetTileMapPosition(j, i);
+
+				m_LastXCoordinate += m_tileWidth;
+
+				//Add to the game entities
+				m_World->GetEntityManager()->AttachTile(newtile);
+				break;
+
 			case 'x':
-				newtile->Initialise(sf::Vector2f(m_LastXCoordinate, m_LastYCoordinate), sf::IntRect(0, 0, m_tileWidth, m_tileHeight), 0, -1);
+				entitydata.Position = sf::Vector2f(m_LastXCoordinate, m_LastYCoordinate);
+				entitydata.Size = sf::IntRect(0, 0, m_tileWidth, m_tileHeight);
+				entitydata.Depth = -1;
+				entitydata.MovementCost = 0;
+				
+
+				if (!newtile->Initialise(entitydata))
+					return false;
+
 				newtile->GetShape()->setFillColor(sf::Color::Green);
 
 				m_TileMap.push_back(newtile);
@@ -106,6 +154,22 @@ void TileMap::CleanUp()
 {
 	if (m_World != nullptr)
 		m_World = nullptr;
+
+	//clear the tilemap
+	for (int i = 0; i < m_TileMap.size(); i++)
+	{
+		if (m_TileMap[i] != nullptr)
+		{
+			m_TileMap[i] = nullptr;
+		}
+	}
+}
+
+void TileMap::ClearLevel()
+{
+	//Reset coordinates
+	m_LastXCoordinate = 0;
+	m_LastYCoordinate = 0;
 
 	//clear the tilemap
 	for (int i = 0; i < m_TileMap.size(); i++)

@@ -16,6 +16,7 @@ public:
 	bool Initialise(std::string folder, World* world);
 	bool LoadMap(const std::string &FileName, int level);
 	void CleanUp();
+	void ClearLevel();
 
 	//Access functions
 	std::vector<Tile*> GetMap();

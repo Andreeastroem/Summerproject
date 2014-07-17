@@ -2,15 +2,16 @@
 
 #pragma once
 
-enum ObjectType
+enum EntityType
 {
 	PLAYER,
-	FLOOR,
 	WALL,
-	OBJECTTYPESIZE
+	FLOOR,
+	FURNITURE,
+	ENTITYTYPESIZE
 };
 
-enum ObjectShape
+enum EntityShape
 {
 	CIRCLE,
 	BOX,

@@ -8,13 +8,19 @@ void MenuScene::Enter()
 {
 	std::cout << "Menustate" << std::endl;
 
+	m_world->ClearLevel();
+
 	m_iAlpha = 255;
 
 	m_world->SetBackgroundRGB(m_iRed, m_iGreen, m_iBlue, m_iAlpha);
+
+	m_GameView = new sf::View();
+	m_world->GetWindow()->setView(m_world->GetWindow()->getDefaultView());
 }
 
 void MenuScene::Exit()
 {
+	
 }
 
 void MenuScene::Update(float deltatime)
@@ -33,7 +39,22 @@ void MenuScene::Update(float deltatime)
 	}
 
 	//Game logic
+	m_world->UpdateWorld(deltatime);
 
 	//Handle drawing
 	m_world->DrawWorld();
+}
+
+void MenuScene::CleanUp()
+{
+	//Clear the world pointer
+	if (m_world != nullptr)
+		m_world = nullptr;
+
+	//Clear the view
+	if (m_GameView != nullptr)
+	{
+		delete m_GameView;
+		m_GameView = nullptr;
+	}
 }

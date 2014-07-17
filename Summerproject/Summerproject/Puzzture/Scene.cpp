@@ -8,9 +8,7 @@
 
 Scene::~Scene()
 {
-	//Clear the world pointer
-	if (m_world != nullptr)
-		m_world = nullptr;
+	
 }
 
 bool Scene::Initialise(World* world)
@@ -19,6 +17,9 @@ bool Scene::Initialise(World* world)
 	//Existence validation
 	if (m_world == nullptr)
 		return false;
+
+	m_GameView = new sf::View();
+	m_world->GetWindow()->setView(m_world->GetWindow()->getDefaultView());
 
 	//Change state variables
 	m_bDone = false;
@@ -45,6 +46,20 @@ void Scene::Exit()
 void Scene::Update(float deltatime)
 {
 	
+}
+
+void Scene::CleanUp()
+{
+	//Clear the world pointer
+	if (m_world != nullptr)
+		m_world = nullptr;
+
+	//Clear the view
+	if (m_GameView != nullptr)
+	{
+		delete m_GameView;
+		m_GameView = nullptr;
+	}
 }
 
 bool Scene::IsDone()

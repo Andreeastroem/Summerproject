@@ -8,22 +8,27 @@ DrawManager::DrawManager()
 {
 }
 
-void DrawManager::DrawShape(sf::RenderWindow* Window, sf::Shape* Shape)
+void DrawManager::SetView(sf::RenderWindow* window, sf::View view)
 {
-	Window->draw(*Shape);
+	window->setView(view);
 }
 
-void DrawManager::DrawSprite(sf::RenderWindow* Window, sf::Sprite* Sprite)
+void DrawManager::DrawShape(sf::RenderWindow* window, sf::Shape* Shape)
 {
-	Window->draw(*Sprite);
+	window->draw(*Shape);
 }
 
-void DrawManager::ClearScreen(sf::RenderWindow* Window, int Red, int Green, int Blue, int Alpha)
+void DrawManager::DrawSprite(sf::RenderWindow* window, sf::Sprite* Sprite)
 {
-	Window->clear(sf::Color(Red, Green, Blue, Alpha));
+	window->draw(*Sprite);
 }
 
-void DrawManager::DisplayScreen(sf::RenderWindow* Window)
+void DrawManager::ClearScreen(sf::RenderWindow* window, int Red, int Green, int Blue, int Alpha)
 {
-	Window->display();
+	window->clear(sf::Color(Red, Green, Blue, Alpha));
+}
+
+void DrawManager::DisplayScreen(sf::RenderWindow* window)
+{
+	window->display();
 }

@@ -18,4 +18,6 @@ public:
 	void Exit();
 
 	void Update(float deltatime);
+	
+	void CleanUp();
 };

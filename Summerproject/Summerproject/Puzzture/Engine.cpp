@@ -29,8 +29,7 @@ bool Engine::Initialise()
 		return false;
 	if (!m_InputManager->Initialise())
 		return false;
-	if (!m_EntityManager->Initialise())
-		return false;
+	
 
 	//Load from Config file
 	m_ConfigManager->ReadFile("Config.txt");

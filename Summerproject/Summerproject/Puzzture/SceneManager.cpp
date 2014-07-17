@@ -34,6 +34,7 @@ SceneManager::~SceneManager()
 	{
 		if (it->second != nullptr)	//Is the state nullified already?
 		{
+			it->second->CleanUp();
 			delete it->second;
 			it->second = nullptr;
 		}

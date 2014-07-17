@@ -27,16 +27,35 @@ public:
 	//Updating the managers
 	void UpdateWorld(float deltatime);
 
+	//Starting and clearing levels
+	void LoadLevel(int level);
+	void ClearLevel();
+
+	//Clear the world
+	void ClearWorld();
+
 	/*
 	Access functions
 	*/
 	void SetBackgroundRGB(int R, int G, int B, int Alpha);
+
+	sf::RenderWindow* GetWindow()
+	{
+		return m_Window;
+	}
+
+	void SetView(sf::View view)
+	{
+		m_DrawManager->SetView(m_Window, view);
+	}
 
 	InputManager* GetInputManager();
 
 	ConfigManager* GetConfigManager();
 
 	EntityManager* GetEntityManager();
+
+	DrawManager* GetDrawManager();
 
 	TileMap* GetLevel();
 

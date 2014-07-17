@@ -19,6 +19,9 @@ public:
 	//Updates the state and its components
 	virtual void Update(float deltatime) = 0;
 
+	//Clean up any pointers laying about
+	virtual void CleanUp() = 0;
+
 	//Access methods
 	bool IsDone();
 	SceneName NextScene();
@@ -29,6 +32,9 @@ protected:
 
 	//World
 	World* m_world;
+
+	//The view
+	sf::View* m_GameView;
 
 	//Lifetime variables
 	bool m_bDone;

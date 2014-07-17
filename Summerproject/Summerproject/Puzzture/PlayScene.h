@@ -14,4 +14,10 @@ public:
 	void Enter();
 
 	void Update(float deltatime);
+
+	void CleanUp();
+
+private:
+	//early camera
+	sf::Vector2f* CameraPosition;
 };

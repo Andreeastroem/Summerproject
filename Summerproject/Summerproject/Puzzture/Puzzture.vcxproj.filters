@@ -85,6 +85,12 @@
     <Filter Include="Source Files\Engine\System\World\Tiling">
       <UniqueIdentifier>{3f22b2b3-9a91-4f5c-a142-02b2f5fdc80f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine\Collision">
+      <UniqueIdentifier>{25967faf-fa65-4841-a3de-fee06fa35402}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Collision">
+      <UniqueIdentifier>{bf0b6466-7b18-4ae1-a8d3-7504f96c3450}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -141,6 +147,9 @@
     <ClInclude Include="PlayerEntity.h">
       <Filter>Header Files\Engine\Entity system\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>Header Files\Engine\Collision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -190,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="PlayerEntity.cpp">
       <Filter>Source Files\Engine\Entity System\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Source Files\Engine\Collision</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

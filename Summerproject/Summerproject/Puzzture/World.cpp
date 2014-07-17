@@ -45,13 +45,11 @@ bool World::Initialise(sf::RenderWindow* window, DrawManager* drawManager,
 	if (m_InputManager == nullptr)
 		return false;
 
-	if (m_EntityManager == nullptr)
+	if (!m_EntityManager->Initialise(this))
 		return false;
 
 	if (!m_Level->Initialise("Maps", this))
 		return false;
-
-	if (m_Level->LoadMap("level01", 1))
 
 	//Everything went OK
 	return true;
@@ -103,7 +101,25 @@ void World::DrawWorld()
 
 void World::UpdateWorld(float deltatime)
 {
+	m_EntityManager->Update(deltatime);
+}
 
+void World::LoadLevel(int level)
+{
+	std::string map = "level" + std::to_string(level);
+
+	m_Level->LoadMap(map, level);
+}
+
+void World::ClearLevel()
+{
+	m_EntityManager->ClearEntities();
+	m_Level->ClearLevel();
+}
+
+void World::ClearWorld()
+{
+	m_EntityManager->CleanUp();
 }
 
 //Access functions
@@ -130,6 +146,11 @@ ConfigManager* World::GetConfigManager()
 EntityManager* World::GetEntityManager()
 {
 	return m_EntityManager;
+}
+
+DrawManager* World::GetDrawManager()
+{
+	return m_DrawManager;
 }
 
 TileMap* World::GetLevel()
