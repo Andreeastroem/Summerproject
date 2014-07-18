@@ -59,12 +59,12 @@ void CollisionManager::CheckCollision(std::vector<Entity*> *gameentities)
 						//std::cout << "Entity1: " << m_EntityManager->GetEntites().at(i)->GetEntityData().entitytype << std::endl;
 						//std::cout << "Entity2: " << m_EntityManager->GetEntites().at(j)->GetEntityData().entitytype << std::endl;
 
-						sf::Vector2f offset;
-						if (gameentities->at(i)->getCollider()->Overlap(gameentities->at(j)->getCollider(), offset))
+						sf::Vector2f offsetA, offsetB;
+						if (gameentities->at(i)->getCollider()->Overlap(gameentities->at(j)->getCollider(), offsetA, offsetB))
 						{
 							//Collision
-							gameentities->at(i)->OnCollision(gameentities->at(j), offset);
-							gameentities->at(j)->OnCollision(gameentities->at(i), offset);
+							gameentities->at(i)->OnCollision(gameentities->at(j), offsetA);
+							gameentities->at(j)->OnCollision(gameentities->at(i), offsetB);
 						}
 					}
 				}

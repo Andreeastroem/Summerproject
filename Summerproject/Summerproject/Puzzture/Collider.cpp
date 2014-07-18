@@ -21,38 +21,40 @@ Collider::Collider(sf::Vector2f position, sf::Vector2f extension)
 
 //Essential functions
 
-bool Collider::Overlap(Collider* other, sf::Vector2f &offset)
+bool Collider::Overlap(Collider* other, sf::Vector2f &offsetA, sf::Vector2f &offsetB)
 {
-	//check if it intersects on x coordinates
-	float firstwidth = m_extension.x/2;
-	float secondwidth = other->getExtension().x/2;
+	float AxMin = m_position.x;
+	float AxMax = AxMin + m_extension.x;
+	float AyMin = m_position.y;
+	float AyMax = AyMin + m_extension.y;
 
-	float differencex = (m_position.x + firstwidth) - (other->getPosition().x + secondwidth);
+	float BxMin = other->getPosition().x;
+	float BxMax = BxMin + other->getExtension().x;
+	float ByMin = other->getPosition().y;
+	float ByMax = ByMin + other->getExtension().y;
 
-	if (fabs(differencex) <= (firstwidth + secondwidth))
+	//Check for collision
+	if (AxMin < BxMax && AxMax > BxMin
+		&& AyMin < ByMax && AyMax > ByMin)
 	{
-		//Check if it intersects on y coordinates
-		float firstheight = m_extension.y/2;
-		float secondheight = other->getExtension().y/2;
 
-		float differencey = (m_position.y + firstheight) - (other->getPosition().y + secondheight);
+		//Calculate Other
+		bool bOtherFromRight = other->getVelocity().x < 0;
+		bool bOtherFromLeft = other->getVelocity().x > 0;
+		bool bOtherFromUp = other->getVelocity().y > 0;
+		bool bOtherFromDown = other->getVelocity().y < 0;
 
-		if (fabs(differencey) <= (firstheight + secondheight))
-		{
-			//return the difference between the objects
-			
-			if (m_position.x < other->getPosition().x)
-				differencex = -differencex;
+		if (bOtherFromLeft)
+			offsetB.x = AxMin - BxMax;
+		else if (bOtherFromRight)
+			offsetB.x = AxMax - BxMin;
 
-			if (m_position.y < other->getPosition().y)
-				differencey = -differencey;
+		else if (bOtherFromUp)
+			offsetB.y = AyMin - ByMax;
+		else if (bOtherFromDown)
+			offsetB.y = AyMax - ByMin;
 
-			
-			offset.x = differencex;
-			offset.y = differencey;
-
-			return true;
-		}
+		return true;
 	}
 
 	return false;
@@ -66,4 +68,10 @@ void Collider::CleanUp()
 		delete m_Hitbox;
 		m_Hitbox = nullptr;
 	}
+}
+
+void Collider::Update(float deltatime)
+{
+	m_velocity =  m_position - m_lastPosition;
+	m_lastPosition = m_position;
 }

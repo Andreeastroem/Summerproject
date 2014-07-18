@@ -30,7 +30,7 @@ bool PlayerEntity::Initialise(EntityData entitydata)
 	if (m_Shape == nullptr)
 		return false;
 
-	m_fBaseMovementSpeed = 20;
+	m_fBaseMovementSpeed = 200;
 
 	return true;
 }
@@ -66,19 +66,22 @@ void PlayerEntity::Update(float deltatime)
 	//input
 	Movement(deltatime);
 
-	std::cout << deltatime << std::endl;
+	//std::cout << deltatime << std::endl;
 
 	//Update collider/visuals position
 	UpdatePositions();
 	
 	//Update the view
-	m_world->SetView(sf::Vector2f(m_EntityData.Position.x + m_EntityData.Size.x/2, m_EntityData.Position.y + m_EntityData.Size.y/2));
+	m_world->SetView(sf::Vector2f(m_EntityData.Position.x + m_EntityData.Size.x / 2, m_EntityData.Position.y + m_EntityData.Size.y / 2));
+
+
+	Entity::Update(deltatime);
 }
 
 void PlayerEntity::OnCollision(Entity* entity, sf::Vector2f offset)
 {
-	std::cout << "x: " << offset.x << std::endl;
-	std::cout << "y: " << offset.y << std::endl;
+// 	std::cout << "x: " << offset.x << std::endl;
+// 	std::cout << "y: " << offset.y << std::endl;
 
 	//std::cout << "spelar collision" << std::endl;
 	switch (entity->GetEntityData().entitytype)
@@ -98,6 +101,8 @@ void PlayerEntity::OnCollision(Entity* entity, sf::Vector2f offset)
 	default:
 		break;
 	}
+
+	m_Collider->Update(0);
 }
 
 //Logic functions

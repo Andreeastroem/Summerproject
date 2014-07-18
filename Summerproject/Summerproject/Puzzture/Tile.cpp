@@ -36,7 +36,7 @@ bool Tile::Initialise(EntityData entitydata)
 
 void Tile::Update(float deltatime)
 {
-
+	Entity::Update(deltatime);
 }
 
 void Tile::OnCollision(Entity* entity, sf::Vector2f offset)

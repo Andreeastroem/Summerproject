@@ -18,7 +18,7 @@ bool Entity::Initialise(EntityData entitydata)
 
 void Entity::Update(float deltatime)
 {
-
+	m_Collider->Update(deltatime);
 }
 
 void Entity::OnCollision(Entity* entity, sf::Vector2f offset)
