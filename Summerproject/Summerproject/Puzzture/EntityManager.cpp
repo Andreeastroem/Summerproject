@@ -136,7 +136,7 @@ void EntityManager::Update(float deltatime)
 	}
 
 	//Check collision between entities
-	m_CollisionManager->CheckCollision(m_GameEntities);
+	m_CollisionManager->CheckCollision(&m_GameEntities);
 }
 
 //Access functions

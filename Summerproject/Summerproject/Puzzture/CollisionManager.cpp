@@ -34,7 +34,7 @@ bool CollisionManager::Initialise()
 	return true;
 }
 
-void CollisionManager::CheckCollision(std::vector<Entity*> gameentities)
+void CollisionManager::CheckCollision(std::vector<Entity*> *gameentities)
 {
 	//Go through all the entities and check collision
 	if (gameentities.size() > 0)

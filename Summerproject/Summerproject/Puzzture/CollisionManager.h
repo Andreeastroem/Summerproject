@@ -12,7 +12,7 @@ public:
 
 	//Essential functions
 	bool Initialise();
-	void CheckCollision(std::vector<Entity*> gameentities);
+	void CheckCollision(std::vector<Entity*> *gameentities);
 
 	void CleanUp();
 
