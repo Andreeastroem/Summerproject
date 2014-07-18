@@ -21,7 +21,7 @@ void Entity::Update(float deltatime)
 
 }
 
-void Entity::OnCollision(Entity* entity)
+void Entity::OnCollision(Entity* entity, sf::Vector2f offset)
 {
 
 }
@@ -38,6 +38,14 @@ void Entity::CleanUp()
 	{
 		delete m_Shape;
 		m_Shape = nullptr;
+	}
+
+	//Clean up collision
+	if (m_Collider != nullptr)
+	{
+		m_Collider->CleanUp();
+		delete m_Collider;
+		m_Collider = nullptr;
 	}
 }
 

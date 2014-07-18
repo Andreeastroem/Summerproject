@@ -106,7 +106,7 @@ void SceneManager::Update(float deltatime)
 	//If the state is done
 	if (m_CurrentScene->IsDone())
 	{
-		//Set the new state according to the m_sNextScene variable
+		//Set the new state according to the m_NextScene variable
 		SetScene(m_CurrentScene->NextScene());
 	}
 }

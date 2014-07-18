@@ -82,11 +82,11 @@ bool EntityManager::AttachEntity(EntityType entitytype)
 
 		Entity::EntityData entitydata;
 
-		entitydata.Position = sf::Vector2f(100, 100);
-		//entitydata.entitytype = entitytype;
+		entitydata.Position = sf::Vector2f(130, 100);
+		entitydata.entitytype = entitytype;
 		entitydata.MovementCost = 0;
 		entitydata.Depth = 0;
-		entitydata.Size = sf::IntRect(0, 0, 64, 128);
+		entitydata.Size = sf::Vector2f(64, 128);
 
 		if (!playerentity->Initialise(entitydata))
 			return false;

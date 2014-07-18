@@ -51,6 +51,10 @@ bool World::Initialise(sf::RenderWindow* window, DrawManager* drawManager,
 	if (!m_Level->Initialise("Maps", this))
 		return false;
 
+	m_GameView = new sf::View(m_Window->getDefaultView());
+
+	m_bDrawHitboxes = false;
+
 	//Everything went OK
 	return true;
 }
@@ -79,6 +83,13 @@ void World::CleanUp()
 		delete m_Level;
 		m_Level = nullptr;
 	}
+
+	//Clear the view
+	if (m_GameView != nullptr)
+	{
+		delete m_GameView;
+		m_GameView = nullptr;
+	}
 }
 
 //Essential functions
@@ -89,10 +100,17 @@ void World::DrawWorld()
 	m_DrawManager->ClearScreen(m_Window, m_iR, m_iG, m_iB, m_iA);
 
 	//Handle drawing
-	
 	for (unsigned int i = 0; i < m_EntityManager->GetEntites().size(); i++)
 	{
 		m_DrawManager->DrawShape(m_Window, m_EntityManager->GetEntites().at(i)->GetShape());
+	}
+
+	if (m_bDrawHitboxes)
+	{
+		for (unsigned int i = 0; i < m_EntityManager->GetEntites().size(); i++)
+		{
+			m_DrawManager->DrawShape(m_Window, m_EntityManager->GetEntites().at(i)->getCollider()->getHitbox());
+		}
 	}
 
 	//Display the current frame
@@ -101,6 +119,15 @@ void World::DrawWorld()
 
 void World::UpdateWorld(float deltatime)
 {
+	//show hitboxes?
+	if (m_InputManager->m_Keyboard->KeyIsDoneOnce(sf::Keyboard::F2))
+	{
+		if (m_bDrawHitboxes)
+			m_bDrawHitboxes = false;
+		else
+			m_bDrawHitboxes = true;
+	}
+
 	m_EntityManager->Update(deltatime);
 }
 

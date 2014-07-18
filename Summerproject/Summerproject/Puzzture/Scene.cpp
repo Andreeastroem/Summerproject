@@ -18,12 +18,9 @@ bool Scene::Initialise(World* world)
 	if (m_world == nullptr)
 		return false;
 
-	m_GameView = new sf::View();
-	m_world->GetWindow()->setView(m_world->GetWindow()->getDefaultView());
-
 	//Change state variables
 	m_bDone = false;
-	m_sNextScene = MENUSTATE;
+	m_NextScene = MENUSTATE;
 
 	//Background colours
 	m_iRed = 0;
@@ -53,13 +50,6 @@ void Scene::CleanUp()
 	//Clear the world pointer
 	if (m_world != nullptr)
 		m_world = nullptr;
-
-	//Clear the view
-	if (m_GameView != nullptr)
-	{
-		delete m_GameView;
-		m_GameView = nullptr;
-	}
 }
 
 bool Scene::IsDone()
@@ -69,5 +59,5 @@ bool Scene::IsDone()
 
 SceneName Scene::NextScene()
 {
-	return m_sNextScene;
+	return m_NextScene;
 }

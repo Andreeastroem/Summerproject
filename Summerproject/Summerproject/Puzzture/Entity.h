@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "Collider.h"
+
 class Entity
 {
 public:
@@ -9,7 +11,7 @@ public:
 	{
 		sf::Vector2f Position;
 
-		sf::IntRect Size;
+		sf::Vector2f Size;
 
 		//The depth in the game, 1 represents the front and -1 the back
 		int Depth;
@@ -27,7 +29,7 @@ public:
 
 	virtual void Update(float deltatime) = 0;
 
-	virtual void OnCollision(Entity* entity);
+	virtual void OnCollision(Entity* entity, sf::Vector2f offset);
 
 	virtual void CleanUp();
 
@@ -45,6 +47,15 @@ public:
 	EntityData GetEntityData()
 	{
 		return m_EntityData;
+	}
+
+	Collider* getCollider()
+	{
+		return m_Collider;
+	}
+	void SetCollider(Collider* collider)
+	{
+		m_Collider = collider;
 	}
 
 	bool IsFlagged()
@@ -65,6 +76,9 @@ protected:
 	//Visualisation
 	sf::Sprite* m_Sprite;
 	sf::RectangleShape* m_Shape;
+
+	//Collision
+	Collider* m_Collider;
 
 	//Is entity alive or dead?
 	bool m_bFlagged;

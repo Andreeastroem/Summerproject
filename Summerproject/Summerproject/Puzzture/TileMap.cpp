@@ -59,7 +59,7 @@ bool TileMap::LoadMap(const std::string &FileName, int level)
 			{
 			case 'a':
 				entitydata.Position = sf::Vector2f(m_LastXCoordinate, m_LastYCoordinate);
-				entitydata.Size = sf::IntRect(0, 0, m_tileWidth, m_tileHeight);
+				entitydata.Size = sf::Vector2f(m_tileWidth, m_tileHeight);
 				entitydata.Depth = 0;
 				entitydata.MovementCost = 0;
 				entitydata.entitytype = WALL;
@@ -79,7 +79,7 @@ bool TileMap::LoadMap(const std::string &FileName, int level)
 				break;
 			case 'b':
 				entitydata.Position = sf::Vector2f(m_LastXCoordinate, m_LastYCoordinate);
-				entitydata.Size = sf::IntRect(0, 0, m_tileWidth, m_tileHeight);
+				entitydata.Size = sf::Vector2f(m_tileWidth, m_tileHeight);
 				entitydata.Depth = 0;
 				entitydata.MovementCost = 0;
 				entitydata.entitytype = FLOOR;
@@ -100,7 +100,7 @@ bool TileMap::LoadMap(const std::string &FileName, int level)
 
 			case 'c':
 				entitydata.Position = sf::Vector2f(m_LastXCoordinate, m_LastYCoordinate);
-				entitydata.Size = sf::IntRect(0, 0, m_tileWidth, m_tileHeight);
+				entitydata.Size = sf::Vector2f(m_tileWidth, m_tileHeight);
 				entitydata.Depth = 0;
 				entitydata.MovementCost = 0;
 				entitydata.entitytype = FURNITURE;
@@ -121,7 +121,7 @@ bool TileMap::LoadMap(const std::string &FileName, int level)
 
 			case 'x':
 				entitydata.Position = sf::Vector2f(m_LastXCoordinate, m_LastYCoordinate);
-				entitydata.Size = sf::IntRect(0, 0, m_tileWidth, m_tileHeight);
+				entitydata.Size = sf::Vector2f(m_tileWidth, m_tileHeight);
 				entitydata.Depth = -1;
 				entitydata.MovementCost = 0;
 				

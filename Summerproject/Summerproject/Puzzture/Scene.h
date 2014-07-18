@@ -33,12 +33,9 @@ protected:
 	//World
 	World* m_world;
 
-	//The view
-	sf::View* m_GameView;
-
 	//Lifetime variables
 	bool m_bDone;
 
 	//Setting new state
-	SceneName m_sNextScene;
+	SceneName m_NextScene;
 };

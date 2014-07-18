@@ -14,7 +14,7 @@ public:
 
 	void Update(float deltatime);
 
-	void OnCollision(Entity* entity);
+	void OnCollision(Entity* entity, sf::Vector2f offset);
 
 	void CleanUp();
 

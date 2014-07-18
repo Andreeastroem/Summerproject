@@ -15,13 +15,17 @@ public:
 	//Inherited functions
 	bool Initialise(EntityData entitydata);
 	void Update(float deltatime);
-	void OnCollision(Entity* entity);
+	void OnCollision(Entity* entity, sf::Vector2f offset);
 	void CleanUp();
 
 	//Logic functions
 	void Movement(float deltatime);
 	bool CanJump();
 	void Jump();
+
+	//Lazy functions
+	void UpdatePositions();
+
 private:
 	World* m_world;
 

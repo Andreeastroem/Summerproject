@@ -48,24 +48,29 @@ void CollisionManager::CheckCollision()
 		{
 			for (int j = i + 1; j < m_EntityManager->GetEntites().size(); j++)
 			{
-				//Check if it is a valid collision
-				std::map<std::pair<EntityType, EntityType>, int>::iterator it =
-					CollisionMap.find(std::pair<EntityType, EntityType>
-					(m_EntityManager->GetEntites().at(i)->GetEntityData().entitytype,
-					m_EntityManager->GetEntites().at(j)->GetEntityData().entitytype));
-
-				//Valid collision
-				if (it != CollisionMap.end())
+				//Are they on the same depth?
+				if (m_EntityManager->GetEntites().at(i)->GetEntityData().Depth ==
+					m_EntityManager->GetEntites().at(j)->GetEntityData().Depth)
 				{
-					sf::FloatRect boundingBox = m_EntityManager->GetEntites().at(i)->GetShape()->getGlobalBounds();
-					sf::FloatRect otherBoundingBox = m_EntityManager->GetEntites().at(j)->GetShape()->getGlobalBounds();
+					//Check if it is a valid collision
+					std::map<std::pair<EntityType, EntityType>, int>::iterator it =
+						CollisionMap.find(std::pair<EntityType, EntityType>
+						(m_EntityManager->GetEntites().at(i)->GetEntityData().entitytype,
+						m_EntityManager->GetEntites().at(j)->GetEntityData().entitytype));
 
-
-					if (boundingBox.intersects(otherBoundingBox))
+					//Valid collision
+					if (it != CollisionMap.end())
 					{
-						//Collision
-						m_EntityManager->GetEntites().at(i)->OnCollision(m_EntityManager->GetEntites().at(j));
-						m_EntityManager->GetEntites().at(j)->OnCollision(m_EntityManager->GetEntites().at(i));
+						//std::cout << "Entity1: " << m_EntityManager->GetEntites().at(i)->GetEntityData().entitytype << std::endl;
+						//std::cout << "Entity2: " << m_EntityManager->GetEntites().at(j)->GetEntityData().entitytype << std::endl;
+
+						sf::Vector2f offset;
+						if (m_EntityManager->GetEntites().at(i)->getCollider()->Overlap(m_EntityManager->GetEntites().at(j)->getCollider(), offset))
+						{
+							//Collision
+							m_EntityManager->GetEntites().at(i)->OnCollision(m_EntityManager->GetEntites().at(j), offset);
+							m_EntityManager->GetEntites().at(j)->OnCollision(m_EntityManager->GetEntites().at(i), offset);
+						}
 					}
 				}
 			}

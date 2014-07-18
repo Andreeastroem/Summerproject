@@ -18,6 +18,5 @@ public:
 	void CleanUp();
 
 private:
-	//early camera
-	sf::Vector2f* CameraPosition;
+	
 };

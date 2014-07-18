@@ -44,9 +44,18 @@ public:
 		return m_Window;
 	}
 
-	void SetView(sf::View view)
+	void SetViewSize(sf::Vector2f size)
 	{
-		m_DrawManager->SetView(m_Window, view);
+		m_GameView->setSize(size);
+	}
+	void SetView(sf::Vector2f viewcenter)
+	{
+		m_GameView->setCenter(viewcenter);
+		m_Window->setView(*m_GameView);
+	}
+	void SetViewToDefault()
+	{
+		m_Window->setView(m_Window->getDefaultView());
 	}
 
 	InputManager* GetInputManager();
@@ -72,4 +81,14 @@ private:
 
 	//State dependent variables
 	int m_iR, m_iG, m_iB, m_iA;
+
+	//Camera
+	//The view
+	sf::View* m_GameView;
+
+	//early camera
+	sf::Vector2f* CameraPosition;
+
+	//Hitboxes visualisation
+	bool m_bDrawHitboxes;
 };

@@ -16,5 +16,4 @@ public:
 
 	void DisplayScreen(sf::RenderWindow* window);
 private:
-
 };
