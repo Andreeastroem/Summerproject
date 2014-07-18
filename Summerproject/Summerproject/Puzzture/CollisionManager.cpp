@@ -37,21 +37,21 @@ bool CollisionManager::Initialise()
 void CollisionManager::CheckCollision(std::vector<Entity*> *gameentities)
 {
 	//Go through all the entities and check collision
-	if (gameentities.size() > 0)
+	if (gameentities->size() > 0)
 	{
-		for (int i = 0; i < (gameentities.size() - 1); i++)
+		for (int i = 0; i < (gameentities->size() - 1); i++)
 		{
-			for (int j = i + 1; j < gameentities.size(); j++)
+			for (int j = i + 1; j < gameentities->size(); j++)
 			{
 				//Are they on the same depth?
-				if (gameentities[i]->GetEntityData().Depth ==
-					gameentities[j]->GetEntityData().Depth)
+				if (gameentities->at(i)->GetEntityData().Depth ==
+					gameentities->at(j)->GetEntityData().Depth)
 				{
 					//Check if it is a valid collision
 					std::map<std::pair<EntityType, EntityType>, int>::iterator it =
 						CollisionMap.find(std::pair<EntityType, EntityType>
-						(gameentities[i]->GetEntityData().entitytype,
-						gameentities[j]->GetEntityData().entitytype));
+						(gameentities->at(i)->GetEntityData().entitytype,
+						gameentities->at(j)->GetEntityData().entitytype));
 
 					//Valid collision
 					if (it != CollisionMap.end())
@@ -60,11 +60,11 @@ void CollisionManager::CheckCollision(std::vector<Entity*> *gameentities)
 						//std::cout << "Entity2: " << m_EntityManager->GetEntites().at(j)->GetEntityData().entitytype << std::endl;
 
 						sf::Vector2f offset;
-						if (gameentities[i]->getCollider()->Overlap(gameentities[j]->getCollider(), offset))
+						if (gameentities->at(i)->getCollider()->Overlap(gameentities->at(j)->getCollider(), offset))
 						{
 							//Collision
-							gameentities[i]->OnCollision(gameentities[j], offset);
-							gameentities[j]->OnCollision(gameentities[i], offset);
+							gameentities->at(i)->OnCollision(gameentities->at(j), offset);
+							gameentities->at(j)->OnCollision(gameentities->at(i), offset);
 						}
 					}
 				}
