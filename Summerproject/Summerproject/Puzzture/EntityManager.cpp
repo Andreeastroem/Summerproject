@@ -20,7 +20,7 @@ EntityManager::EntityManager()
 bool EntityManager::Initialise(World* world)
 {
 	m_CollisionManager = new CollisionManager;
-	if (!m_CollisionManager->Initialise(this))
+	if (!m_CollisionManager->Initialise())
 		return false;
 
 	m_world = world;
@@ -136,7 +136,7 @@ void EntityManager::Update(float deltatime)
 	}
 
 	//Check collision between entities
-	m_CollisionManager->CheckCollision();
+	m_CollisionManager->CheckCollision(m_GameEntities);
 }
 
 //Access functions

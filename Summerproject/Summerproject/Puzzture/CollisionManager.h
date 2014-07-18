@@ -11,13 +11,11 @@ public:
 	CollisionManager();
 
 	//Essential functions
-	bool Initialise(EntityManager* entitymanager);
-	void CheckCollision();
+	bool Initialise();
+	void CheckCollision(std::vector<Entity*> gameentities);
 
 	void CleanUp();
 
 private:
-	EntityManager* m_EntityManager;
-
 	std::map<std::pair<EntityType, EntityType>, int> CollisionMap;
 };
