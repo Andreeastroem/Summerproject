@@ -45,7 +45,7 @@ void EntityManager::ClearEntities()
 	m_GameEntities.clear();
 }
 
-void EntityManager::CleanUp()
+void EntityManager::Cleanup()
 {
 	//Clearing and deleting all pointers to game objects
 	for (unsigned int i = 0; i < m_GameEntities.size(); i++)
@@ -62,7 +62,7 @@ void EntityManager::CleanUp()
 	//Managers
 	if (m_CollisionManager != nullptr)
 	{
-		m_CollisionManager->CleanUp();
+		m_CollisionManager->Cleanup();
 		delete m_CollisionManager;
 		m_CollisionManager = nullptr;
 	}
@@ -82,7 +82,7 @@ bool EntityManager::AttachEntity(EntityType entitytype)
 
 		Entity::EntityData entitydata;
 
-		entitydata.Position = sf::Vector2f(130, 100);
+		entitydata.Position = sf::Vector2f(130, 164);
 		entitydata.entitytype = entitytype;
 		entitydata.MovementCost = 0;
 		entitydata.Depth = 0;
@@ -90,6 +90,8 @@ bool EntityManager::AttachEntity(EntityType entitytype)
 
 		if (!playerentity->Initialise(entitydata))
 			return false;
+
+		playerentity->GetShape()->setFillColor(sf::Color(255, 255, 0, 255));
 
 		m_GameEntities.push_back(playerentity);
 
@@ -117,7 +119,7 @@ void EntityManager::EraseFlaggedEntities()
 			//erase it
 			if (m_GameEntities[i] != nullptr)
 			{
-				m_GameEntities[i]->CleanUp();
+				m_GameEntities[i]->Cleanup();
 				delete m_GameEntities[i];
 				m_GameEntities[i] = nullptr;
 			}
@@ -130,13 +132,30 @@ void EntityManager::EraseFlaggedEntities()
 void EntityManager::Update(float deltatime)
 {
 	//Update every entity
-	for (int i = 0; i < m_GameEntities.size(); i++)
+	for (unsigned int i = 0; i < m_GameEntities.size(); i++)
 	{
 		m_GameEntities[i]->Update(deltatime);
 	}
 
+	EraseFlaggedEntities();
+
 	//Check collision between entities
 	m_CollisionManager->CheckCollision(&m_GameEntities);
+}
+
+void EntityManager::SetDrawStatuses(sf::View* viewport)
+{
+	for (int i = 0; i < m_GameEntities.size(); i++)
+	{
+		if (m_GameEntities[i]->getCollider()->Overlap(viewport))
+		{
+			m_GameEntities[i]->SetDrawStatus(true);
+		}
+		else
+		{
+			m_GameEntities[i]->SetDrawStatus(false);
+		}
+	}
 }
 
 //Access functions

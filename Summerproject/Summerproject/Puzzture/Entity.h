@@ -13,6 +13,8 @@ public:
 
 		sf::Vector2f Size;
 
+		sf::Vector2f Force = sf::Vector2f();
+
 		//The depth in the game, 1 represents the front and -1 the back
 		int Depth;
 
@@ -31,7 +33,7 @@ public:
 
 	virtual void OnCollision(Entity* entity, sf::Vector2f offset);
 
-	virtual void CleanUp();
+	virtual void Cleanup();
 
 	//Access functions
 	sf::Shape* GetShape()
@@ -68,6 +70,16 @@ public:
 		m_bFlagged = state;
 	}
 
+	bool GetDrawStatus()
+	{
+		return m_bDrawStatus;
+	}
+
+	void SetDrawStatus(bool state)
+	{
+		m_bDrawStatus = state;
+	}
+
 protected:
 	//Size and position of the entity
 	EntityData m_EntityData;
@@ -82,4 +94,7 @@ protected:
 
 	//Is entity alive or dead?
 	bool m_bFlagged;
+
+	//Is entity set to be drawn
+	bool m_bDrawStatus;
 };

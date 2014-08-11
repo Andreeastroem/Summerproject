@@ -59,5 +59,6 @@ private:
 	//World
 	World* m_World;
 
-	//Temp
+	//Extra features
+	bool m_bPause;
 };

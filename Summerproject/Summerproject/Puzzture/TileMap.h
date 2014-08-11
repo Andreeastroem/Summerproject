@@ -15,7 +15,7 @@ public:
 	//Essential functions
 	bool Initialise(std::string folder, World* world);
 	bool LoadMap(const std::string &FileName, int level);
-	void CleanUp();
+	void Cleanup();
 	void ClearLevel();
 
 	//Access functions

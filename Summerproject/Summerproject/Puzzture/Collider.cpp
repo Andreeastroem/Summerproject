@@ -37,22 +37,52 @@ bool Collider::Overlap(Collider* other, sf::Vector2f &offsetA, sf::Vector2f &off
 	if (AxMin < BxMax && AxMax > BxMin
 		&& AyMin < ByMax && AyMax > ByMin)
 	{
-
-		//Calculate Other
-		bool bOtherFromRight = other->getVelocity().x < 0;
-		bool bOtherFromLeft = other->getVelocity().x > 0;
-		bool bOtherFromUp = other->getVelocity().y > 0;
-		bool bOtherFromDown = other->getVelocity().y < 0;
+		//Calculate self
+		bool bOtherFromRight = m_velocity.x < 0;
+		bool bOtherFromLeft = m_velocity.x > 0;
+		bool bOtherFromUp = m_velocity.y > 0;
+		bool bOtherFromDown = m_velocity.y < 0;
 
 		if (bOtherFromLeft)
-			offsetB.x = AxMin - BxMax;
+			offsetA.x = BxMin - AxMax;
 		else if (bOtherFromRight)
-			offsetB.x = AxMax - BxMin;
+			offsetA.x = BxMax - AxMin;
 
 		else if (bOtherFromUp)
-			offsetB.y = AyMin - ByMax;
+			offsetA.y = ByMin - AyMax;
 		else if (bOtherFromDown)
+			offsetA.y = ByMax - AyMin;
+
+		//Calculate Other
+		bOtherFromRight = other->getVelocity().x < 0;
+		bOtherFromLeft = other->getVelocity().x > 0;
+		bOtherFromUp = other->getVelocity().y > 0;
+		bOtherFromDown = other->getVelocity().y < 0;
+
+		if (bOtherFromLeft)
+		{
+			//the majority of Y is overlapping
+			if (fabs(AyMin - ByMax) > other->getExtension().y / 2)
+				offsetB.x = AxMin - BxMax;
+			else if (fabs(AyMax - ByMin) > other->getExtension().y / 2)
+				offsetB.x = AxMin - BxMax;
+		}
+		else if (bOtherFromRight)
+		{
+			if (fabs(AyMin - ByMax) > other->getExtension().y / 2)
+				offsetB.x = AxMax - BxMin;
+			else if (fabs(AyMax - ByMin) > other->getExtension().y / 2)
+				offsetB.x = AxMax - BxMin;
+		}
+			
+		if (bOtherFromUp)
+		{
+			offsetB.y = AyMin - ByMax;
+		}
+		else if (bOtherFromDown)
+		{
 			offsetB.y = AyMax - ByMin;
+		}
 
 		return true;
 	}
@@ -60,7 +90,34 @@ bool Collider::Overlap(Collider* other, sf::Vector2f &offsetA, sf::Vector2f &off
 	return false;
 }
 
-void Collider::CleanUp()
+bool Collider::Overlap(sf::View* viewport)
+{
+	float AxMin, AxMax, AyMin, AyMax;	//Tile
+
+	float BxMin, BxMax, ByMin, ByMax;	//Viewport
+
+	//
+
+	AxMin = m_position.x;
+	AxMax = AxMin + m_extension.x;
+	AyMin = m_position.y;
+	AyMax = AyMin + m_extension.y;
+
+	BxMin = viewport->getCenter().x - viewport->getSize().x / 2;
+	BxMax = viewport->getCenter().x + viewport->getSize().x / 2;
+	ByMin = viewport->getCenter().y - viewport->getSize().y / 2;
+	ByMax = viewport->getCenter().y + viewport->getSize().y / 2;
+
+	if (AxMin < BxMax && AxMax > BxMin
+		&& AyMin < ByMax && AyMax > ByMin)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+void Collider::Cleanup()
 {
 	//hitbox visualisation
 	if (m_Hitbox != nullptr)

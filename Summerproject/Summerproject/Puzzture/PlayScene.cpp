@@ -37,7 +37,7 @@ void PlayScene::Update(float deltatime)
 	m_world->DrawWorld();
 }
 
-void PlayScene::CleanUp()
+void PlayScene::Cleanup()
 {
 	//Clear the world pointer
 	if (m_world != nullptr)

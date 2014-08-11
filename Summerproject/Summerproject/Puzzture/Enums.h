@@ -8,6 +8,7 @@ enum EntityType
 	WALL,
 	FLOOR,
 	FURNITURE,
+	CEILING,
 	ENTITYTYPESIZE
 };
 

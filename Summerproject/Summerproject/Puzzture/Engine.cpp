@@ -73,6 +73,9 @@ bool Engine::Initialise()
 	//Game conditions
 	m_bRunning = true;
 
+	//Extra features
+	m_bPause = false;
+
 	//end of function
 	return true;
 }
@@ -100,8 +103,16 @@ void Engine::Run()
 		//Update the deltatime
 		UpdateDeltatime();
 
-		//Update the Scene
-		m_SceneManager->Update(m_fDeltatime);
+		if (!m_bPause)
+		{
+			//Update the Scene
+			m_SceneManager->Update(m_fDeltatime);
+		}
+
+		if (m_InputManager->m_Keyboard->KeyIsDoneOnce(sf::Keyboard::Space))
+		{
+			//m_bPause = !m_bPause;
+		}
 
 		//Refresh the Input
 		m_InputManager->PostUpdate();
@@ -130,14 +141,14 @@ void Engine::Cleanup()
 
 	if (m_InputManager != nullptr)
 	{
-		m_InputManager->CleanUp();
+		m_InputManager->Cleanup();
 		delete m_InputManager;
 		m_InputManager = nullptr;
 	}
 
 	if (m_EntityManager != nullptr)
 	{
-		m_EntityManager->CleanUp();
+		m_EntityManager->Cleanup();
 		delete m_EntityManager;
 		m_EntityManager = nullptr;
 	}

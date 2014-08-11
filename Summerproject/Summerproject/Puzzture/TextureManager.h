@@ -8,12 +8,14 @@ public:
 	TextureManager();
 
 	//Clean up the textures
-	void CleanUp();
+	void Cleanup();
 
 	//Set the texture directory
-	void Initialise();
+	void Initialise(const std::string directory);
 
+	//Load texture
 
 private:
+	
 	
 };

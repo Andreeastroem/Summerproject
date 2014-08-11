@@ -60,7 +60,7 @@ public:
 
 	void PostUpdate();
 
-	void CleanUp();
+	void Cleanup();
 
 	Mouse* m_Mouse;
 	Keyboard* m_Keyboard;

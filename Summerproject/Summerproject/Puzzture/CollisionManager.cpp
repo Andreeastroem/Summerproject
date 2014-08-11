@@ -22,11 +22,13 @@ bool CollisionManager::Initialise()
 	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(PLAYER, WALL), 0));
 	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(PLAYER, FLOOR), 0));
 	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(PLAYER, FURNITURE), 0));
+	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(PLAYER, CEILING), 0));
 
 	//and also in the reversed order
 	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(WALL, PLAYER), 0));
 	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(FLOOR, PLAYER), 0));
 	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(FURNITURE, PLAYER), 0));
+	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(CEILING, PLAYER), 0));
 
 	//Same entities
 	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(FURNITURE, FURNITURE), 0));
@@ -47,24 +49,27 @@ void CollisionManager::CheckCollision(std::vector<Entity*> *gameentities)
 				if (gameentities->at(i)->GetEntityData().Depth ==
 					gameentities->at(j)->GetEntityData().Depth)
 				{
-					//Check if it is a valid collision
-					std::map<std::pair<EntityType, EntityType>, int>::iterator it =
-						CollisionMap.find(std::pair<EntityType, EntityType>
-						(gameentities->at(i)->GetEntityData().entitytype,
-						gameentities->at(j)->GetEntityData().entitytype));
-
-					//Valid collision
-					if (it != CollisionMap.end())
+					if (gameentities->at(i)->GetDrawStatus())
 					{
-						//std::cout << "Entity1: " << m_EntityManager->GetEntites().at(i)->GetEntityData().entitytype << std::endl;
-						//std::cout << "Entity2: " << m_EntityManager->GetEntites().at(j)->GetEntityData().entitytype << std::endl;
+						//Check if it is a valid collision
+						std::map<std::pair<EntityType, EntityType>, int>::iterator it =
+							CollisionMap.find(std::pair<EntityType, EntityType>
+							(gameentities->at(i)->GetEntityData().entitytype,
+							gameentities->at(j)->GetEntityData().entitytype));
 
-						sf::Vector2f offsetA, offsetB;
-						if (gameentities->at(i)->getCollider()->Overlap(gameentities->at(j)->getCollider(), offsetA, offsetB))
+						//Valid collision
+						if (it != CollisionMap.end())
 						{
-							//Collision
-							gameentities->at(i)->OnCollision(gameentities->at(j), offsetA);
-							gameentities->at(j)->OnCollision(gameentities->at(i), offsetB);
+							//std::cout << "Entity1: " << m_EntityManager->GetEntites().at(i)->GetEntityData().entitytype << std::endl;
+							//std::cout << "Entity2: " << m_EntityManager->GetEntites().at(j)->GetEntityData().entitytype << std::endl;
+
+							sf::Vector2f offsetA, offsetB;
+							if (gameentities->at(i)->getCollider()->Overlap(gameentities->at(j)->getCollider(), offsetA, offsetB))
+							{
+								//Collision
+								gameentities->at(i)->OnCollision(gameentities->at(j), offsetA);
+								gameentities->at(j)->OnCollision(gameentities->at(i), offsetB);
+							}
 						}
 					}
 				}
@@ -73,6 +78,6 @@ void CollisionManager::CheckCollision(std::vector<Entity*> *gameentities)
 	}
 }
 
-void CollisionManager::CleanUp()
+void CollisionManager::Cleanup()
 {
 }

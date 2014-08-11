@@ -103,6 +103,27 @@ bool TileMap::LoadMap(const std::string &FileName, int level)
 				entitydata.Size = sf::Vector2f(m_tileWidth, m_tileHeight);
 				entitydata.Depth = 0;
 				entitydata.MovementCost = 0;
+				entitydata.entitytype = CEILING;
+
+				if (!newtile->Initialise(entitydata))
+					return false;
+
+				newtile->GetShape()->setFillColor(sf::Color(192, 192, 192, 255));
+
+				m_TileMap.push_back(newtile);
+				m_TileMap[m_TileMap.size() - 1]->SetTileMapPosition(j, i);
+
+				m_LastXCoordinate += m_tileWidth;
+
+				//Add to the game entities
+				m_World->GetEntityManager()->AttachTile(newtile);
+				break;
+
+			case 'f':
+				entitydata.Position = sf::Vector2f(m_LastXCoordinate, m_LastYCoordinate);
+				entitydata.Size = sf::Vector2f(m_tileWidth, m_tileHeight);
+				entitydata.Depth = 0;
+				entitydata.MovementCost = 0;
 				entitydata.entitytype = FURNITURE;
 
 				if (!newtile->Initialise(entitydata))
@@ -150,7 +171,7 @@ bool TileMap::LoadMap(const std::string &FileName, int level)
 	return true;
 }
 
-void TileMap::CleanUp()
+void TileMap::Cleanup()
 {
 	if (m_World != nullptr)
 		m_World = nullptr;

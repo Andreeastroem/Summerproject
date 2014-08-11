@@ -16,7 +16,7 @@ public:
 	bool Initialise(EntityData entitydata);
 	void Update(float deltatime);
 	void OnCollision(Entity* entity, sf::Vector2f offset);
-	void CleanUp();
+	void Cleanup();
 
 	//Logic functions
 	void Movement(float deltatime);
@@ -26,6 +26,9 @@ public:
 	//Lazy functions
 	void UpdatePositions();
 
+	void LogPositions();
+	void LogView();
+
 private:
 	World* m_world;
 
@@ -33,4 +36,6 @@ private:
 	float m_fBaseMovementSpeed;
 
 	//jumping
+	bool m_bGrounded;
+	float m_fJumpForce;
 };

@@ -19,7 +19,7 @@ public:
 		EntityManager* entityManager);
 
 	//Clearing up possible memory leakages
-	void CleanUp();
+	void Cleanup();
 
 	//Drawing the parts of the world that is meant to be drawn
 	void DrawWorld();

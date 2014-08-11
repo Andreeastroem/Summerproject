@@ -14,7 +14,7 @@ public:
 	bool Initialise();
 	void CheckCollision(std::vector<Entity*> *gameentities);
 
-	void CleanUp();
+	void Cleanup();
 
 private:
 	std::map<std::pair<EntityType, EntityType>, int> CollisionMap;

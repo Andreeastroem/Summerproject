@@ -59,7 +59,7 @@ bool World::Initialise(sf::RenderWindow* window, DrawManager* drawManager,
 	return true;
 }
 
-void World::CleanUp()
+void World::Cleanup()
 {
 	//Clearing up the managers
 	if (m_Window != nullptr)
@@ -96,20 +96,28 @@ void World::CleanUp()
 
 void World::DrawWorld()
 {
+	
+
 	//Clear the screen from previous frame
 	m_DrawManager->ClearScreen(m_Window, m_iR, m_iG, m_iB, m_iA);
 
 	//Handle drawing
-	for (unsigned int i = 0; i < m_EntityManager->GetEntites().size(); i++)
+	std::vector<Entity*> gameEntities = m_EntityManager->GetEntites();
+	
+
+	for (unsigned int i = 0; i < gameEntities.size(); i++)
 	{
-		m_DrawManager->DrawShape(m_Window, m_EntityManager->GetEntites().at(i)->GetShape());
+		std::cout << gameEntities[i]->GetDrawStatus() << std::endl;
+		if (gameEntities[i]->GetDrawStatus())
+			m_DrawManager->DrawShape(m_Window, m_EntityManager->GetEntites().at(i)->GetShape());
 	}
 
 	if (m_bDrawHitboxes)
 	{
-		for (unsigned int i = 0; i < m_EntityManager->GetEntites().size(); i++)
+		for (unsigned int i = 0; i < gameEntities.size(); i++)
 		{
-			m_DrawManager->DrawShape(m_Window, m_EntityManager->GetEntites().at(i)->getCollider()->getHitbox());
+			if (gameEntities[i]->GetDrawStatus())
+				m_DrawManager->DrawShape(m_Window, m_EntityManager->GetEntites().at(i)->getCollider()->getHitbox());
 		}
 	}
 
@@ -129,6 +137,8 @@ void World::UpdateWorld(float deltatime)
 	}
 
 	m_EntityManager->Update(deltatime);
+
+	m_EntityManager->SetDrawStatuses(m_GameView);
 }
 
 void World::LoadLevel(int level)
@@ -146,7 +156,7 @@ void World::ClearLevel()
 
 void World::ClearWorld()
 {
-	m_EntityManager->CleanUp();
+	m_EntityManager->Cleanup();
 }
 
 //Access functions

@@ -13,6 +13,8 @@ Entity::Entity()
 //Abstract classes
 bool Entity::Initialise(EntityData entitydata)
 {
+	m_bDrawStatus = true;
+
 	return true;
 }
 
@@ -26,7 +28,7 @@ void Entity::OnCollision(Entity* entity, sf::Vector2f offset)
 
 }
 
-void Entity::CleanUp()
+void Entity::Cleanup()
 {
 	//Clean up the visuals
 	if (m_Sprite != nullptr)
@@ -43,7 +45,7 @@ void Entity::CleanUp()
 	//Clean up collision
 	if (m_Collider != nullptr)
 	{
-		m_Collider->CleanUp();
+		m_Collider->Cleanup();
 		delete m_Collider;
 		m_Collider = nullptr;
 	}

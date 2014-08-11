@@ -168,7 +168,7 @@ void InputManager::PostUpdate()
 	m_Keyboard->PostUpdate();
 }
 
-void InputManager::CleanUp()
+void InputManager::Cleanup()
 {
 	if (m_Mouse != nullptr)
 	{

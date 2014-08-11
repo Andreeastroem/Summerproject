@@ -19,6 +19,8 @@ Tile::~Tile()
 
 bool Tile::Initialise(EntityData entitydata)
 {
+	Entity::Initialise(entitydata);
+
 	m_EntityData = entitydata;
 
 	m_Shape = new sf::RectangleShape();
@@ -50,7 +52,7 @@ void Tile::OnCollision(Entity* entity, sf::Vector2f offset)
 	
 }
 
-void Tile::CleanUp()
+void Tile::Cleanup()
 {
 	//Clean up the visuals
 	if (m_Sprite != nullptr)
@@ -67,7 +69,7 @@ void Tile::CleanUp()
 	//Clean up collider
 	if (m_Collider != nullptr)
 	{
-		m_Collider->CleanUp();
+		m_Collider->Cleanup();
 		delete m_Collider;
 		m_Collider = nullptr;
 	}

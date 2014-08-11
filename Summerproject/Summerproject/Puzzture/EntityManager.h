@@ -18,7 +18,7 @@ public:
 	bool Initialise(World* world);
 
 	void ClearEntities();
-	void CleanUp();
+	void Cleanup();
 
 	bool AttachEntity(EntityType entitytype);
 	bool AttachTile(Tile* tile);
@@ -27,6 +27,7 @@ public:
 
 	void Update(float deltatime);
 	
+	void SetDrawStatuses(sf::View* viewport);
 
 	//Access functions
 	std::vector<Entity*> GetEntites();

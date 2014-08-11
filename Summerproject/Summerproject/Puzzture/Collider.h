@@ -10,7 +10,9 @@ public:
 
 	//Essential functions
 	bool Overlap(Collider* other, sf::Vector2f &offsetA, sf::Vector2f &offsetB);
-	void CleanUp();
+	bool Overlap(sf::View* viewport);
+
+	void Cleanup();
 
 	void Update(float deltatime);
 
