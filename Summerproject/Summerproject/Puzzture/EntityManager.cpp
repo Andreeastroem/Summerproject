@@ -147,14 +147,7 @@ void EntityManager::SetDrawStatuses(sf::View* viewport)
 {
 	for (int i = 0; i < m_GameEntities.size(); i++)
 	{
-		if (m_GameEntities[i]->getCollider()->Overlap(viewport))
-		{
-			m_GameEntities[i]->SetDrawStatus(true);
-		}
-		else
-		{
-			m_GameEntities[i]->SetDrawStatus(false);
-		}
+		m_GameEntities[i]->SetDrawStatus(m_GameEntities[i]->getCollider()->Overlap(viewport));
 	}
 }
 
