@@ -13,6 +13,8 @@ public:
 
 		sf::Vector2f Size;
 
+		sf::Vector2f Force = sf::Vector2f();
+
 		//The depth in the game, 1 represents the front and -1 the back
 		int Depth;
 
@@ -68,6 +70,16 @@ public:
 		m_bFlagged = state;
 	}
 
+	bool GetDrawStatus()
+	{
+		return m_bDrawStatus;
+	}
+
+	void SetDrawStatus(bool state)
+	{
+		m_bDrawStatus = state;
+	}
+
 protected:
 	//Size and position of the entity
 	EntityData m_EntityData;
@@ -82,4 +94,7 @@ protected:
 
 	//Is entity alive or dead?
 	bool m_bFlagged;
+
+	//Draw status
+	bool m_bDrawStatus;
 };

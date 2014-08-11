@@ -100,16 +100,21 @@ void World::DrawWorld()
 	m_DrawManager->ClearScreen(m_Window, m_iR, m_iG, m_iB, m_iA);
 
 	//Handle drawing
-	for (unsigned int i = 0; i < m_EntityManager->GetEntites().size(); i++)
+	std::vector<Entity*> gameEntities = m_EntityManager->GetEntites();
+
+
+	for (unsigned int i = 0; i < gameEntities.size(); i++)
 	{
-		m_DrawManager->DrawShape(m_Window, m_EntityManager->GetEntites().at(i)->GetShape());
+		if (gameEntities[i]->GetDrawStatus())
+			m_DrawManager->DrawShape(m_Window, m_EntityManager->GetEntites().at(i)->GetShape());
 	}
 
 	if (m_bDrawHitboxes)
 	{
-		for (unsigned int i = 0; i < m_EntityManager->GetEntites().size(); i++)
+		for (unsigned int i = 0; i < gameEntities.size(); i++)
 		{
-			m_DrawManager->DrawShape(m_Window, m_EntityManager->GetEntites().at(i)->getCollider()->getHitbox());
+			if (gameEntities[i]->GetDrawStatus())
+				m_DrawManager->DrawShape(m_Window, m_EntityManager->GetEntites().at(i)->getCollider()->getHitbox());
 		}
 	}
 
@@ -129,6 +134,8 @@ void World::UpdateWorld(float deltatime)
 	}
 
 	m_EntityManager->Update(deltatime);
+
+	m_EntityManager->UpdateDrawStatues(m_GameView);
 }
 
 void World::LoadLevel(int level)

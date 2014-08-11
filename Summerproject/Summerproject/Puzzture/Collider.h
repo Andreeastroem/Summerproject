@@ -9,8 +9,12 @@ public:
 	Collider(sf::Vector2f position, sf::Vector2f extension);
 
 	//Essential functions
-	bool Overlap(Collider* other, sf::Vector2f &offset);
-	void CleanUp();
+	bool Overlap(Collider* other, sf::Vector2f &offsetA, sf::Vector2f &offsetB);
+	bool Overlap(sf::View* viewport);
+
+	void Cleanup();
+
+	void Update(float deltatime);
 
 	//Access functions
 	void SetPosition(sf::Vector2f position)
@@ -38,8 +42,21 @@ public:
 		return m_Hitbox;
 	}
 
+	sf::Vector2f getVelocity()
+	{
+		return m_velocity;
+	}
+
+	sf::Vector2f getLastPosition()
+	{
+		return m_lastPosition;
+	}
+
 private:
+	sf::Vector2f m_lastPosition;
 	sf::Vector2f m_position;
+	sf::Vector2f m_velocity;
+	void Velocity(sf::Vector2f val) { m_velocity = val; }
 	sf::Vector2f m_extension;
 
 	sf::RectangleShape* m_Hitbox;

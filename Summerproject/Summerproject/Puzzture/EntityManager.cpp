@@ -137,6 +137,17 @@ void EntityManager::Update(float deltatime)
 
 	//Check collision between entities
 	m_CollisionManager->CheckCollision(&m_GameEntities);
+
+	//Erase destroyed objects
+	EraseFlaggedEntities();
+}
+
+void EntityManager::UpdateDrawStatues(sf::View* viewport)
+{
+	for (int i = 0; i < m_GameEntities.size(); i++)
+	{
+		m_GameEntities[i]->SetDrawStatus(m_GameEntities[i]->getCollider()->Overlap(viewport));
+	}
 }
 
 //Access functions

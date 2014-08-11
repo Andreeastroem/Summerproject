@@ -6,8 +6,6 @@
 
 void MenuScene::Enter()
 {
-	std::cout << "Menustate" << std::endl;
-
 	m_world->ClearLevel();
 
 	m_iAlpha = 255;

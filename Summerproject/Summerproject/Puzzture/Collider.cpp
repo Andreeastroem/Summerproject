@@ -21,8 +21,12 @@ Collider::Collider(sf::Vector2f position, sf::Vector2f extension)
 
 //Essential functions
 
-bool Collider::Overlap(Collider* other, sf::Vector2f &offset)
+bool Collider::Overlap(Collider* other, sf::Vector2f &offsetSelf, sf::Vector2f &offsetOther)
 {
+	/*
+		Collision check with SAT, seperating axis theorem
+	
+
 	//check if it intersects on x coordinates
 	float firstwidth = m_extension.x/2;
 	float secondwidth = other->getExtension().x/2;
@@ -39,26 +43,42 @@ bool Collider::Overlap(Collider* other, sf::Vector2f &offset)
 
 		if (fabs(differencey) <= (firstheight + secondheight))
 		{
-			//return the difference between the objects
-			
-			if (m_position.x < other->getPosition().x)
-				differencex = -differencex;
-
-			if (m_position.y < other->getPosition().y)
-				differencey = -differencey;
-
-			
-			offset.x = differencex;
-			offset.y = differencey;
-
 			return true;
 		}
 	}
 
 	return false;
+	*/
+
+	
+
 }
 
-void Collider::CleanUp()
+bool Collider::Overlap(sf::View* viewport)
+{
+	float AxMin, AxMax, AyMin, AyMax;
+	float BxMin, BxMax, ByMin, ByMax;
+
+	AxMax = m_position.x + m_extension.x;
+	AxMin = m_position.x;
+	AyMax = m_position.y + m_extension.y;
+	AyMin = m_position.y;
+
+	BxMax = viewport->getCenter().x + viewport->getSize().x / 2;
+	BxMin = viewport->getCenter().x - viewport->getSize().x / 2;
+	ByMax = viewport->getCenter().y + viewport->getSize().y / 2;
+	ByMin = viewport->getCenter().y - viewport->getSize().y / 2;
+
+	if (AxMin < BxMax && AxMax > BxMin
+		&& AyMin < ByMax && AyMax > ByMin)
+	{
+		return true;
+	}
+	else
+		return false;
+}
+
+void Collider::Cleanup()
 {
 	//hitbox visualisation
 	if (m_Hitbox != nullptr)
@@ -66,4 +86,10 @@ void Collider::CleanUp()
 		delete m_Hitbox;
 		m_Hitbox = nullptr;
 	}
+}
+
+void Collider::Update(float deltatime)
+{
+	m_velocity = m_position - m_lastPosition;
+	m_lastPosition = m_position;
 }

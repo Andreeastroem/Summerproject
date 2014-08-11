@@ -26,6 +26,7 @@ public:
 	void EraseFlaggedEntities();
 
 	void Update(float deltatime);
+	void UpdateDrawStatues(sf::View* viewport);
 	
 
 	//Access functions

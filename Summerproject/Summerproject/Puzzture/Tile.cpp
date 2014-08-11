@@ -19,6 +19,8 @@ Tile::~Tile()
 
 bool Tile::Initialise(EntityData entitydata)
 {
+	Entity::Initialise(entitydata);
+
 	m_EntityData = entitydata;
 
 	m_Shape = new sf::RectangleShape();
@@ -67,7 +69,7 @@ void Tile::CleanUp()
 	//Clean up collider
 	if (m_Collider != nullptr)
 	{
-		m_Collider->CleanUp();
+		m_Collider->Cleanup();
 		delete m_Collider;
 		m_Collider = nullptr;
 	}

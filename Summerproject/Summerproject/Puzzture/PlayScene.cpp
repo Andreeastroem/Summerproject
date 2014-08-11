@@ -6,8 +6,6 @@
 
 void PlayScene::Enter()
 {
-	std::cout << "PlayScene" << std::endl;
-
 	m_iAlpha = 255;
 
 	m_world->SetBackgroundRGB(m_iRed, m_iGreen, m_iBlue, m_iAlpha);
