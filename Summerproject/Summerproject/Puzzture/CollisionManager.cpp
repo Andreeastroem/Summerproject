@@ -49,33 +49,47 @@ void CollisionManager::CheckCollision(std::vector<Entity*> *gameentities)
 				if (gameentities->at(i)->GetEntityData().Depth ==
 					gameentities->at(j)->GetEntityData().Depth)
 				{
-					if (gameentities->at(i)->GetDrawStatus())
+					
+					//Check if it is a valid collision
+					std::map<std::pair<EntityType, EntityType>, int>::iterator it =
+						CollisionMap.find(std::pair<EntityType, EntityType>
+						(gameentities->at(i)->GetEntityData().entitytype,
+						gameentities->at(j)->GetEntityData().entitytype));
+
+					//Valid collision
+					if (it != CollisionMap.end())
 					{
-						//Check if it is a valid collision
-						std::map<std::pair<EntityType, EntityType>, int>::iterator it =
-							CollisionMap.find(std::pair<EntityType, EntityType>
-							(gameentities->at(i)->GetEntityData().entitytype,
-							gameentities->at(j)->GetEntityData().entitytype));
-
-						//Valid collision
-						if (it != CollisionMap.end())
+							
+						sf::Vector2f offsetA, offsetB;
+						if (gameentities->at(i)->getCollider()->Overlap(gameentities->at(j)->getCollider(), offsetA, offsetB))
 						{
-							//std::cout << "Entity1: " << m_EntityManager->GetEntites().at(i)->GetEntityData().entitytype << std::endl;
-							//std::cout << "Entity2: " << m_EntityManager->GetEntites().at(j)->GetEntityData().entitytype << std::endl;
-
-							sf::Vector2f offsetA, offsetB;
-							if (gameentities->at(i)->getCollider()->Overlap(gameentities->at(j)->getCollider(), offsetA, offsetB))
-							{
-								//Collision
-								gameentities->at(i)->OnCollision(gameentities->at(j), offsetA);
-								gameentities->at(j)->OnCollision(gameentities->at(i), offsetB);
-							}
+							//Collision
+							gameentities->at(i)->OnCollision(gameentities->at(j), offsetA);
+							gameentities->at(j)->OnCollision(gameentities->at(i), offsetB);
 						}
 					}
 				}
+				
 			}
 		}
 	}
+}
+
+bool CollisionManager::Intersect(sf::FloatRect box, std::vector<Entity*>* gameentities)
+{
+	for (int i = 0; i < gameentities->size(); i++)
+	{
+		if (gameentities->at(i)->GetDrawStatus())
+		{
+			if (gameentities->at(i)->GetEntityData().Depth == 0)
+			{
+				if (box.intersects(gameentities->at(i)->GetSprite()->getGlobalBounds()))
+					return true;
+			}
+		}
+	}
+	
+	return false;
 }
 
 void CollisionManager::Cleanup()

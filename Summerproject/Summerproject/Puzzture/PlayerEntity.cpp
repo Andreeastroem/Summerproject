@@ -32,8 +32,8 @@ bool PlayerEntity::Initialise(EntityData entitydata)
 	if (m_Shape == nullptr)
 		return false;
 
-	m_fBaseMovementSpeed = 20;
-	m_fJumpForce = 50;
+	m_fBaseMovementSpeed = 5;
+	m_fJumpForce = 2;
 
 	m_bGrounded = false;
 
@@ -68,6 +68,10 @@ void PlayerEntity::Cleanup()
 
 void PlayerEntity::Update(float deltatime)
 {
+	//Check if grounded
+	if (m_bGrounded)
+		m_bGrounded = CanJump();
+
 	//input
 	Movement(deltatime);
 
@@ -82,51 +86,62 @@ void PlayerEntity::Update(float deltatime)
 
 void PlayerEntity::OnCollision(Entity* entity, sf::Vector2f offset)
 {
-	std::cout << "collision" << std::endl;
+	/**/
 	switch (entity->GetEntityData().entitytype)
 	{
 	case WALL:
 		m_EntityData.Position.x += offset.x;
-		m_EntityData.Position.y = m_v2fLastPosition.y;
+		//m_EntityData.Force.x = 0;
+		//m_EntityData.Position.y = m_v2fLastPosition.y;
 
-		UpdatePositions();
 		break;
 	case FLOOR:
 		m_EntityData.Position.y += offset.y;
 
-		UpdatePositions();
 		break;
 	case FURNITURE:
-		//Fix Y offset and then fix X offset in next frame
-		if (fabs(offset.y) > 0.01f)
-			m_EntityData.Position.y += offset.y;
-		else if (fabs(offset.x) > 0.01f)
-			m_EntityData.Position.x += offset.x;
-
-		UpdatePositions();
+		if (fabs(offset.x) > 0 && fabs(offset.y) > 0)
+		{
+			if (fabs(offset.x) < fabs(offset.y))
+			{
+				m_EntityData.Position.x += offset.x;
+				m_EntityData.Force.x = 0;
+			}
+			else
+			{
+				m_EntityData.Position.y += offset.y;
+			}
+		}
+		else
+		{
+			m_EntityData.Position += offset;
+			if (fabs(offset.x) > 0)
+			{
+				m_EntityData.Force.x = 0;
+			}
+		}
 
 		break;
 
 	case CEILING:
 		m_EntityData.Position.y += offset.y;
-
-		UpdatePositions();
 		break;
 	default:
 		break;
 	}
 
+	LogVector(offset);
+	
 	//If there has been just an offset in Y and not X
-	if (fabs(offset.x) < 0.0001f && offset.y < 0)
+	if (offset.y < 0)
 	{
 		m_bGrounded = true;
 
 		m_EntityData.Force.y = 0;
-
-		std::cout << "grounded" << std::endl;
 	}
 
 	m_Collider->Update(0);
+	UpdatePositions();
 }
 
 //Logic functions
@@ -147,7 +162,7 @@ void PlayerEntity::Movement(float deltatime)
 	//jumping
 	if (m_world->GetInputManager()->m_Keyboard->KeyIsDoneOnce(sf::Keyboard::Space))
 	{
-		if (CanJump())
+		if (m_bGrounded)
 		{
 			Jump();
 		}
@@ -156,7 +171,7 @@ void PlayerEntity::Movement(float deltatime)
 	//Gravitation && friction
 	if (!m_bGrounded)
 	{
-		m_EntityData.Force.y += 10;
+		m_EntityData.Force.y += 9.8 * deltatime;
 	}
 	else
 	{
@@ -167,14 +182,19 @@ void PlayerEntity::Movement(float deltatime)
 
 	//Calculate movement
 	m_EntityData.Position += m_EntityData.Force;
+
+	UpdatePositions();
 }
 
 bool PlayerEntity::CanJump()
 {
-	if (m_bGrounded)
-		return true;
-	else
-		return false;
+	sf::FloatRect feet;
+	feet.top = m_EntityData.Position.y + m_EntityData.Size.y;
+	feet.left = m_EntityData.Position.x;
+	feet.height = 1;
+	feet.width = m_EntityData.Size.x;
+
+	return m_world->Intersect(feet);
 }
 
 void PlayerEntity::Jump()
@@ -188,6 +208,7 @@ void PlayerEntity::Jump()
 void PlayerEntity::UpdatePositions()
 {
 	m_Shape->setPosition(m_EntityData.Position);
+	m_Sprite->setPosition(m_EntityData.Position);
 	m_Collider->SetPosition(m_EntityData.Position);
 }
 
@@ -202,4 +223,10 @@ void PlayerEntity::LogView()
 {
 	std::cout << "View: " << "\t\tX: " << m_EntityData.Position.x + m_EntityData.Size.x / 2 <<
 		"\tY: " << m_EntityData.Position.y + m_EntityData.Size.y / 2 << "\n" << std::endl;
+}
+
+void PlayerEntity::LogVector(sf::Vector2f v)
+{
+	std::cout << "X: " << v.x << std::endl;
+	std::cout << "Y: " << v.y << "\n" << std::endl;
 }

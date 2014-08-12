@@ -17,6 +17,7 @@ bool Engine::Initialise()
 	m_InputManager = new InputManager;
 	m_SceneManager = new SceneManager;
 	m_EntityManager = new EntityManager;
+	m_TextureManager = new TextureManager;
 
 	//World
 	m_World = new World;
@@ -28,6 +29,8 @@ bool Engine::Initialise()
 	if (!m_ConfigManager->Initialise("../data/"))
 		return false;
 	if (!m_InputManager->Initialise())
+		return false;
+	if (!m_TextureManager->Initialise("../data/Textures/", "png"))
 		return false;
 	
 
@@ -59,7 +62,7 @@ bool Engine::Initialise()
 		return false;
 
 	//Condidition for continuing (world)
-	if (!m_World->Initialise(m_Window, m_DrawManager, m_ConfigManager, m_InputManager, m_EntityManager))
+	if (!m_World->Initialise(m_Window, m_DrawManager, m_ConfigManager, m_InputManager, m_EntityManager, m_TextureManager))
 		return false;
 
 	//Validation of the SceneManager
@@ -159,6 +162,14 @@ void Engine::Cleanup()
 
 		delete m_SceneManager;
 		m_SceneManager = nullptr;
+	}
+
+	if (m_TextureManager != nullptr)
+	{
+		m_TextureManager->Cleanup();
+
+		delete m_TextureManager;
+		m_TextureManager = nullptr;
 	}
 }
 

@@ -29,6 +29,9 @@ public:
 	
 	void SetDrawStatuses(sf::View* viewport);
 
+	//Specified collision
+	bool Intersect(sf::FloatRect box);
+
 	//Access functions
 	std::vector<Entity*> GetEntites();
 

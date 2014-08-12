@@ -7,6 +7,7 @@
 #include "Tile.h"
 #include "PlayerEntity.h"
 #include "CollisionManager.h"
+#include "TextureManager.h"
 
 #include "EntityManager.h"
 
@@ -26,6 +27,8 @@ bool EntityManager::Initialise(World* world)
 	m_world = world;
 	if (m_world == nullptr)
 		return false;
+
+	m_world->GetTextureManager()->LoadTexture("mc");
 
 	return true;
 }
@@ -86,12 +89,14 @@ bool EntityManager::AttachEntity(EntityType entitytype)
 		entitydata.entitytype = entitytype;
 		entitydata.MovementCost = 0;
 		entitydata.Depth = 0;
-		entitydata.Size = sf::Vector2f(64, 128);
+		entitydata.Size = sf::Vector2f(20, 64);
 
 		if (!playerentity->Initialise(entitydata))
 			return false;
 
 		playerentity->GetShape()->setFillColor(sf::Color(255, 255, 0, 255));
+
+		playerentity->SetSpriteTexture(m_world->GetTextureManager()->GetTexture("mc"));
 
 		m_GameEntities.push_back(playerentity);
 
@@ -149,6 +154,11 @@ void EntityManager::SetDrawStatuses(sf::View* viewport)
 	{
 		m_GameEntities[i]->SetDrawStatus(m_GameEntities[i]->getCollider()->Overlap(viewport));
 	}
+}
+
+bool EntityManager::Intersect(sf::FloatRect box)
+{
+	return m_CollisionManager->Intersect(box, &m_GameEntities);
 }
 
 //Access functions

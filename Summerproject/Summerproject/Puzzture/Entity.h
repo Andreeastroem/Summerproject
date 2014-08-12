@@ -46,6 +46,16 @@ public:
 		return m_Sprite;
 	}
 
+	void SetSpriteTexture(sf::Texture* texture)
+	{
+		m_Sprite->setTexture(*texture);
+	}
+	
+	void SetSpriteTextureRect(sf::IntRect textRect)
+	{
+		m_Sprite->setTextureRect(textRect);
+	}
+
 	EntityData GetEntityData()
 	{
 		return m_EntityData;

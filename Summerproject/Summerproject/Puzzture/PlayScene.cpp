@@ -6,8 +6,6 @@
 
 void PlayScene::Enter()
 {
-	std::cout << "PlayScene" << std::endl;
-
 	m_iAlpha = 255;
 
 	m_world->SetBackgroundRGB(m_iRed, m_iGreen, m_iBlue, m_iAlpha);
@@ -15,7 +13,10 @@ void PlayScene::Enter()
 
 	m_world->GetEntityManager()->AttachEntity(PLAYER);
 
-	m_world->SetViewSize(sf::Vector2f(256, 256));
+	float tilewidth = m_world->GetConfigManager()->ReadFloat("tilewidth");
+	float tileheight = m_world->GetConfigManager()->ReadFloat("tileheight");
+
+	m_world->SetViewSize(sf::Vector2f(tilewidth * 8, tileheight * 4.5f));
 }
 
 

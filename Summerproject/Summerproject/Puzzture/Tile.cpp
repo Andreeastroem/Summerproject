@@ -54,25 +54,7 @@ void Tile::OnCollision(Entity* entity, sf::Vector2f offset)
 
 void Tile::Cleanup()
 {
-	//Clean up the visuals
-	if (m_Sprite != nullptr)
-	{
-		delete m_Sprite;
-		m_Sprite = nullptr;
-	}
-	if (m_Shape != nullptr)
-	{
-		delete m_Shape;
-		m_Shape = nullptr;
-	}
-
-	//Clean up collider
-	if (m_Collider != nullptr)
-	{
-		m_Collider->Cleanup();
-		delete m_Collider;
-		m_Collider = nullptr;
-	}
+	Entity::Cleanup();
 }
 
 //Access functions

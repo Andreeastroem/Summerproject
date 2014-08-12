@@ -12,7 +12,10 @@ public:
 
 	//Essential functions
 	bool Initialise();
-	void CheckCollision(std::vector<Entity*> *gameentities);
+	void CheckCollision(std::vector<Entity*>* gameentities);
+
+	//Specified collision
+	bool Intersect(sf::FloatRect box, std::vector<Entity*>* gameentities);
 
 	void Cleanup();
 

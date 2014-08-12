@@ -13,6 +13,9 @@ Entity::Entity()
 //Abstract classes
 bool Entity::Initialise(EntityData entitydata)
 {
+	m_Sprite = new sf::Sprite();
+	m_Sprite->setPosition(entitydata.Position);
+
 	m_bDrawStatus = true;
 
 	return true;

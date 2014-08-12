@@ -17,7 +17,7 @@ World::World()
 
 bool World::Initialise(sf::RenderWindow* window, DrawManager* drawManager, 
 	ConfigManager* configManager, InputManager* inputManager,
-	EntityManager* entityManager)
+	EntityManager* entityManager, TextureManager* textureManager)
 {
 	//Initialisation
 	m_Window = window;
@@ -29,6 +29,8 @@ bool World::Initialise(sf::RenderWindow* window, DrawManager* drawManager,
 	m_InputManager = inputManager;
 
 	m_EntityManager = entityManager;
+
+	m_TextureManager = textureManager;
 
 	m_Level = new TileMap;
 
@@ -48,7 +50,7 @@ bool World::Initialise(sf::RenderWindow* window, DrawManager* drawManager,
 	if (!m_EntityManager->Initialise(this))
 		return false;
 
-	if (!m_Level->Initialise("Maps", this))
+	if (!m_Level->Initialise("Maps", this, m_TextureManager))
 		return false;
 
 	m_GameView = new sf::View(m_Window->getDefaultView());
@@ -77,6 +79,9 @@ void World::Cleanup()
 
 	if (m_EntityManager != nullptr)
 		m_EntityManager = nullptr;
+
+	if (m_TextureManager != nullptr)
+		m_TextureManager = nullptr;
 
 	if (m_Level != nullptr)
 	{
@@ -107,9 +112,11 @@ void World::DrawWorld()
 
 	for (unsigned int i = 0; i < gameEntities.size(); i++)
 	{
-		std::cout << gameEntities[i]->GetDrawStatus() << std::endl;
 		if (gameEntities[i]->GetDrawStatus())
-			m_DrawManager->DrawShape(m_Window, m_EntityManager->GetEntites().at(i)->GetShape());
+		{
+			m_DrawManager->DrawSprite(m_Window, m_EntityManager->GetEntites().at(i)->GetSprite());
+		}
+			
 	}
 
 	if (m_bDrawHitboxes)
@@ -159,6 +166,11 @@ void World::ClearWorld()
 	m_EntityManager->Cleanup();
 }
 
+bool World::Intersect(sf::FloatRect box)
+{
+	return m_EntityManager->Intersect(box);
+}
+
 //Access functions
 
 void World::SetBackgroundRGB(int R, int G, int B, int Alpha)
@@ -168,29 +180,4 @@ void World::SetBackgroundRGB(int R, int G, int B, int Alpha)
 	m_iB = B;
 
 	m_iA = Alpha;
-}
-
-InputManager* World::GetInputManager()
-{
-	return m_InputManager;
-}
-
-ConfigManager* World::GetConfigManager()
-{
-	return m_ConfigManager;
-}
-
-EntityManager* World::GetEntityManager()
-{
-	return m_EntityManager;
-}
-
-DrawManager* World::GetDrawManager()
-{
-	return m_DrawManager;
-}
-
-TileMap* World::GetLevel()
-{
-	return m_Level;
 }
