@@ -111,19 +111,56 @@ bool Collider::SATOverlap(Collider* other, sf::Vector2f &offsetA, sf::Vector2f &
 			if (m_position.x < other->getPosition().x)
 			{
 				//Set the offset, where A is self
+				offsetB.x = differencex + (firstwidth + secondwidth);
+
+				//Set the offset, where B is other
+				offsetA.x = -differencex - (firstwidth + secondwidth);
+
+				if (m_position.y < other->getPosition().y)
+				{
+					//Set the offset, where B is other
+					offsetB.y = differencey + (firstheight + secondheight);
+
+					//Set the offset, where A is self
+					offsetA.y = -differencey - (firstheight + secondheight);
+				}
+				else
+				{
+					//Set the offset, where B is other
+					offsetB.y = differencey - (firstheight + secondheight);
+
+					//Set the offset, where A is self
+					offsetA.y = -differencey + (firstheight + secondheight);
+				}
+			}
+			else
+			{
+				//Set the offset, where A is self
 				offsetB.x = differencex - (firstwidth + secondwidth);
 
 				//Set the offset, where B is other
 				offsetA.x = -differencex + (firstwidth + secondwidth);
 
 				if (m_position.y < other->getPosition().y)
+				{
+					//Set the offset, where B is other
+					offsetB.y = differencey + (firstheight + secondheight);
+
+					//Set the offset, where A is self
+					offsetA.y = -differencey - (firstheight + secondheight);
+				}
+				else
+				{
+					//Set the offset, where B is other
+					offsetB.y = differencey - (firstheight + secondheight);
+
+					//Set the offset, where A is self
+					offsetA.y = -differencey + (firstheight + secondheight);
+				}
 			}
 
 			
-			offsetB.y = differencey - (firstheight + secondheight);
-
 			
-			offsetA.y = -differencey + (firstheight + secondheight);
 
 			return true;
 		}

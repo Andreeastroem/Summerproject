@@ -86,47 +86,39 @@ void PlayerEntity::Update(float deltatime)
 
 void PlayerEntity::OnCollision(Entity* entity, sf::Vector2f offset)
 {
-	Log::Message(m_bGrounded, "Grounded");
-	/**/
 	switch (entity->GetEntityData().entitytype)
 	{
 	case WALL:
-		m_EntityData.Position.x += offset.x;
-		m_EntityData.Force.x = 0;
-
 		break;
 	case FLOOR:
-		m_EntityData.Position.y += offset.y;
-
 		break;
 	case FURNITURE:
-		if (fabs(offset.x) < fabs(offset.y))
-		{
-			m_EntityData.Position.x += offset.x;
-			m_EntityData.Force.x = 0;
-		}
-		else
-		{
-			m_EntityData.Position.y += offset.y;
-		}
-
 		break;
-
 	case CEILING:
-		m_EntityData.Position.y += offset.y;
 		break;
 	default:
 		break;
 	}
-	//If there has been just an offset in Y and not X
+
+	//Fix offset
+	if (fabs(offset.x) < fabs(offset.y))
+	{
+		m_EntityData.Position.x += offset.x;
+		m_EntityData.Force.x = 0;
+	}
+	else
+	{
+		m_EntityData.Position.y += offset.y;
+	}
+
+	//If the offset is set to correct upwards, we have hit the ground
 	if (offset.y < 0)
 	{
 		m_bGrounded = true;
-
 		m_EntityData.Force.y = 0;
 	}
 
-	m_Collider->Update(0);
+	//m_Collider->Update(0);
 	UpdatePositions();
 }
 
