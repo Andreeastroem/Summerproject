@@ -21,12 +21,12 @@ public:
 	void SetPosition(sf::Vector2f position)
 	{
 		m_position = position;
-		m_Hitbox->setPosition(m_position);
+		m_Hitbox.setPosition(m_position);
 	}
 	void SetExtension(sf::Vector2f extension)
 	{
 		m_extension = extension;
-		m_Hitbox->setSize(m_extension);
+		m_Hitbox.setSize(m_extension);
 	}
 
 	sf::Vector2f getPosition()
@@ -38,7 +38,7 @@ public:
 		return m_extension;
 	}
 
-	sf::RectangleShape* getHitbox()
+	sf::RectangleShape getHitbox()
 	{
 		return m_Hitbox;
 	}
@@ -60,5 +60,5 @@ private:
 	void Velocity(sf::Vector2f val) { m_velocity = val; }
 	sf::Vector2f m_extension;
 
-	sf::RectangleShape* m_Hitbox;
+	sf::RectangleShape m_Hitbox;
 };

@@ -17,6 +17,7 @@ public:
 	//Essential functions
 	bool Initialise(std::string folder, World* world, TextureManager* textureManager);
 	bool LoadMap(const std::string &FileName, int level);
+	bool LoadEnvironment(int level);
 	void Cleanup();
 	void ClearLevel();
 
@@ -27,6 +28,7 @@ public:
 
 private:
 	std::vector<Tile*> m_TileMap;
+	std::vector<Tile*> m_Furnitures;
 	TextureManager* m_TextureManager;
 
 	std::string m_sFolder;

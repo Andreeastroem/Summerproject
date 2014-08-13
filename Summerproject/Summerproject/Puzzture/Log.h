@@ -6,6 +6,25 @@
 
 namespace Log
 {
+	enum Colour
+	{
+		BLUE = 1,
+		GREEN,
+		CYAN,
+		RED,
+		PURPLE,
+		DARKYELLOW,
+		DEFAULT,
+		GREY,
+		BRIGHTBLUE,
+		BRIGHTGREEN,
+		BRIGHTCYAN,
+		BRIGHTRED,
+		PINK,
+		YELLOW,
+		BRIGHTWHITE
+	};
+
 	void Message(std::string message);
 	void Message(char c);
 	void Message(float f);
@@ -14,4 +33,8 @@ namespace Log
 	void Message(void * p);
 	void Message(bool state);
 	void Message(bool state, std::string name);
+
+	void Error(std::string message);
+
+	void SetColour(int value);
 };

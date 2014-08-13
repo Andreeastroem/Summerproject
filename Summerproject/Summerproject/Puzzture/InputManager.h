@@ -23,8 +23,6 @@ private:
 
 //Mouse related actions
 
-
-
 class Mouse
 {
 	friend class InputManager;
@@ -44,6 +42,19 @@ private:
 	bool m_PreviousMouseButtons[MOUSEBUTTONSIZE];
 
 	sf::Vector2f m_position;
+};
+
+//Gamepad related actions
+
+class Gamepad
+{
+	friend class InputManager;
+public:
+	Gamepad();
+	~Gamepad();
+
+private:
+	//bool m_CurrentGamepadButtons[];
 };
 
 //InputManager

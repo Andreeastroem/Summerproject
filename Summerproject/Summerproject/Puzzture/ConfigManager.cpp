@@ -65,13 +65,20 @@ bool ConfigManager::ReadFile(const std::string &FileName)
 				//If there was a "=" sign on that line
 				if (WordLength != std::string::npos)
 				{
+					//take away any possible spaces
+					FileLines[i] = DeleteSpaces(FileLines[i]);
+					std::size_t WordLength = FileLines[i].find('=');
+
 					//Key is the string from position 0 to the position of the "=" sign
 					Key = FileLines[i].substr(0, WordLength);
 					//Value is the string from the "=" sign and to the end of the line
 					Value = FileLines[i].substr(WordLength + 1);
 
 					//Insert the Key and the Value in the map
-					FileValues.insert(std::pair<std::string, std::string>(Key, Value));
+					if (Value.size() > 0 && Key.size() > 0)
+						FileValues.insert(std::pair<std::string, std::string>(Key, Value));
+					else
+						Log::Error("Either the key or the value was missing in file: " + FileName + ", line: " + std::to_string(i));
 				}
 			}
 		}
@@ -106,7 +113,10 @@ int ConfigManager::ReadInt(std::string Key)
 	//First get the value
 	std::string TempValue = GetValueFromKey(Key);
 	//return its int
-	return std::stoi(TempValue);
+	if (TempValue == "")
+		return 0;
+	else
+		return std::stoi(TempValue);
 }
 
 float ConfigManager::ReadFloat(std::string Key)
@@ -115,6 +125,25 @@ float ConfigManager::ReadFloat(std::string Key)
 	std::string TempValue = GetValueFromKey(Key);
 	//Return its float
 	return std::stof(TempValue);
+}
+
+sf::Vector2f ConfigManager::ReadVector(std::string Key)
+{
+	//Get the value
+	std::string TempValue = GetValueFromKey(Key);
+
+	//Erase
+	TempValue.erase(std::remove(TempValue.begin(), TempValue.end(), '('), TempValue.end());
+	TempValue.erase(std::remove(TempValue.begin(), TempValue.end(), ')'), TempValue.end());
+
+	//Split
+	sf::Vector2f v;
+	std::size_t split = TempValue.find(',');
+
+	v.x = std::stof(TempValue.substr(0, split));
+	v.y = std::stof(TempValue.substr(split + 1));
+
+	return v;
 }
 
 //Level loading and access of levels
@@ -166,6 +195,7 @@ bool ConfigManager::LoadLevel(const std::string &FileName, int level)
 		//If there were no lines, then just skip
 		if (FileLines.size() < 1)
 		{
+			Log::Message("File is empty.");
 		}
 		else
 		{
@@ -179,10 +209,20 @@ bool ConfigManager::LoadLevel(const std::string &FileName, int level)
 	return true;
 }
 
+
 std::vector<std::string> ConfigManager::GetLevel(int level)
 {
 	//Find the key
 	std::map<int, std::vector<std::string>>::iterator it = m_Levels.find(level);
 
 	return it->second;
+}
+
+//
+
+std::string ConfigManager::DeleteSpaces(std::string sentence)
+{
+	sentence.erase(std::remove(sentence.begin(), sentence.end(), ' '), sentence.end());
+
+	return sentence;
 }

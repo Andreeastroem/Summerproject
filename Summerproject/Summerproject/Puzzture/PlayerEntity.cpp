@@ -138,7 +138,7 @@ void PlayerEntity::Movement(float deltatime)
 	}
 
 	//jumping
-	if (m_world->GetInputManager()->m_Keyboard->KeyIsDoneOnce(sf::Keyboard::Space))
+	if (m_world->GetInputManager()->m_Keyboard->KeyIsDown(sf::Keyboard::Space))
 	{
 		if (m_bGrounded)
 		{

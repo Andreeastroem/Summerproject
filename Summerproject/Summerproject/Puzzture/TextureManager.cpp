@@ -34,6 +34,7 @@ bool TextureManager::LoadTexture(std::string filename)
 		//failsafe
 		if (texture == nullptr)
 		{
+			Log::Error("There is no such image file. Note that fileformat is set to: " + m_sFileFormat);
 			return false;
 		}
 
@@ -77,6 +78,7 @@ sf::Texture* TextureManager::GetTexture(std::string texturename)
 	//There is no such file
 	else
 	{
+		Log::Error("No such file exists");
 		return nullptr;
 	}
 }

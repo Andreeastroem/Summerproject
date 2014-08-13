@@ -20,6 +20,7 @@ public:
 	//Convert methods (optional)
 	int ReadInt(std::string Key);
 	float ReadFloat(std::string Key);
+	sf::Vector2f ReadVector(std::string Key);
 
 	//Levels
 	bool LevelExists(int level);
@@ -32,4 +33,7 @@ private:
 	std::map<int, std::vector<std::string>> m_Levels;
 
 	std::string m_sdirectory;
+
+	//
+	std::string DeleteSpaces(std::string sentence);
 };

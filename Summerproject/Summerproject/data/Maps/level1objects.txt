@@ -1,0 +1,16 @@
+Amount = 3
+
+1texture = Furniture
+1pos = (5, 7)
+1size = (32, 32)
+1depth = 0
+
+2texture = Furniture
+2pos = (6, 6)
+2size = (32, 32)
+2depth = 0
+
+3texture = Furniture
+3pos = (6, 7)
+3size = (32, 32)
+3depth = 0

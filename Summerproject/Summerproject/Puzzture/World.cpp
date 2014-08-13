@@ -124,7 +124,7 @@ void World::DrawWorld()
 		for (unsigned int i = 0; i < gameEntities.size(); i++)
 		{
 			if (gameEntities[i]->GetDrawStatus())
-				m_DrawManager->DrawShape(m_Window, m_EntityManager->GetEntites().at(i)->getCollider()->getHitbox());
+				m_DrawManager->DrawShape(m_Window, &m_EntityManager->GetEntites().at(i)->getCollider()->getHitbox());
 		}
 	}
 

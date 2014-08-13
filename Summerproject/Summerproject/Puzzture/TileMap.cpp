@@ -28,9 +28,6 @@ bool TileMap::Initialise(std::string folder, World* world, TextureManager* textu
 	m_tileWidth = m_World->GetConfigManager()->ReadInt("tilewidth");
 	m_tileHeight = m_World->GetConfigManager()->ReadInt("tileheight");
 
-	std::cout << m_tileHeight << std::endl;
-	std::cout << m_tileWidth << std::endl;
-
 	m_LastXCoordinate = 0;
 	m_LastYCoordinate = 0;
 
@@ -83,10 +80,6 @@ bool TileMap::LoadMap(const std::string &FileName, int level)
 				
 				tile->SetSpriteTexture(m_World->GetTextureManager()->GetTexture("Wall"));
 
-				if (tile->GetSprite()->getTexture() == nullptr)
-				{
-
-				}
 
 				m_TileMap.push_back(tile);
 				m_TileMap[m_TileMap.size() - 1]->SetTileMapPosition(j, i);
@@ -109,11 +102,6 @@ bool TileMap::LoadMap(const std::string &FileName, int level)
 				tile->GetShape()->setFillColor(sf::Color::Cyan);
 
 				tile->SetSpriteTexture(m_World->GetTextureManager()->GetTexture("Floor"));
-
-				if (tile->GetSprite()->getTexture() == nullptr)
-				{
-
-				}
 
 				m_TileMap.push_back(tile);
 				m_TileMap[m_TileMap.size() - 1]->SetTileMapPosition(j, i);
@@ -138,10 +126,6 @@ bool TileMap::LoadMap(const std::string &FileName, int level)
 
 				tile->SetSpriteTexture(m_World->GetTextureManager()->GetTexture("Ceiling"));
 
-				if (tile->GetSprite()->getTexture() == nullptr)
-				{
-
-				}
 
 				m_TileMap.push_back(tile);
 				m_TileMap[m_TileMap.size() - 1]->SetTileMapPosition(j, i);
@@ -166,10 +150,6 @@ bool TileMap::LoadMap(const std::string &FileName, int level)
 
 				tile->SetSpriteTexture(m_World->GetTextureManager()->GetTexture("Furniture"));
 
-				if (tile->GetSprite()->getTexture() == nullptr)
-				{
-
-				}
 
 				m_TileMap.push_back(tile);
 				m_TileMap[m_TileMap.size() - 1]->SetTileMapPosition(j, i);
@@ -194,11 +174,6 @@ bool TileMap::LoadMap(const std::string &FileName, int level)
 
 				tile->SetSpriteTexture(m_World->GetTextureManager()->GetTexture("Background"));
 
-				if (tile->GetSprite()->getTexture() == nullptr)
-				{
-
-				}
-
 				m_TileMap.push_back(tile);
 				m_TileMap[m_TileMap.size() - 1]->SetTileMapPosition(j, i);
 
@@ -214,6 +189,51 @@ bool TileMap::LoadMap(const std::string &FileName, int level)
 		m_LastXCoordinate = 0;
 		m_LastYCoordinate += m_tileHeight;
 	}
+
+	return LoadEnvironment(level);
+}
+
+bool TileMap::LoadEnvironment(int level)
+{
+	ConfigManager* configmanager = m_World->GetConfigManager();
+
+	configmanager->ReadFile(m_sFolder + "/" + "level" + std::to_string(level) + "objects.txt");
+
+	int NumberOfObjects = configmanager->ReadInt("Amount");
+	if (NumberOfObjects <= 0)
+		return false;
+
+	for (unsigned int i = 1; i <= NumberOfObjects; i++)
+	{
+		Tile* tile = new Tile;
+		Entity::EntityData entitydata;
+
+		entitydata.Size = configmanager->ReadVector(std::to_string(i) + "size");
+		Log::Message(entitydata.Size);
+
+		entitydata.Position = configmanager->ReadVector(std::to_string(i) + "pos");
+		entitydata.Position = sf::Vector2f(entitydata.Position.x * entitydata.Size.x, entitydata.Position.y * entitydata.Size.y);
+		Log::Message(entitydata.Position);
+
+		entitydata.Depth = configmanager->ReadInt(std::to_string(i) + "depth");
+		
+		entitydata.entitytype = FURNITURE;
+		entitydata.MovementCost = 0;
+
+		if (!tile->Initialise(entitydata))
+			return false;
+
+		tile->GetShape()->setFillColor(sf::Color(184, 134, 11, 255));
+
+		tile->GetSprite()->setTexture(*m_World->GetTextureManager()->GetTexture(configmanager->GetValueFromKey(std::to_string(i) + "texture")));
+
+		m_TileMap.push_back(tile);
+
+		//Add to the game entities
+		m_World->GetEntityManager()->AttachTile(tile);
+	}
+
+	configmanager = nullptr;
 
 	return true;
 }

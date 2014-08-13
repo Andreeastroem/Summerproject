@@ -1,2 +1,2 @@
-tilewidth=32
-tileheight=32
+tilewidth = 32
+tileheight = 32
