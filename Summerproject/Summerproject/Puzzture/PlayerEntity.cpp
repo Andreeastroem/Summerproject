@@ -33,7 +33,7 @@ bool PlayerEntity::Initialise(EntityData entitydata)
 		return false;
 
 	m_fBaseMovementSpeed = 5;
-	m_fJumpForce = 2;
+	m_fJumpForce = 5;
 
 	m_bGrounded = false;
 
@@ -86,6 +86,7 @@ void PlayerEntity::Update(float deltatime)
 
 void PlayerEntity::OnCollision(Entity* entity, sf::Vector2f offset)
 {
+	Log::Message(m_bGrounded, "Grounded");
 	/**/
 	switch (entity->GetEntityData().entitytype)
 	{

@@ -12,4 +12,6 @@ namespace Log
 	void Message(sf::Vector2f vector);
 	void Message(int i);
 	void Message(void * p);
+	void Message(bool state);
+	void Message(bool state, std::string name);
 };

@@ -29,7 +29,6 @@ public:
 	void LogPositions();
 	void LogView();
 
-	void LogVector(sf::Vector2f);
 
 private:
 	World* m_world;

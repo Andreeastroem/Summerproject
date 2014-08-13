@@ -98,7 +98,7 @@ bool Collider::SATOverlap(Collider* other, sf::Vector2f &offsetA, sf::Vector2f &
 
 	float differencex = (m_position.x + firstwidth) - (other->getPosition().x + secondwidth);
 
-	if (fabs(differencex) <= (firstwidth + secondwidth))
+	if (fabs(differencex) < (firstwidth + secondwidth))
 	{
 		//Check if it intersects on y coordinates
 		float firstheight = m_extension.y / 2;
@@ -106,15 +106,24 @@ bool Collider::SATOverlap(Collider* other, sf::Vector2f &offsetA, sf::Vector2f &
 
 		float differencey = (m_position.y + firstheight) - (other->getPosition().y + secondheight);
 
-		if (fabs(differencey) <= (firstheight + secondheight))
+		if (fabs(differencey) < (firstheight + secondheight))
 		{
-			//Set the offset, where A is self
-			offsetA.x = differencex;
-			offsetA.y = differencey;
+			if (m_position.x < other->getPosition().x)
+			{
+				//Set the offset, where A is self
+				offsetB.x = differencex - (firstwidth + secondwidth);
 
-			//Set the offset, where B is other
-			offsetB.x = -differencex;
-			offsetB.y = -differencey;
+				//Set the offset, where B is other
+				offsetA.x = -differencex + (firstwidth + secondwidth);
+
+				if (m_position.y < other->getPosition().y)
+			}
+
+			
+			offsetB.y = differencey - (firstheight + secondheight);
+
+			
+			offsetA.y = -differencey + (firstheight + secondheight);
 
 			return true;
 		}

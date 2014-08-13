@@ -7,13 +7,13 @@
 //Print specified string
 void Log::Message(std::string message)
 {
-	printf("%s \n", message);
+	std::cout << message << std::endl;
 }
 
 //Print specified character
 void Log::Message(char character)
 {
-	printf("Character value: %c \n", character);
+	std::cout << character << std::endl;
 }
 
 //Print specified vector
@@ -38,4 +38,26 @@ void Log::Message(int i)
 void Log::Message(void *p)
 {
 	printf("Adress: %p \n", p);
+}
+
+//Print specified boolean
+void Log::Message(bool state)
+{
+	switch (state)
+	{
+	case true:
+		std::cout << "True" << std::endl;
+		break;
+
+	case false:
+		std::cout << "False" << std::endl;
+		break;
+	}
+}
+
+//Print specified name with corresponding boolean value
+void Log::Message(bool state, std::string name)
+{
+	std::cout << name << ": ";
+	Message(state);
 }
