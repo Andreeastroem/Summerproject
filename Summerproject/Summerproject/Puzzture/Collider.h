@@ -10,6 +10,7 @@ public:
 
 	//Essential functions
 	bool Overlap(Collider* other, sf::Vector2f &offsetA, sf::Vector2f &offsetB);
+	bool SATOverlap(Collider* other, sf::Vector2f &offsetA, sf::Vector2f &offsetB);
 	bool Overlap(sf::View* viewport);
 
 	void Cleanup();

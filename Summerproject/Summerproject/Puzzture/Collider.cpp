@@ -90,6 +90,39 @@ bool Collider::Overlap(Collider* other, sf::Vector2f &offsetA, sf::Vector2f &off
 	return false;
 }
 
+bool Collider::SATOverlap(Collider* other, sf::Vector2f &offsetA, sf::Vector2f &offsetB)
+{
+	//check if it intersects on x coordinates
+	float firstwidth = m_extension.x / 2;
+	float secondwidth = other->getExtension().x / 2;
+
+	float differencex = (m_position.x + firstwidth) - (other->getPosition().x + secondwidth);
+
+	if (fabs(differencex) <= (firstwidth + secondwidth))
+	{
+		//Check if it intersects on y coordinates
+		float firstheight = m_extension.y / 2;
+		float secondheight = other->getExtension().y / 2;
+
+		float differencey = (m_position.y + firstheight) - (other->getPosition().y + secondheight);
+
+		if (fabs(differencey) <= (firstheight + secondheight))
+		{
+			//Set the offset, where A is self
+			offsetA.x = differencex;
+			offsetA.y = differencey;
+
+			//Set the offset, where B is other
+			offsetB.x = -differencex;
+			offsetB.y = -differencey;
+
+			return true;
+		}
+	}
+
+	return false;
+}
+
 bool Collider::Overlap(sf::View* viewport)
 {
 	float AxMin, AxMax, AyMin, AyMax;	//Tile

@@ -91,8 +91,7 @@ void PlayerEntity::OnCollision(Entity* entity, sf::Vector2f offset)
 	{
 	case WALL:
 		m_EntityData.Position.x += offset.x;
-		//m_EntityData.Force.x = 0;
-		//m_EntityData.Position.y = m_v2fLastPosition.y;
+		m_EntityData.Force.x = 0;
 
 		break;
 	case FLOOR:
@@ -100,25 +99,14 @@ void PlayerEntity::OnCollision(Entity* entity, sf::Vector2f offset)
 
 		break;
 	case FURNITURE:
-		if (fabs(offset.x) > 0 && fabs(offset.y) > 0)
+		if (fabs(offset.x) < fabs(offset.y))
 		{
-			if (fabs(offset.x) < fabs(offset.y))
-			{
-				m_EntityData.Position.x += offset.x;
-				m_EntityData.Force.x = 0;
-			}
-			else
-			{
-				m_EntityData.Position.y += offset.y;
-			}
+			m_EntityData.Position.x += offset.x;
+			m_EntityData.Force.x = 0;
 		}
 		else
 		{
-			m_EntityData.Position += offset;
-			if (fabs(offset.x) > 0)
-			{
-				m_EntityData.Force.x = 0;
-			}
+			m_EntityData.Position.y += offset.y;
 		}
 
 		break;
@@ -129,9 +117,6 @@ void PlayerEntity::OnCollision(Entity* entity, sf::Vector2f offset)
 	default:
 		break;
 	}
-
-	LogVector(offset);
-	
 	//If there has been just an offset in Y and not X
 	if (offset.y < 0)
 	{
@@ -214,19 +199,14 @@ void PlayerEntity::UpdatePositions()
 
 void PlayerEntity::LogPositions()
 {
-	std::cout << "Player: " << "\tX: " << m_EntityData.Position.x << "\tY: " << m_EntityData.Position.y << "\n" << std::endl;
-	std::cout << "Collider: " << "\tX: " << m_Collider->getPosition().x << "\tY: " << m_Collider->getPosition().y << "\n" << std::endl;
-	std::cout << "Shape: " << "\t\tX: " << m_Shape->getPosition().x << "\tY: " << m_Shape->getPosition().y << "\n" << std::endl;
+	Log::Message(m_EntityData.Position);
+	Log::Message(m_Collider->getPosition());
+	Log::Message(m_Shape->getPosition());
 }
 
 void PlayerEntity::LogView()
 {
-	std::cout << "View: " << "\t\tX: " << m_EntityData.Position.x + m_EntityData.Size.x / 2 <<
-		"\tY: " << m_EntityData.Position.y + m_EntityData.Size.y / 2 << "\n" << std::endl;
-}
-
-void PlayerEntity::LogVector(sf::Vector2f v)
-{
-	std::cout << "X: " << v.x << std::endl;
-	std::cout << "Y: " << v.y << "\n" << std::endl;
+	sf::Vector2f view = sf::Vector2f(m_EntityData.Position.x + m_EntityData.Size.x / 2,
+		m_EntityData.Position.y + m_EntityData.Size.y / 2);
+	Log::Message(view);
 }

@@ -61,7 +61,7 @@ void CollisionManager::CheckCollision(std::vector<Entity*> *gameentities)
 					{
 							
 						sf::Vector2f offsetA, offsetB;
-						if (gameentities->at(i)->getCollider()->Overlap(gameentities->at(j)->getCollider(), offsetA, offsetB))
+						if (gameentities->at(i)->getCollider()->SATOverlap(gameentities->at(j)->getCollider(), offsetA, offsetB))
 						{
 							//Collision
 							gameentities->at(i)->OnCollision(gameentities->at(j), offsetA);
