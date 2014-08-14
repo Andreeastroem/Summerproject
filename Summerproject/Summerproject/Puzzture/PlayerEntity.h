@@ -28,7 +28,6 @@ public:
 
 	void LogPositions();
 	void LogView();
-
 private:
 	World* m_world;
 

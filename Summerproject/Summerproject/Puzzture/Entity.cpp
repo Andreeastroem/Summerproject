@@ -13,6 +13,9 @@ Entity::Entity()
 //Abstract classes
 bool Entity::Initialise(EntityData entitydata)
 {
+	m_Sprite = new sf::Sprite();
+	m_Sprite->setPosition(entitydata.Position);
+
 	m_bDrawStatus = true;
 
 	return true;
@@ -20,7 +23,7 @@ bool Entity::Initialise(EntityData entitydata)
 
 void Entity::Update(float deltatime)
 {
-
+	m_Collider->Update(deltatime);
 }
 
 void Entity::OnCollision(Entity* entity, sf::Vector2f offset)
@@ -28,7 +31,7 @@ void Entity::OnCollision(Entity* entity, sf::Vector2f offset)
 
 }
 
-void Entity::CleanUp()
+void Entity::Cleanup()
 {
 	//Clean up the visuals
 	if (m_Sprite != nullptr)

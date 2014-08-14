@@ -22,11 +22,13 @@ bool CollisionManager::Initialise()
 	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(PLAYER, WALL), 0));
 	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(PLAYER, FLOOR), 0));
 	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(PLAYER, FURNITURE), 0));
+	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(PLAYER, CEILING), 0));
 
 	//and also in the reversed order
 	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(WALL, PLAYER), 0));
 	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(FLOOR, PLAYER), 0));
 	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(FURNITURE, PLAYER), 0));
+	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(CEILING, PLAYER), 0));
 
 	//Same entities
 	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(FURNITURE, FURNITURE), 0));
@@ -47,6 +49,7 @@ void CollisionManager::CheckCollision(std::vector<Entity*> *gameentities)
 				if (gameentities->at(i)->GetEntityData().Depth ==
 					gameentities->at(j)->GetEntityData().Depth)
 				{
+
 					//Check if it is a valid collision
 					std::map<std::pair<EntityType, EntityType>, int>::iterator it =
 						CollisionMap.find(std::pair<EntityType, EntityType>
@@ -56,20 +59,39 @@ void CollisionManager::CheckCollision(std::vector<Entity*> *gameentities)
 					//Valid collision
 					if (it != CollisionMap.end())
 					{
-						sf::Vector2f offsetSelf, offsetOther;
-						if (gameentities->at(i)->getCollider()->Overlap(gameentities->at(j)->getCollider(), offsetSelf, offsetOther))
+
+						sf::Vector2f offsetA, offsetB;
+						if (gameentities->at(i)->getCollider()->SATOverlap(gameentities->at(j)->getCollider(), offsetA, offsetB))
 						{
 							//Collision
-							gameentities->at(i)->OnCollision(gameentities->at(j), offsetSelf);
-							gameentities->at(j)->OnCollision(gameentities->at(i), offsetOther);
+							gameentities->at(i)->OnCollision(gameentities->at(j), offsetA);
+							gameentities->at(j)->OnCollision(gameentities->at(i), offsetB);
 						}
 					}
 				}
+
 			}
 		}
 	}
 }
 
-void CollisionManager::CleanUp()
+bool CollisionManager::Intersect(sf::FloatRect box, std::vector<Entity*>* gameentities)
+{
+	for (int i = 0; i < gameentities->size(); i++)
+	{
+		if (gameentities->at(i)->GetDrawStatus())
+		{
+			if (gameentities->at(i)->GetEntityData().Depth == 0)
+			{
+				if (box.intersects(gameentities->at(i)->GetSprite()->getGlobalBounds()))
+					return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+void CollisionManager::Cleanup()
 {
 }

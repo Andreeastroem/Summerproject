@@ -33,7 +33,7 @@ public:
 
 	virtual void OnCollision(Entity* entity, sf::Vector2f offset);
 
-	virtual void CleanUp();
+	virtual void Cleanup();
 
 	//Access functions
 	sf::Shape* GetShape()
@@ -44,6 +44,16 @@ public:
 	sf::Sprite* GetSprite()
 	{
 		return m_Sprite;
+	}
+
+	void SetSpriteTexture(sf::Texture* texture)
+	{
+		m_Sprite->setTexture(*texture);
+	}
+	
+	void SetSpriteTextureRect(sf::IntRect textRect)
+	{
+		m_Sprite->setTextureRect(textRect);
 	}
 
 	EntityData GetEntityData()
@@ -96,5 +106,6 @@ protected:
 	bool m_bFlagged;
 
 	//Draw status
+	//Is entity set to be drawn
 	bool m_bDrawStatus;
 };

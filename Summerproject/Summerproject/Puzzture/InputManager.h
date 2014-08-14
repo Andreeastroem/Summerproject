@@ -46,6 +46,13 @@ private:
 
 //Gamepad related actions
 
+/*
+XY - Left stick
+PovXY - Dpad
+RU - rightstick
+Z+ - left trigger
+Z- - right trigger
+*/
 class Gamepad
 {
 	friend class InputManager;
@@ -54,7 +61,10 @@ public:
 	~Gamepad();
 
 private:
-	//bool m_CurrentGamepadButtons[];
+	bool m_CurrentGamepadButtons[4][10];
+	bool m_PreviousGamepadButtons[4][10];
+
+	std::map<int, float> m_Joysticks;
 };
 
 //InputManager
