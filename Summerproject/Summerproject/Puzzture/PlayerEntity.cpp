@@ -34,6 +34,7 @@ bool PlayerEntity::Initialise(EntityData entitydata)
 
 	m_fBaseMovementSpeed = 5;
 	m_fJumpForce = 5;
+	m_fGamepadSpeed = 10;
 
 	m_bGrounded = false;
 
@@ -127,8 +128,14 @@ void PlayerEntity::Movement(float deltatime)
 {
 	m_v2fLastPosition = m_EntityData.Position;
 
+	float gamepadMovement = m_world->GetInputManager()->m_Gamepad->GetJoystickValue(Player::ONE, sf::Joystick::X);
+
 	//Horizontal movement
-	if (m_world->GetInputManager()->m_Keyboard->KeyIsDown(sf::Keyboard::Right))
+	if (fabs(gamepadMovement) > 0)
+	{
+		m_EntityData.Force.x += deltatime * (gamepadMovement / m_fGamepadSpeed);
+	}
+	else if(m_world->GetInputManager()->m_Keyboard->KeyIsDown(sf::Keyboard::Right))
 	{
 		m_EntityData.Force.x += deltatime * m_fBaseMovementSpeed;
 	}
@@ -138,7 +145,8 @@ void PlayerEntity::Movement(float deltatime)
 	}
 
 	//jumping
-	if (m_world->GetInputManager()->m_Keyboard->KeyIsDown(sf::Keyboard::Space))
+	if (m_world->GetInputManager()->m_Keyboard->KeyIsDown(sf::Keyboard::Space) || 
+		m_world->GetInputManager()->m_Gamepad->ButtonIsDown(Player::ONE, GamepadButton::A))
 	{
 		if (m_bGrounded)
 		{

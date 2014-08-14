@@ -60,11 +60,21 @@ public:
 	Gamepad();
 	~Gamepad();
 
+	//Essential functions
+	void PostUpdate();
+
+	//Access methods
+	float GetJoystickValue(int controller, int stick);
+	bool ButtonIsDownOnce(int controller, int button);
+	bool ButtonIsDown(int controller, int button);
+
 private:
 	bool m_CurrentGamepadButtons[4][10];
 	bool m_PreviousGamepadButtons[4][10];
 
-	std::map<int, float> m_Joysticks;
+	std::vector<std::map<int, float>> m_Joysticks;
+	 
+	int m_JoysticksConnected = 0;
 };
 
 //InputManager
@@ -85,6 +95,7 @@ public:
 
 	Mouse* m_Mouse;
 	Keyboard* m_Keyboard;
+	Gamepad* m_Gamepad;
 
 private:
 	bool CloseWindow;

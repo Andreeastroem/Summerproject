@@ -33,6 +33,35 @@ enum MouseButton
 	MOUSEBUTTONSIZE
 };
 
+/*
+This order is only tested with Xbox 360 wired gamepad
+*/
+enum GamepadButton
+{
+	A,
+	B,
+	X,
+	Y,
+	LEFTSHOULDER,
+	RIGHTSHOULDER,
+	BACK,
+	START,
+	LEFTSTICK,
+	RIGHTSTICK,
+	GAMEPADBUTTONSIZE
+};
+
+/*
+Player order with gamepads
+*/
+enum Player
+{
+	ONE,
+	TWO,
+	THREE,
+	FOUR,
+	PLAYERSIZE
+};
 
 class Enums
 {

@@ -33,6 +33,7 @@ private:
 
 	//movement
 	float m_fBaseMovementSpeed;
+	float m_fGamepadSpeed;
 
 	//jumping
 	bool m_bGrounded;
