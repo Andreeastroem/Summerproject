@@ -42,7 +42,7 @@ void MenuScene::Update(float deltatime)
 	m_world->DrawWorld();
 }
 
-void MenuScene::CleanUp()
+void MenuScene::Cleanup()
 {
 	//Clear the world pointer
 	if (m_world != nullptr)

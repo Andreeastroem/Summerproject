@@ -17,6 +17,7 @@ bool Engine::Initialise()
 	m_InputManager = new InputManager;
 	m_SceneManager = new SceneManager;
 	m_EntityManager = new EntityManager;
+	m_TextureManager = new TextureManager;
 
 	//World
 	m_World = new World;
@@ -28,6 +29,8 @@ bool Engine::Initialise()
 	if (!m_ConfigManager->Initialise("../data/"))
 		return false;
 	if (!m_InputManager->Initialise())
+		return false;
+	if (!m_TextureManager->Initialise("../data/Textures/", "png"))
 		return false;
 	
 
@@ -59,7 +62,7 @@ bool Engine::Initialise()
 		return false;
 
 	//Condidition for continuing (world)
-	if (!m_World->Initialise(m_Window, m_DrawManager, m_ConfigManager, m_InputManager, m_EntityManager))
+	if (!m_World->Initialise(m_Window, m_DrawManager, m_ConfigManager, m_InputManager, m_EntityManager, m_TextureManager))
 		return false;
 
 	//Validation of the SceneManager
@@ -72,6 +75,9 @@ bool Engine::Initialise()
 
 	//Game conditions
 	m_bRunning = true;
+
+	//Extra features
+	m_bPause = false;
 
 	//end of function
 	return true;
@@ -100,8 +106,16 @@ void Engine::Run()
 		//Update the deltatime
 		UpdateDeltatime();
 
-		//Update the Scene
-		m_SceneManager->Update(m_fDeltatime);
+		if (!m_bPause)
+		{
+			//Update the Scene
+			m_SceneManager->Update(m_fDeltatime);
+		}
+
+		if (m_InputManager->m_Keyboard->KeyIsDoneOnce(sf::Keyboard::Space))
+		{
+			//m_bPause = !m_bPause;
+		}
 
 		//Refresh the Input
 		m_InputManager->PostUpdate();
@@ -130,14 +144,14 @@ void Engine::Cleanup()
 
 	if (m_InputManager != nullptr)
 	{
-		m_InputManager->CleanUp();
+		m_InputManager->Cleanup();
 		delete m_InputManager;
 		m_InputManager = nullptr;
 	}
 
 	if (m_EntityManager != nullptr)
 	{
-		m_EntityManager->CleanUp();
+		m_EntityManager->Cleanup();
 		delete m_EntityManager;
 		m_EntityManager = nullptr;
 	}
@@ -148,6 +162,14 @@ void Engine::Cleanup()
 
 		delete m_SceneManager;
 		m_SceneManager = nullptr;
+	}
+
+	if (m_TextureManager != nullptr)
+	{
+		m_TextureManager->Cleanup();
+
+		delete m_TextureManager;
+		m_TextureManager = nullptr;
 	}
 }
 

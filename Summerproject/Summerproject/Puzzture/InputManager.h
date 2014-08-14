@@ -23,8 +23,6 @@ private:
 
 //Mouse related actions
 
-
-
 class Mouse
 {
 	friend class InputManager;
@@ -46,6 +44,19 @@ private:
 	sf::Vector2f m_position;
 };
 
+//Gamepad related actions
+
+class Gamepad
+{
+	friend class InputManager;
+public:
+	Gamepad();
+	~Gamepad();
+
+private:
+	//bool m_CurrentGamepadButtons[];
+};
+
 //InputManager
 class InputManager
 {
@@ -60,7 +71,7 @@ public:
 
 	void PostUpdate();
 
-	void CleanUp();
+	void Cleanup();
 
 	Mouse* m_Mouse;
 	Keyboard* m_Keyboard;

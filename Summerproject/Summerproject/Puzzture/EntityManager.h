@@ -18,7 +18,7 @@ public:
 	bool Initialise(World* world);
 
 	void ClearEntities();
-	void CleanUp();
+	void Cleanup();
 
 	bool AttachEntity(EntityType entitytype);
 	bool AttachTile(Tile* tile);
@@ -28,6 +28,10 @@ public:
 	void Update(float deltatime);
 	void UpdateDrawStatues(sf::View* viewport);
 	
+	void SetDrawStatuses(sf::View* viewport);
+
+	//Specified collision
+	bool Intersect(sf::FloatRect box);
 
 	//Access functions
 	std::vector<Entity*> GetEntites();

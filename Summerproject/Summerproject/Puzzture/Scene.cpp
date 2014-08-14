@@ -45,7 +45,7 @@ void Scene::Update(float deltatime)
 	
 }
 
-void Scene::CleanUp()
+void Scene::Cleanup()
 {
 	//Clear the world pointer
 	if (m_world != nullptr)

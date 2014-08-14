@@ -16,7 +16,7 @@ public:
 
 	void OnCollision(Entity* entity, sf::Vector2f offset);
 
-	void CleanUp();
+	void Cleanup();
 
 	void SetTileMapPosition(int column, int row);
 	std::pair<int, int> GetTileMapPosition();

@@ -1,0 +1,6 @@
+Amount = 1
+
+1texture = Chair.png
+1pos = (5, 8)
+1size = (32, 32)
+1depth = 0

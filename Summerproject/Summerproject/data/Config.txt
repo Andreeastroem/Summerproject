@@ -1,4 +1,4 @@
-WindowWidth=1280
-WindowHeight=720
+WindowWidth = 1280
+WindowHeight = 720
 
-WindowAntiAliasing=4
+WindowAntiAliasing = 4

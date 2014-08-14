@@ -15,7 +15,7 @@ public:
 
 	void Update(float deltatime);
 
-	void CleanUp();
+	void Cleanup();
 
 private:
 	

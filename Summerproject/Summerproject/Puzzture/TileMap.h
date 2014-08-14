@@ -4,6 +4,8 @@
 
 #include "Tile.h"
 #include "Entity.h"
+#include "TextureManager.h"
+
 class World;
 
 class TileMap
@@ -13,9 +15,10 @@ public:
 	TileMap();
 
 	//Essential functions
-	bool Initialise(std::string folder, World* world);
+	bool Initialise(std::string folder, World* world, TextureManager* textureManager);
 	bool LoadMap(const std::string &FileName, int level);
-	void CleanUp();
+	bool LoadEnvironment(int level);
+	void Cleanup();
 	void ClearLevel();
 
 	//Access functions
@@ -25,6 +28,8 @@ public:
 
 private:
 	std::vector<Tile*> m_TileMap;
+	std::vector<Tile*> m_Furnitures;
+	TextureManager* m_TextureManager;
 
 	std::string m_sFolder;
 	World* m_World;

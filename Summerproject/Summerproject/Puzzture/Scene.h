@@ -20,7 +20,7 @@ public:
 	virtual void Update(float deltatime) = 0;
 
 	//Clean up any pointers laying about
-	virtual void CleanUp() = 0;
+	virtual void Cleanup() = 0;
 
 	//Access methods
 	bool IsDone();

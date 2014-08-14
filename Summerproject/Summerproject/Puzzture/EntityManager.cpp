@@ -7,6 +7,7 @@
 #include "Tile.h"
 #include "PlayerEntity.h"
 #include "CollisionManager.h"
+#include "TextureManager.h"
 
 #include "EntityManager.h"
 
@@ -27,6 +28,8 @@ bool EntityManager::Initialise(World* world)
 	if (m_world == nullptr)
 		return false;
 
+	m_world->GetTextureManager()->LoadTexture("mc");
+
 	return true;
 }
 
@@ -45,7 +48,7 @@ void EntityManager::ClearEntities()
 	m_GameEntities.clear();
 }
 
-void EntityManager::CleanUp()
+void EntityManager::Cleanup()
 {
 	//Clearing and deleting all pointers to game objects
 	for (unsigned int i = 0; i < m_GameEntities.size(); i++)
@@ -62,7 +65,7 @@ void EntityManager::CleanUp()
 	//Managers
 	if (m_CollisionManager != nullptr)
 	{
-		m_CollisionManager->CleanUp();
+		m_CollisionManager->Cleanup();
 		delete m_CollisionManager;
 		m_CollisionManager = nullptr;
 	}
@@ -82,14 +85,18 @@ bool EntityManager::AttachEntity(EntityType entitytype)
 
 		Entity::EntityData entitydata;
 
-		entitydata.Position = sf::Vector2f(130, 100);
+		entitydata.Position = sf::Vector2f(130, 164);
 		entitydata.entitytype = entitytype;
 		entitydata.MovementCost = 0;
 		entitydata.Depth = 0;
-		entitydata.Size = sf::Vector2f(64, 128);
+		entitydata.Size = sf::Vector2f(20, 64);
 
 		if (!playerentity->Initialise(entitydata))
 			return false;
+
+		playerentity->GetShape()->setFillColor(sf::Color(255, 255, 0, 255));
+
+		playerentity->SetSpriteTexture(m_world->GetTextureManager()->GetTexture("mc"));
 
 		m_GameEntities.push_back(playerentity);
 
@@ -117,7 +124,7 @@ void EntityManager::EraseFlaggedEntities()
 			//erase it
 			if (m_GameEntities[i] != nullptr)
 			{
-				m_GameEntities[i]->CleanUp();
+				m_GameEntities[i]->Cleanup();
 				delete m_GameEntities[i];
 				m_GameEntities[i] = nullptr;
 			}
@@ -130,10 +137,12 @@ void EntityManager::EraseFlaggedEntities()
 void EntityManager::Update(float deltatime)
 {
 	//Update every entity
-	for (int i = 0; i < m_GameEntities.size(); i++)
+	for (unsigned int i = 0; i < m_GameEntities.size(); i++)
 	{
 		m_GameEntities[i]->Update(deltatime);
 	}
+
+	EraseFlaggedEntities();
 
 	//Check collision between entities
 	m_CollisionManager->CheckCollision(&m_GameEntities);
@@ -148,6 +157,19 @@ void EntityManager::UpdateDrawStatues(sf::View* viewport)
 	{
 		m_GameEntities[i]->SetDrawStatus(m_GameEntities[i]->getCollider()->Overlap(viewport));
 	}
+}
+
+void EntityManager::SetDrawStatuses(sf::View* viewport)
+{
+	for (int i = 0; i < m_GameEntities.size(); i++)
+	{
+		m_GameEntities[i]->SetDrawStatus(m_GameEntities[i]->getCollider()->Overlap(viewport));
+	}
+}
+
+bool EntityManager::Intersect(sf::FloatRect box)
+{
+	return m_CollisionManager->Intersect(box, &m_GameEntities);
 }
 
 //Access functions

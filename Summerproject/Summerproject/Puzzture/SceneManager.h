@@ -21,8 +21,6 @@ public:
 	//Update the current state
 	void Update(float deltatime);
 
-	bool IsRunning();
-
 	bool Initialise(World* world);
 
 	void Cleanup();

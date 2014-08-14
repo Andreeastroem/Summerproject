@@ -6,6 +6,7 @@
 #include "ConfigManager.h"
 #include "InputManager.h"
 #include "SceneManager.h"
+#include "TextureManager.h"
 
 #include "World.h"
 
@@ -56,8 +57,12 @@ private:
 	//Entities
 	EntityManager* m_EntityManager;
 
+	//Textures
+	TextureManager* m_TextureManager;
+
 	//World
 	World* m_World;
 
-	//Temp
+	//Extra features
+	bool m_bPause;
 };

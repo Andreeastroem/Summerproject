@@ -6,6 +6,7 @@
 #include "ConfigManager.h"
 #include "InputManager.h"
 #include "EntityManager.h"
+#include "TextureManager.h"
 #include "TileMap.h"
 
 class World
@@ -16,10 +17,10 @@ public:
 	//Initialise the managers
 	bool Initialise(sf::RenderWindow* window, DrawManager* drawManager, 
 		ConfigManager* configManager, InputManager* inputManager,
-		EntityManager* entityManager);
+		EntityManager* entityManager, TextureManager* textureManager);
 
 	//Clearing up possible memory leakages
-	void CleanUp();
+	void Cleanup();
 
 	//Drawing the parts of the world that is meant to be drawn
 	void DrawWorld();
@@ -33,6 +34,9 @@ public:
 
 	//Clear the world
 	void ClearWorld();
+
+	//Specified collision
+	bool Intersect(sf::FloatRect box);
 
 	/*
 	Access functions
@@ -58,15 +62,35 @@ public:
 		m_Window->setView(m_Window->getDefaultView());
 	}
 
-	InputManager* GetInputManager();
+	InputManager* GetInputManager()
+	{
+		return m_InputManager;
+	}
 
-	ConfigManager* GetConfigManager();
+	ConfigManager* GetConfigManager()
+	{
+		return m_ConfigManager;
+	}
 
-	EntityManager* GetEntityManager();
+	EntityManager* GetEntityManager()
+	{
+		return m_EntityManager;
+	}
 
-	DrawManager* GetDrawManager();
+	DrawManager* GetDrawManager()
+	{
+		return m_DrawManager;
+	}
 
-	TileMap* GetLevel();
+	TextureManager* GetTextureManager()
+	{
+		return m_TextureManager;
+	}
+
+	TileMap* GetLevel()
+	{
+		return m_Level;
+	}
 
 private:
 	//Managers and consistent variables
@@ -74,6 +98,7 @@ private:
 	ConfigManager* m_ConfigManager;
 	InputManager* m_InputManager;
 	EntityManager* m_EntityManager;
+	TextureManager* m_TextureManager;
 
 	TileMap* m_Level;
 

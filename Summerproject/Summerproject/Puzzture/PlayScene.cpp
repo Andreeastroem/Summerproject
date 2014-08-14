@@ -13,7 +13,10 @@ void PlayScene::Enter()
 
 	m_world->GetEntityManager()->AttachEntity(PLAYER);
 
-	m_world->SetViewSize(sf::Vector2f(256, 256));
+	float tilewidth = m_world->GetConfigManager()->ReadFloat("tilewidth");
+	float tileheight = m_world->GetConfigManager()->ReadFloat("tileheight");
+
+	m_world->SetViewSize(sf::Vector2f(tilewidth * 8, tileheight * 4.5f));
 }
 
 
@@ -35,7 +38,7 @@ void PlayScene::Update(float deltatime)
 	m_world->DrawWorld();
 }
 
-void PlayScene::CleanUp()
+void PlayScene::Cleanup()
 {
 	//Clear the world pointer
 	if (m_world != nullptr)
