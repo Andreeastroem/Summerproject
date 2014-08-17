@@ -22,6 +22,8 @@ public:
 	void Movement(float deltatime);
 	bool CanJump();
 	void Jump();
+	void Pickup();
+	void PutItem();
 
 	//Lazy functions
 	void UpdatePositions();
@@ -29,13 +31,18 @@ public:
 	void LogPositions();
 	void LogView();
 private:
-	World* m_world;
+	World* m_World;
 
 	//movement
 	float m_fBaseMovementSpeed;
 	float m_fGamepadSpeed;
+	Direction m_Facing;
 
 	//jumping
 	bool m_bGrounded;
 	float m_fJumpForce;
+
+	//Pick up furniture
+	bool m_bHoldingItem;
+	Entity* m_Entity;
 };

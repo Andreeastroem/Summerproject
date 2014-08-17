@@ -160,7 +160,8 @@ void World::Display()
 void World::UpdateWorld(float deltatime)
 {
 	//show hitboxes?
-	if (m_InputManager->m_Keyboard->KeyIsDoneOnce(sf::Keyboard::F2))
+	if (m_InputManager->m_Keyboard->KeyIsDoneOnce(sf::Keyboard::F2) ||
+		m_InputManager->m_Gamepad->ButtonIsDownOnce(Player::ONE, GamepadButton::RIGHTSHOULDER))
 	{
 		if (m_bDrawHitboxes)
 			m_bDrawHitboxes = false;
@@ -191,7 +192,7 @@ void World::ClearWorld()
 	m_EntityManager->Cleanup();
 }
 
-bool World::Intersect(sf::FloatRect box)
+Entity* World::Intersect(sf::FloatRect box)
 {
 	return m_EntityManager->Intersect(box);
 }

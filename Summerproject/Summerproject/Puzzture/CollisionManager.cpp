@@ -24,11 +24,19 @@ bool CollisionManager::Initialise()
 	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(PLAYER, FURNITURE), 0));
 	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(PLAYER, CEILING), 0));
 
+	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(FURNITURE, WALL), 0));
+	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(FURNITURE, FLOOR), 0));
+	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(FURNITURE, CEILING), 0));
+
 	//and also in the reversed order
 	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(WALL, PLAYER), 0));
 	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(FLOOR, PLAYER), 0));
 	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(FURNITURE, PLAYER), 0));
 	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(CEILING, PLAYER), 0));
+
+	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(WALL, FURNITURE), 0));
+	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(FLOOR, FURNITURE), 0));
+	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(CEILING, FURNITURE), 0));
 
 	//Same entities
 	CollisionMap.insert(std::pair<std::pair<EntityType, EntityType>, int>(std::pair<EntityType, EntityType>(FURNITURE, FURNITURE), 0));
@@ -75,7 +83,7 @@ void CollisionManager::CheckCollision(std::vector<Entity*> *gameentities)
 	}
 }
 
-bool CollisionManager::Intersect(sf::FloatRect box, std::vector<Entity*>* gameentities)
+Entity* CollisionManager::Intersect(sf::FloatRect box, std::vector<Entity*>* gameentities)
 {
 	for (int i = 0; i < gameentities->size(); i++)
 	{
@@ -84,12 +92,12 @@ bool CollisionManager::Intersect(sf::FloatRect box, std::vector<Entity*>* gameen
 			if (gameentities->at(i)->GetEntityData().depth == 0)
 			{
 				if (box.intersects(gameentities->at(i)->GetSprite()->getGlobalBounds()))
-					return true;
+					return gameentities->at(i);
 			}
 		}
 	}
 
-	return false;
+	return nullptr;
 }
 
 void CollisionManager::Cleanup()

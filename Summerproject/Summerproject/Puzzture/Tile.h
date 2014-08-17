@@ -3,11 +3,12 @@
 #pragma once
 
 #include "Entity.h"
+#include "World.h"
 
 class Tile : public Entity
 {
 public:
-	Tile();
+	Tile(World* world);
 	~Tile();
 
 	bool Initialise(EntityData entitydata);
@@ -25,4 +26,11 @@ public:
 private:
 	//Where is tile?
 	std::pair<int, int> m_TileMapPosition;
+
+	//Use gravity?
+	bool m_bGrounded;
+	bool IsOnGround();
+
+	//World pointer
+	World* m_World;
 };

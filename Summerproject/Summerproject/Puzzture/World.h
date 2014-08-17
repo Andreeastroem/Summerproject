@@ -41,7 +41,7 @@ public:
 	void ClearWorld();
 
 	//Specified collision
-	bool Intersect(sf::FloatRect box);
+	Entity* Intersect(sf::FloatRect box);
 
 	/*
 	Access functions

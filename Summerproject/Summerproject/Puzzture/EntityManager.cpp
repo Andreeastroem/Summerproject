@@ -167,7 +167,7 @@ void EntityManager::SetDrawStatuses(sf::View* viewport)
 	}
 }
 
-bool EntityManager::Intersect(sf::FloatRect box)
+Entity* EntityManager::Intersect(sf::FloatRect box)
 {
 	return m_CollisionManager->Intersect(box, &m_GameEntities);
 }

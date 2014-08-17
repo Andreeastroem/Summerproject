@@ -36,6 +36,12 @@ public:
 	virtual void Cleanup();
 
 	//Access functions
+	void SetPosition(sf::Vector2f position)
+	{
+		m_EntityData.position = position;
+		UpdatePositions();
+	}
+
 	sf::Shape* GetShape()
 	{
 		return m_Shape;
@@ -88,6 +94,13 @@ public:
 	void SetDrawStatus(bool state)
 	{
 		m_bDrawStatus = state;
+	}
+
+	void UpdatePositions()
+	{
+		m_Shape->setPosition(m_EntityData.position);
+		m_Sprite->setPosition(m_EntityData.position);
+		m_Collider->SetPosition(m_EntityData.position);
 	}
 
 protected:

@@ -15,7 +15,7 @@ public:
 	void CheckCollision(std::vector<Entity*>* gameentities);
 
 	//Specified collision
-	bool Intersect(sf::FloatRect box, std::vector<Entity*>* gameentities);
+	Entity* Intersect(sf::FloatRect box, std::vector<Entity*>* gameentities);
 
 	void Cleanup();
 
