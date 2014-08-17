@@ -78,10 +78,13 @@ void EntityManager::Cleanup()
 
 bool EntityManager::AttachEntity(EntityType entityType)
 {
+	sf::Vector2f pos = sf::Vector2f(2, 4);
+	sf::Vector2f ext = sf::Vector2f(-4, -6);
+
 	switch (entityType)
 	{
 	case PLAYER:
-		PlayerEntity* playerentity = new PlayerEntity(m_world);
+		PlayerEntity* playerentity = new PlayerEntity(m_world, pos, ext);
 
 		Entity::EntityData entitydata;
 

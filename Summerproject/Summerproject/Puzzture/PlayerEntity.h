@@ -10,7 +10,7 @@ class PlayerEntity : public Entity
 {
 public:
 	//Constructor
-	PlayerEntity(World* world);
+	PlayerEntity(World* world, sf::Vector2f positionOffset, sf::Vector2f extensionOffset);
 
 	//Inherited functions
 	bool Initialise(EntityData entitydata);

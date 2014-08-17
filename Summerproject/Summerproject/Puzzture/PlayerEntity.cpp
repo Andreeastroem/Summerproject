@@ -5,9 +5,12 @@
 #include "PlayerEntity.h"
 
 //Constructors
-PlayerEntity::PlayerEntity(World* world)
+PlayerEntity::PlayerEntity(World* world, sf::Vector2f positionOffset, sf::Vector2f extensionOffset)
 {
 	m_World = world;
+
+	m_PositionOffset = positionOffset;
+	m_ExtensionOffset = extensionOffset;
 }
 
 //Inherited functions
@@ -22,7 +25,7 @@ bool PlayerEntity::Initialise(EntityData entitydata)
 
 	m_Shape->setPosition(m_EntityData.position);
 
-	m_Collider = new Collider(m_EntityData.position, m_EntityData.size);
+	m_Collider = new Collider(m_EntityData.position + m_PositionOffset, m_EntityData.size + m_ExtensionOffset);
 
 	m_Shape->setFillColor(sf::Color::Black);
 
@@ -225,16 +228,16 @@ void PlayerEntity::Pickup()
 
 	if (m_Facing == RIGHT)
 	{
-		hand.top = m_EntityData.position.y;
+		hand.top = m_Collider->getPosition().y + (m_Collider->getExtension().y * 0.3);
 		hand.left = m_Collider->getPosition().x + m_Collider->getExtension().x;
 	}
 	else if (m_Facing == LEFT)
 	{
-		hand.top = m_EntityData.position.y;
+		hand.top = m_Collider->getPosition().y + (m_Collider->getExtension().y * 0.3);
 		hand.left = m_Collider->getPosition().x - m_Collider->getExtension().x;
 	}
 
-	hand.height = m_Collider->getExtension().y;
+	hand.height = m_Collider->getExtension().y * 0.5;
 	hand.width = m_Collider->getExtension().x;
 
 	Entity* object = m_World->Intersect(hand);
@@ -263,14 +266,14 @@ void PlayerEntity::PutItem()
 
 	if (m_Facing == RIGHT)
 	{
-		box.top = m_Collider->getPosition().y;
+		box.top = m_Collider->getPosition().y + (m_Collider->getExtension().y * 0.3);
 		box.left = m_Collider->getPosition().x + m_Collider->getExtension().x;
 		box.height = m_Entity->getCollider()->getExtension().x;
 		box.width = m_Entity->getCollider()->getExtension().x;
 	}
 	else if (m_Facing == LEFT)
 	{
-		box.top = m_Collider->getPosition().y;
+		box.top = m_Collider->getPosition().y + (m_Collider->getExtension().y * 0.3);
 		box.left = m_Collider->getPosition().x - m_Entity->getCollider()->getExtension().x;
 		box.height = m_Entity->getCollider()->getExtension().x;
 		box.width = m_Entity->getCollider()->getExtension().x;
@@ -302,7 +305,7 @@ void PlayerEntity::UpdatePositions()
 {
 	m_Shape->setPosition(m_EntityData.position);
 	m_Sprite->setPosition(m_EntityData.position);
-	m_Collider->SetPosition(m_EntityData.position);
+	m_Collider->SetPosition(m_EntityData.position + m_PositionOffset);
 }
 
 void PlayerEntity::LogPositions()

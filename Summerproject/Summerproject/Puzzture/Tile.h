@@ -8,7 +8,7 @@
 class Tile : public Entity
 {
 public:
-	Tile(World* world);
+	Tile(World* world, sf::Vector2f positionOffset, sf::Vector2f extensionOffset);
 	~Tile();
 
 	bool Initialise(EntityData entitydata);

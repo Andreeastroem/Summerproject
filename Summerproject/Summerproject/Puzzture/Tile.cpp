@@ -4,9 +4,11 @@
 
 #include "Tile.h"
 
-Tile::Tile(World* world)
+Tile::Tile(World* world, sf::Vector2f positionOffset, sf::Vector2f extensionOffset)
 {
 	m_World = world;
+	m_PositionOffset = positionOffset;
+	m_ExtensionOffset = extensionOffset;
 }
 
 Tile::~Tile()
@@ -28,7 +30,7 @@ bool Tile::Initialise(EntityData entitydata)
 
 	m_Shape->setPosition(m_EntityData.position);
 
-	m_Collider = new Collider(m_EntityData.position, m_EntityData.size);
+	m_Collider = new Collider(m_EntityData.position + m_PositionOffset, m_EntityData.size + m_ExtensionOffset);
 
 	if (m_Shape == nullptr)
 		return false;

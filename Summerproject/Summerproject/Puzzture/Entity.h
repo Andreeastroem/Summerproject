@@ -100,7 +100,7 @@ public:
 	{
 		m_Shape->setPosition(m_EntityData.position);
 		m_Sprite->setPosition(m_EntityData.position);
-		m_Collider->SetPosition(m_EntityData.position);
+		m_Collider->SetPosition(m_EntityData.position + m_PositionOffset);
 	}
 
 protected:
@@ -121,4 +121,8 @@ protected:
 	//Draw status
 	//Is entity set to be drawn
 	bool m_bDrawStatus;
+
+	//Optional collider offset
+	sf::Vector2f m_PositionOffset;
+	sf::Vector2f m_ExtensionOffset;
 };
