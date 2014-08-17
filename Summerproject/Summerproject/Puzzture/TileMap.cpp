@@ -59,7 +59,7 @@ bool TileMap::LoadMap(const std::string &FileName, int level)
 		//For each character in the line
 		for (unsigned int j = 0; j < map[i].size(); j++)
 		{
-			Tile* tile = new Tile;
+			Tile* tile = new Tile(m_World);
 			Entity::EntityData entitydata;
 
 			//Set the tiles coordinates and visual representation
@@ -205,7 +205,7 @@ bool TileMap::LoadEnvironment(int level)
 
 	for (unsigned int i = 1; i <= NumberOfObjects; i++)
 	{
-		Tile* tile = new Tile;
+		Tile* tile = new Tile(m_World);
 		Entity::EntityData entitydata;
 
 		entitydata.size = configmanager->ReadVector(std::to_string(i) + "size");
@@ -213,7 +213,6 @@ bool TileMap::LoadEnvironment(int level)
 
 		entitydata.position = configmanager->ReadVector(std::to_string(i) + "pos");
 		entitydata.position = sf::Vector2f(entitydata.position.x * entitydata.size.x, entitydata.position.y * entitydata.size.y);
-		Log::Message(entitydata.position);
 
 		entitydata.depth = configmanager->ReadInt(std::to_string(i) + "depth");
 		

@@ -91,7 +91,9 @@ Entity* CollisionManager::Intersect(sf::FloatRect box, std::vector<Entity*>* gam
 		{
 			if (gameentities->at(i)->GetEntityData().depth == 0)
 			{
-				if (box.intersects(gameentities->at(i)->GetSprite()->getGlobalBounds()))
+				sf::Vector2f offsetA, offsetB;
+				Collider collider = Collider(sf::Vector2f(box.left, box.top), sf::Vector2f(box.width, box.height));
+				if (collider.SATOverlap(gameentities->at(i)->getCollider(), offsetA, offsetB))
 					return gameentities->at(i);
 			}
 		}

@@ -11,7 +11,8 @@ class MenuScene : public Scene
 {
 public:
 	MenuScene();
-	~MenuScene(){};
+	~MenuScene(){
+	};
 
 	bool Initialise(DrawManager* draw_mgr, sf::RenderWindow* window);
 

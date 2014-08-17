@@ -76,6 +76,18 @@ enum GUIElement
 	GUIELEMENTSIZE
 };
 
+/*
+Directions which objects can face
+*/
+enum Direction
+{
+	RIGHT,
+	LEFT,
+	UP,
+	DOWN,
+	DIRECTIONSIZE
+};
+
 class Enums
 {
 

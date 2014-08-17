@@ -138,7 +138,10 @@ void PlayerEntity::Movement(float deltatime)
 	float gamepadMovement = m_World->GetInputManager()->m_Gamepad->GetJoystickValue(Player::ONE, sf::Joystick::X);
 
 	//Horizontal movement
-	if (fabs(gamepadMovement) > 0)
+	/*
+	Only adjust movement with gamepad if the movement is big
+	*/
+	if (fabs(gamepadMovement) > 10)
 	{
 		m_EntityData.force.x += deltatime * ((gamepadMovement / 100) * m_fBaseMovementSpeed);
 
