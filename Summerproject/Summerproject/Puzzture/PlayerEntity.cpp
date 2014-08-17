@@ -18,11 +18,11 @@ bool PlayerEntity::Initialise(EntityData entitydata)
 	m_EntityData = entitydata;
 
 	m_Shape = new sf::RectangleShape();
-	m_Shape->setSize(m_EntityData.Size);
+	m_Shape->setSize(m_EntityData.size);
 
-	m_Shape->setPosition(m_EntityData.Position);
+	m_Shape->setPosition(m_EntityData.position);
 
-	m_Collider = new Collider(m_EntityData.Position, m_EntityData.Size);
+	m_Collider = new Collider(m_EntityData.position, m_EntityData.size);
 
 	m_Shape->setFillColor(sf::Color::Black);
 
@@ -80,14 +80,14 @@ void PlayerEntity::Update(float deltatime)
 	UpdatePositions();
 
 	//Update the view
-	m_world->SetView(sf::Vector2f(m_EntityData.Position.x + m_EntityData.Size.x / 2, m_EntityData.Position.y + m_EntityData.Size.y / 2));
+	m_world->SetView(sf::Vector2f(m_EntityData.position.x + m_EntityData.size.x / 2, m_EntityData.position.y + m_EntityData.size.y / 2));
 
 	Entity::Update(deltatime);
 }
 
 void PlayerEntity::OnCollision(Entity* entity, sf::Vector2f offset)
 {
-	switch (entity->GetEntityData().entitytype)
+	switch (entity->GetEntityData().entityType)
 	{
 	case WALL:
 		break;
@@ -104,19 +104,19 @@ void PlayerEntity::OnCollision(Entity* entity, sf::Vector2f offset)
 	//Fix offset
 	if (fabs(offset.x) < fabs(offset.y))
 	{
-		m_EntityData.Position.x += offset.x;
-		m_EntityData.Force.x = 0;
+		m_EntityData.position.x += offset.x;
+		m_EntityData.force.x = 0;
 	}
 	else
 	{
-		m_EntityData.Position.y += offset.y;
+		m_EntityData.position.y += offset.y;
 	}
 
 	//If the offset is set to correct upwards, we have hit the ground
 	if (offset.y < 0)
 	{
 		m_bGrounded = true;
-		m_EntityData.Force.y = 0;
+		m_EntityData.force.y = 0;
 	}
 
 	//m_Collider->Update(0);
@@ -126,22 +126,22 @@ void PlayerEntity::OnCollision(Entity* entity, sf::Vector2f offset)
 //Logic functions
 void PlayerEntity::Movement(float deltatime)
 {
-	m_v2fLastPosition = m_EntityData.Position;
+	m_v2fLastPosition = m_EntityData.position;
 
 	float gamepadMovement = m_world->GetInputManager()->m_Gamepad->GetJoystickValue(Player::ONE, sf::Joystick::X);
 
 	//Horizontal movement
 	if (fabs(gamepadMovement) > 0)
 	{
-		m_EntityData.Force.x += deltatime * (gamepadMovement / m_fGamepadSpeed);
+		m_EntityData.force.x += deltatime * (gamepadMovement / m_fGamepadSpeed);
 	}
 	else if(m_world->GetInputManager()->m_Keyboard->KeyIsDown(sf::Keyboard::Right))
 	{
-		m_EntityData.Force.x += deltatime * m_fBaseMovementSpeed;
+		m_EntityData.force.x += deltatime * m_fBaseMovementSpeed;
 	}
 	else if (m_world->GetInputManager()->m_Keyboard->KeyIsDown(sf::Keyboard::Left))
 	{
-		m_EntityData.Force.x -= deltatime * m_fBaseMovementSpeed;
+		m_EntityData.force.x -= deltatime * m_fBaseMovementSpeed;
 	}
 
 	//jumping
@@ -157,17 +157,17 @@ void PlayerEntity::Movement(float deltatime)
 	//Gravitation && friction
 	if (!m_bGrounded)
 	{
-		m_EntityData.Force.y += 9.8 * deltatime;
+		m_EntityData.force.y += 9.8 * deltatime;
 	}
 	else
 	{
-		m_EntityData.Force.x /= 1.1f;
-		if (fabs(m_EntityData.Force.x) < 0.01f)
-			m_EntityData.Force.x = 0;
+		m_EntityData.force.x /= 1.1f;
+		if (fabs(m_EntityData.force.x) < 0.01f)
+			m_EntityData.force.x = 0;
 	}
 
 	//Calculate movement
-	m_EntityData.Position += m_EntityData.Force;
+	m_EntityData.position += m_EntityData.force;
 
 	UpdatePositions();
 }
@@ -175,17 +175,17 @@ void PlayerEntity::Movement(float deltatime)
 bool PlayerEntity::CanJump()
 {
 	sf::FloatRect feet;
-	feet.top = m_EntityData.Position.y + m_EntityData.Size.y;
-	feet.left = m_EntityData.Position.x;
+	feet.top = m_EntityData.position.y + m_EntityData.size.y;
+	feet.left = m_EntityData.position.x;
 	feet.height = 1;
-	feet.width = m_EntityData.Size.x;
+	feet.width = m_EntityData.size.x;
 
 	return m_world->Intersect(feet);
 }
 
 void PlayerEntity::Jump()
 {
-	m_EntityData.Force.y -= m_fJumpForce;
+	m_EntityData.force.y -= m_fJumpForce;
 	m_bGrounded = false;
 }
 
@@ -193,21 +193,21 @@ void PlayerEntity::Jump()
 
 void PlayerEntity::UpdatePositions()
 {
-	m_Shape->setPosition(m_EntityData.Position);
-	m_Sprite->setPosition(m_EntityData.Position);
-	m_Collider->SetPosition(m_EntityData.Position);
+	m_Shape->setPosition(m_EntityData.position);
+	m_Sprite->setPosition(m_EntityData.position);
+	m_Collider->SetPosition(m_EntityData.position);
 }
 
 void PlayerEntity::LogPositions()
 {
-	Log::Message(m_EntityData.Position);
+	Log::Message(m_EntityData.position);
 	Log::Message(m_Collider->getPosition());
 	Log::Message(m_Shape->getPosition());
 }
 
 void PlayerEntity::LogView()
 {
-	sf::Vector2f view = sf::Vector2f(m_EntityData.Position.x + m_EntityData.Size.x / 2,
-		m_EntityData.Position.y + m_EntityData.Size.y / 2);
+	sf::Vector2f view = sf::Vector2f(m_EntityData.position.x + m_EntityData.size.x / 2,
+		m_EntityData.position.y + m_EntityData.size.y / 2);
 	Log::Message(view);
 }

@@ -24,11 +24,11 @@ bool Tile::Initialise(EntityData entitydata)
 	m_EntityData = entitydata;
 
 	m_Shape = new sf::RectangleShape();
-	m_Shape->setSize(m_EntityData.Size);
+	m_Shape->setSize(m_EntityData.size);
 
-	m_Shape->setPosition(m_EntityData.Position);
+	m_Shape->setPosition(m_EntityData.position);
 
-	m_Collider = new Collider(m_EntityData.Position, m_EntityData.Size);
+	m_Collider = new Collider(m_EntityData.position, m_EntityData.size);
 
 	if (m_Shape == nullptr)
 		return false;
@@ -43,10 +43,10 @@ void Tile::Update(float deltatime)
 
 void Tile::OnCollision(Entity* entity, sf::Vector2f offset)
 {
-	switch (entity->GetEntityData().entitytype)
+	switch (entity->GetEntityData().entityType)
 	{
 	default:
-		m_EntityData.Position = m_v2fLastPosition;
+		m_EntityData.position = m_v2fLastPosition;
 		break;
 	}
 	

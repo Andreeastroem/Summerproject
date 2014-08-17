@@ -30,8 +30,7 @@ namespace Log
 	void Message(float f);
 	void Message(sf::Vector2f vector);
 	void Message(int i);
-	void Message(void * p);
-	void Message(bool state);
+	void MessageAddress(void * p);
 	void Message(bool state, std::string name);
 
 	void Error(std::string message);

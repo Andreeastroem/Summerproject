@@ -67,11 +67,11 @@ void SceneManager::Attach(SceneName Name)
 	{
 		switch (Name)
 		{
-		case PLAYSTATE:
+		case PLAYSCENE:
 			//Insert new PlayScene into map
 			m_states.insert(std::pair<SceneName, Scene*>(Name, new PlayScene()));
 			break;
-		case MENUSTATE:
+		case MENUSCENE:
 			//Insert new MenuScene into map
 			m_states.insert(std::pair<SceneName, Scene*>(Name, new MenuScene()));
 			break;

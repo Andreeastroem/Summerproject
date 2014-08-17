@@ -20,7 +20,7 @@ bool Scene::Initialise(World* world)
 
 	//Change state variables
 	m_bDone = false;
-	m_NextScene = MENUSTATE;
+	m_NextScene = MENUSCENE;
 
 	//Background colours
 	m_iRed = 0;

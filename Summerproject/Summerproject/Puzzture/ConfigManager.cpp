@@ -195,7 +195,7 @@ bool ConfigManager::LoadLevel(const std::string &FileName, int level)
 		//If there were no lines, then just skip
 		if (FileLines.size() < 1)
 		{
-			Log::Message("File is empty.");
+			//Log::Message("File is empty.");
 		}
 		else
 		{

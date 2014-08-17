@@ -5,6 +5,7 @@
 #include "World.h"
 
 #include "Entity.h"
+#include "GUIManager.h"
 
 //Constructors
 
@@ -99,12 +100,17 @@ void World::Cleanup()
 
 //Essential functions
 
-void World::DrawWorld()
+void World::Clear()
+{
+	m_DrawManager->ClearScreen(m_Window, m_iR, m_iG, m_iB, m_iA);
+}
+
+void World::DrawEntities()
 {
 	
 
 	//Clear the screen from previous frame
-	m_DrawManager->ClearScreen(m_Window, m_iR, m_iG, m_iB, m_iA);
+	Clear();
 
 	//Handle drawing
 	std::vector<Entity*> gameEntities = m_EntityManager->GetEntites();
@@ -127,8 +133,29 @@ void World::DrawWorld()
 	}
 
 	//Display the current frame
+	Display();
+}
+
+void World::DrawGUI(GUIManager* guimanager)
+{
+	Clear();
+
+	std::vector<GUIRect*> guielements = guimanager->GetElements();
+
+	for (int i = 0; i < guielements.size(); i++)
+	{
+		m_DrawManager->DrawSprite(m_Window, guielements[i]->GetSprite());
+	}
+
+	Display();
+}
+
+void World::Display()
+{
 	m_DrawManager->DisplayScreen(m_Window);
 }
+
+//END of drawing
 
 void World::UpdateWorld(float deltatime)
 {

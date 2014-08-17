@@ -24,9 +24,14 @@ void PlayScene::Enter()
 void PlayScene::Update(float deltatime)
 {
 	//Keyboard actions
-	if (m_world->GetInputManager()->m_Keyboard->KeyIsDoneOnce(sf::Keyboard::Num1))
+	if (m_world->GetInputManager()->m_Gamepad->ButtonIsDownOnce(0, GamepadButton::START))
 	{
-		m_NextScene = MENUSTATE;
+		m_NextScene = MENUSCENE;
+		m_bDone = true;
+	}
+	else if (m_world->GetInputManager()->m_Keyboard->KeyIsDoneOnce(sf::Keyboard::Num1))
+	{
+		m_NextScene = MENUSCENE;
 		m_bDone = true;
 	}
 
@@ -35,7 +40,7 @@ void PlayScene::Update(float deltatime)
 	m_world->UpdateWorld(deltatime);
 
 	//Drawing actions
-	m_world->DrawWorld();
+	m_world->DrawEntities();
 }
 
 void PlayScene::Cleanup()

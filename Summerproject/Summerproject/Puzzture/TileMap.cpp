@@ -66,11 +66,11 @@ bool TileMap::LoadMap(const std::string &FileName, int level)
 			switch (map[i].at(j))
 			{
 			case 'a':
-				entitydata.Position = sf::Vector2f(m_LastXCoordinate, m_LastYCoordinate);
-				entitydata.Size = sf::Vector2f(m_tileWidth, m_tileHeight);
-				entitydata.Depth = 0;
-				entitydata.MovementCost = 0;
-				entitydata.entitytype = WALL;
+				entitydata.position = sf::Vector2f(m_LastXCoordinate, m_LastYCoordinate);
+				entitydata.size = sf::Vector2f(m_tileWidth, m_tileHeight);
+				entitydata.depth = 0;
+				entitydata.movementCost = 0;
+				entitydata.entityType = WALL;
 
 				if (!tile->Initialise(entitydata))
 					return false;
@@ -90,11 +90,11 @@ bool TileMap::LoadMap(const std::string &FileName, int level)
 				m_World->GetEntityManager()->AttachTile(tile);
 				break;
 			case 'b':
-				entitydata.Position = sf::Vector2f(m_LastXCoordinate, m_LastYCoordinate);
-				entitydata.Size = sf::Vector2f(m_tileWidth, m_tileHeight);
-				entitydata.Depth = 0;
-				entitydata.MovementCost = 0;
-				entitydata.entitytype = FLOOR;
+				entitydata.position = sf::Vector2f(m_LastXCoordinate, m_LastYCoordinate);
+				entitydata.size = sf::Vector2f(m_tileWidth, m_tileHeight);
+				entitydata.depth = 0;
+				entitydata.movementCost = 0;
+				entitydata.entityType = FLOOR;
 
 				if (!tile->Initialise(entitydata))
 					return false;
@@ -113,11 +113,11 @@ bool TileMap::LoadMap(const std::string &FileName, int level)
 				break;
 
 			case 'c':
-				entitydata.Position = sf::Vector2f(m_LastXCoordinate, m_LastYCoordinate);
-				entitydata.Size = sf::Vector2f(m_tileWidth, m_tileHeight);
-				entitydata.Depth = 0;
-				entitydata.MovementCost = 0;
-				entitydata.entitytype = CEILING;
+				entitydata.position = sf::Vector2f(m_LastXCoordinate, m_LastYCoordinate);
+				entitydata.size = sf::Vector2f(m_tileWidth, m_tileHeight);
+				entitydata.depth = 0;
+				entitydata.movementCost = 0;
+				entitydata.entityType = CEILING;
 
 				if (!tile->Initialise(entitydata))
 					return false;
@@ -137,11 +137,11 @@ bool TileMap::LoadMap(const std::string &FileName, int level)
 				break;
 
 			case 'f':
-				entitydata.Position = sf::Vector2f(m_LastXCoordinate, m_LastYCoordinate);
-				entitydata.Size = sf::Vector2f(m_tileWidth, m_tileHeight);
-				entitydata.Depth = 0;
-				entitydata.MovementCost = 0;
-				entitydata.entitytype = FURNITURE;
+				entitydata.position = sf::Vector2f(m_LastXCoordinate, m_LastYCoordinate);
+				entitydata.size = sf::Vector2f(m_tileWidth, m_tileHeight);
+				entitydata.depth = 0;
+				entitydata.movementCost = 0;
+				entitydata.entityType = FURNITURE;
 
 				if (!tile->Initialise(entitydata))
 					return false;
@@ -161,10 +161,10 @@ bool TileMap::LoadMap(const std::string &FileName, int level)
 				break;
 
 			case 'x':
-				entitydata.Position = sf::Vector2f(m_LastXCoordinate, m_LastYCoordinate);
-				entitydata.Size = sf::Vector2f(m_tileWidth, m_tileHeight);
-				entitydata.Depth = -1;
-				entitydata.MovementCost = 0;
+				entitydata.position = sf::Vector2f(m_LastXCoordinate, m_LastYCoordinate);
+				entitydata.size = sf::Vector2f(m_tileWidth, m_tileHeight);
+				entitydata.depth = -1;
+				entitydata.movementCost = 0;
 				
 
 				if (!tile->Initialise(entitydata))
@@ -208,17 +208,17 @@ bool TileMap::LoadEnvironment(int level)
 		Tile* tile = new Tile;
 		Entity::EntityData entitydata;
 
-		entitydata.Size = configmanager->ReadVector(std::to_string(i) + "size");
-		Log::Message(entitydata.Size);
+		entitydata.size = configmanager->ReadVector(std::to_string(i) + "size");
+		Log::Message(entitydata.size);
 
-		entitydata.Position = configmanager->ReadVector(std::to_string(i) + "pos");
-		entitydata.Position = sf::Vector2f(entitydata.Position.x * entitydata.Size.x, entitydata.Position.y * entitydata.Size.y);
-		Log::Message(entitydata.Position);
+		entitydata.position = configmanager->ReadVector(std::to_string(i) + "pos");
+		entitydata.position = sf::Vector2f(entitydata.position.x * entitydata.size.x, entitydata.position.y * entitydata.size.y);
+		Log::Message(entitydata.position);
 
-		entitydata.Depth = configmanager->ReadInt(std::to_string(i) + "depth");
+		entitydata.depth = configmanager->ReadInt(std::to_string(i) + "depth");
 		
-		entitydata.entitytype = FURNITURE;
-		entitydata.MovementCost = 0;
+		entitydata.entityType = FURNITURE;
+		entitydata.movementCost = 0;
 
 		if (!tile->Initialise(entitydata))
 			return false;

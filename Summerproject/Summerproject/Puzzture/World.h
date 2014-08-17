@@ -9,6 +9,8 @@
 #include "TextureManager.h"
 #include "TileMap.h"
 
+class GUIManager;
+
 class World
 {
 public:
@@ -23,7 +25,10 @@ public:
 	void Cleanup();
 
 	//Drawing the parts of the world that is meant to be drawn
-	void DrawWorld();
+	void Clear();
+	void DrawEntities();
+	void DrawGUI(GUIManager* guimanager);
+	void Display();
 
 	//Updating the managers
 	void UpdateWorld(float deltatime);

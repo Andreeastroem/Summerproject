@@ -70,8 +70,8 @@ bool Engine::Initialise()
 		return false;
 
 	//Initalise the states
-	m_SceneManager->Attach(MENUSTATE);
-	m_SceneManager->Attach(PLAYSTATE);
+	m_SceneManager->Attach(MENUSCENE);
+	m_SceneManager->Attach(PLAYSCENE);
 
 	//Game conditions
 	m_bRunning = true;
@@ -96,7 +96,9 @@ void Engine::Run()
 			m_InputManager->Update(&event.type, event);
 
 			//X marks the spot
-			if (event.type == sf::Event::Closed || m_InputManager->ClosedWindow())
+			if (event.type == sf::Event::Closed 
+				|| m_InputManager->ClosedWindow() 
+				|| m_InputManager->m_Gamepad->ButtonIsDownOnce(0, GamepadButton::BACK))
 			{
 				m_Window->close();
 				m_bRunning = false;
@@ -110,6 +112,8 @@ void Engine::Run()
 		{
 			//Update the Scene
 			m_SceneManager->Update(m_fDeltatime);
+			if (!m_Window->isOpen())
+				m_bRunning = false;
 		}
 
 		if (m_InputManager->m_Keyboard->KeyIsDoneOnce(sf::Keyboard::Space))

@@ -9,19 +9,19 @@ class Entity
 public:
 	struct EntityData
 	{
-		sf::Vector2f Position;
+		sf::Vector2f position;
 
-		sf::Vector2f Size;
+		sf::Vector2f size;
 
-		sf::Vector2f Force = sf::Vector2f();
+		sf::Vector2f force = sf::Vector2f();
 
 		//The depth in the game, 1 represents the front and -1 the back
-		int Depth;
+		int depth;
 
 		//Movement penalties
-		int MovementCost;
+		int movementCost;
 
-		EntityType entitytype;
+		EntityType entityType;
 	};
 
 

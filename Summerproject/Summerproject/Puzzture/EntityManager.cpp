@@ -76,20 +76,20 @@ void EntityManager::Cleanup()
 	}
 }
 
-bool EntityManager::AttachEntity(EntityType entitytype)
+bool EntityManager::AttachEntity(EntityType entityType)
 {
-	switch (entitytype)
+	switch (entityType)
 	{
 	case PLAYER:
 		PlayerEntity* playerentity = new PlayerEntity(m_world);
 
 		Entity::EntityData entitydata;
 
-		entitydata.Position = sf::Vector2f(130, 164);
-		entitydata.entitytype = entitytype;
-		entitydata.MovementCost = 0;
-		entitydata.Depth = 0;
-		entitydata.Size = sf::Vector2f(20, 64);
+		entitydata.position = sf::Vector2f(130, 164);
+		entitydata.entityType = entityType;
+		entitydata.movementCost = 0;
+		entitydata.depth = 0;
+		entitydata.size = sf::Vector2f(20, 64);
 
 		if (!playerentity->Initialise(entitydata))
 			return false;
@@ -179,13 +179,13 @@ std::vector<Entity*> EntityManager::GetEntites()
 	return m_GameEntities;
 }
 
-std::vector<Entity*> EntityManager::FindAllEntitiesByType(EntityType entitytype)
+std::vector<Entity*> EntityManager::FindAllEntitiesByType(EntityType entityType)
 {
 	std::vector<Entity*> AllEntitiesByType;
 
 	for (int i = 0; i < m_GameEntities.size(); i++)
 	{
-		if (m_GameEntities[i]->GetEntityData().entitytype == entitytype)
+		if (m_GameEntities[i]->GetEntityData().entityType == entityType)
 			AllEntitiesByType.push_back(m_GameEntities[i]);
 	}
 

@@ -79,17 +79,35 @@
     <Filter Include="Header Files\Engine\Entity system\Entities">
       <UniqueIdentifier>{c2852339-9c7a-4eb0-93f7-8cbdbbdf77b0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Engine\System\World\Tiling">
-      <UniqueIdentifier>{8edcc40a-3a1f-4e27-a134-69e52fa44182}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Engine\System\World\Tiling">
-      <UniqueIdentifier>{3f22b2b3-9a91-4f5c-a142-02b2f5fdc80f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Engine\Collision">
       <UniqueIdentifier>{25967faf-fa65-4841-a3de-fee06fa35402}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Engine\Collision">
       <UniqueIdentifier>{bf0b6466-7b18-4ae1-a8d3-7504f96c3450}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\GUI">
+      <UniqueIdentifier>{2188bfaf-d285-4b06-b3fd-83eb670558c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Entity system\Tiling">
+      <UniqueIdentifier>{8edcc40a-3a1f-4e27-a134-69e52fa44182}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Entity System\Tiling">
+      <UniqueIdentifier>{3f22b2b3-9a91-4f5c-a142-02b2f5fdc80f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\GUI">
+      <UniqueIdentifier>{beee5854-f77b-4c02-b44f-777d541d4adb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\GUI\Elements">
+      <UniqueIdentifier>{c4b905a2-d2d8-4bae-9879-bfa3057c5eef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\GUI\Elements">
+      <UniqueIdentifier>{6210b8ec-333b-45ca-9283-bcb8ce0a6b64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\System\Managment">
+      <UniqueIdentifier>{ed2472aa-93e6-4c4f-8d1c-b65b9d2de976}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\System\Management">
+      <UniqueIdentifier>{49a66f04-3288-4281-9e6e-2ca93eb73bd7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -114,9 +132,6 @@
     <ClInclude Include="InputManager.h">
       <Filter>Header Files\Engine\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Enums.h">
-      <Filter>Header Files\Engine\System</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files\Engine\System</Filter>
     </ClInclude>
@@ -139,10 +154,10 @@
       <Filter>Header Files\Engine\Entity system\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Tile.h">
-      <Filter>Header Files\Engine\System\World\Tiling</Filter>
+      <Filter>Header Files\Engine\Entity system\Tiling</Filter>
     </ClInclude>
     <ClInclude Include="TileMap.h">
-      <Filter>Header Files\Engine\System\World\Tiling</Filter>
+      <Filter>Header Files\Engine\Entity system\Tiling</Filter>
     </ClInclude>
     <ClInclude Include="PlayerEntity.h">
       <Filter>Header Files\Engine\Entity system\Entities</Filter>
@@ -153,8 +168,20 @@
     <ClInclude Include="Collider.h">
       <Filter>Header Files\Engine\Collision</Filter>
     </ClInclude>
+    <ClInclude Include="GUIManager.h">
+      <Filter>Header Files\Engine\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIButton.h">
+      <Filter>Header Files\Engine\GUI\Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIRect.h">
+      <Filter>Header Files\Engine\GUI\Elements</Filter>
+    </ClInclude>
     <ClInclude Include="Log.h">
-      <Filter>Header Files\Engine</Filter>
+      <Filter>Header Files\Engine\System\Managment</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums.h">
+      <Filter>Header Files\Engine\System\Managment</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -198,10 +225,10 @@
       <Filter>Source Files\Engine\Entity System\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Tile.cpp">
-      <Filter>Source Files\Engine\System\World\Tiling</Filter>
+      <Filter>Source Files\Engine\Entity System\Tiling</Filter>
     </ClCompile>
     <ClCompile Include="TileMap.cpp">
-      <Filter>Source Files\Engine\System\World\Tiling</Filter>
+      <Filter>Source Files\Engine\Entity System\Tiling</Filter>
     </ClCompile>
     <ClCompile Include="PlayerEntity.cpp">
       <Filter>Source Files\Engine\Entity System\Entities</Filter>
@@ -212,8 +239,17 @@
     <ClCompile Include="Collider.cpp">
       <Filter>Source Files\Engine\Collision</Filter>
     </ClCompile>
+    <ClCompile Include="GUIManager.cpp">
+      <Filter>Source Files\Engine\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIRect.cpp">
+      <Filter>Source Files\Engine\GUI\Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIButton.cpp">
+      <Filter>Source Files\Engine\GUI\Elements</Filter>
+    </ClCompile>
     <ClCompile Include="Log.cpp">
-      <Filter>Source Files\Engine</Filter>
+      <Filter>Source Files\Engine\System\Management</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

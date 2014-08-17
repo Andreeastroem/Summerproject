@@ -46,15 +46,15 @@ void CollisionManager::CheckCollision(std::vector<Entity*> *gameentities)
 			for (int j = i + 1; j < gameentities->size(); j++)
 			{
 				//Are they on the same depth?
-				if (gameentities->at(i)->GetEntityData().Depth ==
-					gameentities->at(j)->GetEntityData().Depth)
+				if (gameentities->at(i)->GetEntityData().depth ==
+					gameentities->at(j)->GetEntityData().depth)
 				{
 
 					//Check if it is a valid collision
 					std::map<std::pair<EntityType, EntityType>, int>::iterator it =
 						CollisionMap.find(std::pair<EntityType, EntityType>
-						(gameentities->at(i)->GetEntityData().entitytype,
-						gameentities->at(j)->GetEntityData().entitytype));
+						(gameentities->at(i)->GetEntityData().entityType,
+						gameentities->at(j)->GetEntityData().entityType));
 
 					//Valid collision
 					if (it != CollisionMap.end())
@@ -81,7 +81,7 @@ bool CollisionManager::Intersect(sf::FloatRect box, std::vector<Entity*>* gameen
 	{
 		if (gameentities->at(i)->GetDrawStatus())
 		{
-			if (gameentities->at(i)->GetEntityData().Depth == 0)
+			if (gameentities->at(i)->GetEntityData().depth == 0)
 			{
 				if (box.intersects(gameentities->at(i)->GetSprite()->getGlobalBounds()))
 					return true;

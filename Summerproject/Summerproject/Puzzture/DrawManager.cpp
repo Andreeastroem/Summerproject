@@ -23,6 +23,11 @@ void DrawManager::DrawSprite(sf::RenderWindow* window, sf::Sprite* Sprite)
 	window->draw(*Sprite);
 }
 
+void DrawManager::DrawText(sf::RenderWindow* window, sf::Text* text)
+{
+	window->draw(*text);
+}
+
 void DrawManager::ClearScreen(sf::RenderWindow* window, int Red, int Green, int Blue, int Alpha)
 {
 	window->clear(sf::Color(Red, Green, Blue, Alpha));

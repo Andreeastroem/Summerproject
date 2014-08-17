@@ -14,7 +14,7 @@ Entity::Entity()
 bool Entity::Initialise(EntityData entitydata)
 {
 	m_Sprite = new sf::Sprite();
-	m_Sprite->setPosition(entitydata.Position);
+	m_Sprite->setPosition(entitydata.position);
 
 	m_bDrawStatus = true;
 

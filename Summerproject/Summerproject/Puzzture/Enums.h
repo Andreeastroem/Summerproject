@@ -21,9 +21,10 @@ enum EntityShape
 
 enum SceneName
 {
-	PLAYSTATE,
-	MENUSTATE,
-	STATENAMESIZE
+	PLAYSCENE,
+	MENUSCENE,
+	OPTIONSCENE,
+	SCENENAMESIZE
 };
 
 enum MouseButton
@@ -61,6 +62,18 @@ enum Player
 	THREE,
 	FOUR,
 	PLAYERSIZE
+};
+
+/*
+GUI elements
+*/
+enum GUIElement
+{
+	STARTBUTTON,
+	EXITBUTTON,
+	OPTIONSBUTTON,
+	FULLSCREENBUTTON,
+	GUIELEMENTSIZE
 };
 
 class Enums

@@ -45,27 +45,10 @@ void Log::Message(int i)
 }
 
 //Print specified adress
-void Log::Message(void *p)
+void Log::MessageAddress(void *p)
 {
 	SetColour(Log::YELLOW);
 	printf("Adress: %p \n", p);
-	SetColour(Log::DEFAULT);
-}
-
-//Print specified boolean
-void Log::Message(bool state)
-{
-	SetColour(Log::PINK);
-	switch (state)
-	{
-	case true:
-		std::cout << "True" << std::endl;
-		break;
-
-	case false:
-		std::cout << "False" << std::endl;
-		break;
-	}
 	SetColour(Log::DEFAULT);
 }
 

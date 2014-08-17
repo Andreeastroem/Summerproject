@@ -1,0 +1,9 @@
+amount = 2
+
+button1texture = start
+button1pos = (300, 60)
+button1element = 0
+
+button2texture = exit
+button2pos = (300, 500)
+button2element = 1

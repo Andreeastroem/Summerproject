@@ -20,7 +20,7 @@ public:
 	void ClearEntities();
 	void Cleanup();
 
-	bool AttachEntity(EntityType entitytype);
+	bool AttachEntity(EntityType entityType);
 	bool AttachTile(Tile* tile);
 	
 	void EraseFlaggedEntities();
@@ -36,7 +36,7 @@ public:
 	//Access functions
 	std::vector<Entity*> GetEntites();
 
-	std::vector<Entity*> FindAllEntitiesByType(EntityType entitytype);
+	std::vector<Entity*> FindAllEntitiesByType(EntityType entityType);
 
 private:
 	std::vector<Entity*> m_GameEntities;

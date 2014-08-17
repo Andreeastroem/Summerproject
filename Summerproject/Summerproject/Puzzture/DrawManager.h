@@ -12,6 +12,8 @@ public:
 	void DrawShape(sf::RenderWindow* window, sf::Shape* Shape);
 	void DrawSprite(sf::RenderWindow* window, sf::Sprite* Sprite);
 
+	void DrawText(sf::RenderWindow* window, sf::Text* text);
+
 	void ClearScreen(sf::RenderWindow* window, int Red, int Green, int Blue, int Alpha);
 
 	void DisplayScreen(sf::RenderWindow* window);
