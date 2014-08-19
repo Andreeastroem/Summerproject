@@ -35,9 +35,7 @@ bool World::Initialise(sf::RenderWindow* window, DrawManager* drawManager,
 
 	m_Level = new TileMap;
 
-	//Validation
-	if (m_Window == nullptr)
-		return false;
+	
 
 	if (m_DrawManager == nullptr)
 		return false;
@@ -95,6 +93,11 @@ void World::Cleanup()
 	{
 		delete m_GameView;
 		m_GameView = nullptr;
+	}
+	if (CameraPosition != nullptr)
+	{
+		delete CameraPosition;
+		CameraPosition = nullptr;
 	}
 }
 

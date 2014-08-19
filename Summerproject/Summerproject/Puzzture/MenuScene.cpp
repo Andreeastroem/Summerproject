@@ -13,6 +13,8 @@ MenuScene::MenuScene()
 
 void MenuScene::Enter()
 {
+	m_bDone = false;
+
 	m_world->ClearLevel();
 
 	m_iAlpha = 255;

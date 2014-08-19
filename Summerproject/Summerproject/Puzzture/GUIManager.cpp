@@ -63,6 +63,7 @@ void GUIManager::Cleanup()
 			delete m_Elements[i];
 			m_Elements[i] = nullptr;
 		}
+		m_Elements.clear();
 	}
 
 	//Font
