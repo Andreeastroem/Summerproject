@@ -5,5 +5,9 @@ button1pos = (300, 60)
 button1element = 0
 
 button2texture = exit
-button2pos = (300, 500)
+button2pos = (300, 400)
 button2element = 1
+
+button3texture = Fullscreen
+button3pos = (300, 400)
+button3element = 3

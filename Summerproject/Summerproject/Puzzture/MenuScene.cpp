@@ -7,6 +7,8 @@
 MenuScene::MenuScene()
 {
 	m_GUIManager = new GUIManager;
+
+	m_bFullscreen = false;
 }
 
 void MenuScene::Enter()
@@ -48,6 +50,10 @@ void MenuScene::Update(float deltatime)
 	else if (m_GUIManager->GetExitGame())
 	{
 		m_world->GetWindow()->close();
+	}
+	else if (m_GUIManager->GetFullscreen())
+	{
+		
 	}
 
 	//Game logic

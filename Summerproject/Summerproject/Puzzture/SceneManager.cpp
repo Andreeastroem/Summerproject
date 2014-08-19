@@ -29,8 +29,8 @@ SceneManager::~SceneManager()
 	if (m_CurrentScene != nullptr)
 		m_CurrentScene = nullptr;
 
-	std::map<SceneName, Scene*>::iterator it = m_states.begin();
-	while (it != m_states.end())
+	std::map<SceneName, Scene*>::iterator it = m_Scenes.begin();
+	while (it != m_Scenes.end())
 	{
 		if (it->second != nullptr)	//Is the state nullified already?
 		{
@@ -44,9 +44,9 @@ SceneManager::~SceneManager()
 
 void SceneManager::SetScene(const SceneName &Name)
 {
-	std::map<SceneName, Scene*>::iterator it = m_states.find(Name);
+	std::map<SceneName, Scene*>::iterator it = m_Scenes.find(Name);
 
-	if (it == m_states.end())
+	if (it == m_Scenes.end())
 	{
 	}
 	else
@@ -61,23 +61,23 @@ void SceneManager::SetScene(const SceneName &Name)
 
 void SceneManager::Attach(SceneName Name)
 {
-	std::map<SceneName, Scene*>::iterator it = m_states.find(Name);
+	std::map<SceneName, Scene*>::iterator it = m_Scenes.find(Name);
 
-	if (it == m_states.end())
+	if (it == m_Scenes.end())
 	{
 		switch (Name)
 		{
 		case PLAYSCENE:
 			//Insert new PlayScene into map
-			m_states.insert(std::pair<SceneName, Scene*>(Name, new PlayScene()));
+			m_Scenes.insert(std::pair<SceneName, Scene*>(Name, new PlayScene()));
 			break;
 		case MENUSCENE:
 			//Insert new MenuScene into map
-			m_states.insert(std::pair<SceneName, Scene*>(Name, new MenuScene()));
+			m_Scenes.insert(std::pair<SceneName, Scene*>(Name, new MenuScene()));
 			break;
 		}
 		//find the newly created state
-		std::map<SceneName, Scene*>::iterator it = m_states.find(Name);
+		std::map<SceneName, Scene*>::iterator it = m_Scenes.find(Name);
 		//Initalise it
 		it->second->Initialise(m_World);
 	}
@@ -89,12 +89,12 @@ void SceneManager::Attach(SceneName Name)
 
 void SceneManager::Detach(SceneName Name)
 {
-	std::map<SceneName, Scene*>::iterator it = m_states.find(Name);
+	std::map<SceneName, Scene*>::iterator it = m_Scenes.find(Name);
 
-	if (it != m_states.end())
+	if (it != m_Scenes.end())
 	{
 		it->second->Exit();
-		m_states.erase(it);
+		m_Scenes.erase(it);
 	}
 }
 
@@ -132,8 +132,8 @@ void SceneManager::Cleanup()
 	if (m_CurrentScene != nullptr)
 		m_CurrentScene = nullptr;
 
-	std::map<SceneName, Scene*>::iterator it = m_states.begin();
-	while (it != m_states.end())
+	std::map<SceneName, Scene*>::iterator it = m_Scenes.begin();
+	while (it != m_Scenes.end())
 	{
 		if (it->second != nullptr)	//Is the state nullified already?
 		{

@@ -26,4 +26,6 @@ public:
 
 private:
 	GUIManager* m_GUIManager;
+
+	bool m_bFullscreen;
 };

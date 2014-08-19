@@ -13,7 +13,7 @@ TileMap::TileMap()
 }
 
 //Essential functions
-bool TileMap::Initialise(std::string folder, World* world, TextureManager* textureManager)
+bool TileMap::Initialise(std::string folder, World* world)
 {
 	//initalise world
 	m_World = world;
@@ -31,13 +31,11 @@ bool TileMap::Initialise(std::string folder, World* world, TextureManager* textu
 	m_LastXCoordinate = 0;
 	m_LastYCoordinate = 0;
 
-	m_TextureManager = textureManager;
-
-	m_TextureManager->LoadTexture("Ceiling");
-	m_TextureManager->LoadTexture("Floor");
-	m_TextureManager->LoadTexture("Wall");
-	m_TextureManager->LoadTexture("Furniture");
-	m_TextureManager->LoadTexture("Background");
+	m_World->GetTextureManager()->LoadTexture("Ceiling");
+	m_World->GetTextureManager()->LoadTexture("Floor");
+	m_World->GetTextureManager()->LoadTexture("Wall");
+	m_World->GetTextureManager()->LoadTexture("Furniture");
+	m_World->GetTextureManager()->LoadTexture("Background");
 
 	return true;
 }
@@ -254,8 +252,13 @@ void TileMap::Cleanup()
 		}
 	}
 
-	if (m_TextureManager != nullptr)
-		m_TextureManager = nullptr;
+	for (int i = 0; i < m_Furnitures.size(); i++)
+	{
+		if (m_Furnitures[i] != nullptr)
+		{
+			m_Furnitures[i] = nullptr;
+		}
+	}
 }
 
 void TileMap::ClearLevel()

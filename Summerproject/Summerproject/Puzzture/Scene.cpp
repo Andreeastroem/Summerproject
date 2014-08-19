@@ -42,7 +42,7 @@ void Scene::Exit()
 
 void Scene::Update(float deltatime)
 {
-	
+
 }
 
 void Scene::Cleanup()

@@ -30,7 +30,7 @@ private:
 	World* m_World;
 
 	//Scene containment
-	std::map<SceneName, Scene*> m_states;
+	std::map<SceneName, Scene*> m_Scenes;
 	//The current working state
 	Scene* m_CurrentScene;
 };

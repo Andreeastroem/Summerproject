@@ -11,11 +11,11 @@ class Scene
 public:
 	virtual ~Scene();
 	//initialise the state, create objects etc
-	bool Initialise(World* world);
+	virtual bool Initialise(World* world);
 	//Enters the state in question
 	virtual void Enter() = 0;
 	//Leaves the state in question
-	void Exit();
+	virtual void Exit();
 	//Updates the state and its components
 	virtual void Update(float deltatime) = 0;
 

@@ -46,6 +46,8 @@ void GUIButton::OnClick()
 	case EXITBUTTON:
 		m_bExitGame = true;
 	default:
+	case FULLSCREENBUTTON:
+		m_bFullscreen = !m_bFullscreen;
 		break;
 	}
 }

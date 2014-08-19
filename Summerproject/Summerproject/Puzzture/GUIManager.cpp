@@ -147,8 +147,24 @@ void GUIManager::AttachButton(GUIElement element, sf::Vector2f position)
 			delete button;
 			button = nullptr;
 		}
+		break;
 
+	case FULLSCREENBUTTON:
+		settings.element = element;
+		settings.position = position;
 
+		if (button->Initialise(settings))
+		{
+			button->SetSpriteTexture(m_World->GetTextureManager()->GetTexture("Fullscreen"));
+			button->GetSprite()->setPosition(position);
+
+			m_Elements.push_back(button);
+		}
+		else
+		{
+			delete button;
+			button = nullptr;
+		}
 		break;
 	default:
 		break;
