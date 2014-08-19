@@ -188,7 +188,7 @@ bool TileMap::LoadMap(const std::string &FileName, int level)
 		m_LastYCoordinate += m_tileHeight;
 	}
 
-	return LoadEnvironment(level);
+	return true;
 }
 
 bool TileMap::LoadEnvironment(int level)
@@ -221,7 +221,10 @@ bool TileMap::LoadEnvironment(int level)
 		entitydata.movementCost = 0;
 
 		if (!tile->Initialise(entitydata))
+		{
+			configmanager = nullptr;
 			return false;
+		}
 
 		tile->GetShape()->setFillColor(sf::Color(184, 134, 11, 255));
 

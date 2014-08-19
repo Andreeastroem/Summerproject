@@ -51,7 +51,7 @@ bool World::Initialise(sf::RenderWindow* window, DrawManager* drawManager,
 	if (!m_EntityManager->Initialise(this))
 		return false;
 
-	if (!m_Level->Initialise("Maps", this, m_TextureManager))
+	if (!m_Level->Initialise("Maps", this))
 		return false;
 
 	m_GameView = new sf::View(m_Window->getDefaultView());
@@ -179,6 +179,7 @@ void World::LoadLevel(int level)
 	std::string map = "level" + std::to_string(level);
 
 	m_Level->LoadMap(map, level);
+	m_Level->LoadEnvironment(level);
 }
 
 void World::ClearLevel()
