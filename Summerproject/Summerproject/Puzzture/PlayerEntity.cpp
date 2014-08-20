@@ -37,7 +37,6 @@ bool PlayerEntity::Initialise(EntityData entitydata)
 
 	m_fBaseMovementSpeed = 0.5;
 	m_fJumpForce = 0.4;
-	m_fGamepadSpeed = 10;
 
 	m_bGrounded = false;
 

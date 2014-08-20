@@ -24,7 +24,6 @@ public:
 		EntityType entityType;
 	};
 
-
 	Entity();
 
 	virtual bool Initialise(EntityData entitydata);

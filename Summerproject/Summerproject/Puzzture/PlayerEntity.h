@@ -35,7 +35,6 @@ private:
 
 	//movement
 	float m_fBaseMovementSpeed;
-	float m_fGamepadSpeed;
 	Direction m_Facing;
 
 	//jumping
